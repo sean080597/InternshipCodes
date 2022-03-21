@@ -1,0 +1,41 @@
+// main colors
+$luusean-green: #00893d; // Highlights
+$carbon-gray: #646464; // Text, icons
+$black: #000000;
+$white: #ffffff; // Cards
+
+// accent colors
+$green: #0ebc5b; // Toasts: success
+$nordic-blue: #1d9bb2; // Information, piktograms
+$red: #e62c27; // Errors
+$yellow: #fccf46; // Toasts: warnings
+
+// secondary colors
+$gray1: #f6f7f8; // Input fields: alternative background
+$gray2: #ebeef0; // Hover
+$gray3: #dde3e6; // Background applications
+$gray4: #ced5da; // Border
+$gray5: #b6bec1;
+$gray6: #aab1b4;
+$gray7: #9ca2a5; // Labels
+$gray8: #878d8f;
+$gray9: #787d7f;
+$gray10: #656a6c;
+$gray11: #55595a;
+$gray12: #414546; // Toasts: information
+$gray13: #2d3031;
+
+// disable colors
+$disable-background: #0000001f;
+$disable-text: #3b3b3b42;
+
+$breakpoints: (
+  'small': 576px,
+  'medium': 768px,
+  'large': 992px,
+  'x-large': 1200px,
+  'xx-large': 1400px,
+) !default;
+
+// truck and tracing
+$summary-tooltip-font-size: 0.55rem;

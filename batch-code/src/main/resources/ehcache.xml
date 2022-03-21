@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="ehcache.xsd"
+    updateCheck="true"
+    monitoring="autodetect"
+    dynamicConfig="true">
+ 
+    <defaultCache 
+    	maxElementsInMemory="10" 
+    	eternal="false" 
+    	timeToIdleSeconds="120" 
+    	timeToLiveSeconds="120" 
+    	overflowToDisk="true" />
+    	
+    <diskStore path="store" />
+ 
+ 	<cache name="searchFields" maxElementsInMemory="50" eternal="false" overflowToDisk="true" timeToIdleSeconds="0" timeToLiveSeconds="86400" />
+ 	<cache name="searchField" maxElementsInMemory="50" eternal="false" overflowToDisk="true" timeToIdleSeconds="0" timeToLiveSeconds="86400" />
+ 	<cache name="getSalesInfoById" maxElementsInMemory="50" eternal="false" overflowToDisk="true" timeToIdleSeconds="0" timeToLiveSeconds="86400" />
+ 	<cache name="checkAgent" maxElementsInMemory="50" eternal="false" overflowToDisk="false" timeToIdleSeconds="0" timeToLiveSeconds="1" />
+ 	<cache name="getExchangeRateCurrency" maxElementsInMemory="50" eternal="false" overflowToDisk="false" timeToIdleSeconds="0" timeToLiveSeconds="1" />
+</ehcache>

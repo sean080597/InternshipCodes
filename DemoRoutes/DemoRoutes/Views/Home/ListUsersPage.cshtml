@@ -1,0 +1,32 @@
+﻿@model IEnumerable<DemoRoutes.Models.User>
+
+@{
+    ViewBag.Title = "ListUsersPage";
+}
+
+<h2>List of Users</h2>
+
+@Html.Partial("SortListUsers")
+
+<table class="table table-condensed table-hover table-striped">
+    <tr class="info">
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+    </tr>
+    @foreach (var row in Model)
+    {
+        <tr>
+            <td>@row.FirstName</td>
+            <td>@row.LastName</td>
+            <td>@row.Birthday.ToString("MM/dd/yyyy")</td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,201 @@
+
+					*** Integrate VueJS ***
+(Recommended: Install Extension "Vue Developer Tool")
+
+1/ npm init -y
+2/ npm i --save-dev webpack webpack-dev-server webpack-cli jquery popper.js
+3/ npm i --save-dev babel-core babel-loader@^7.1.5 babel-plugin-transform-class-properties
+4/ npm i --save-dev babel-plugin-transform-vue-jsx babel-plugin-transform-runtime babel-plugin-syntax-dynamic-import
+5/ npm i --save-dev babel-preset-stage-0 babel-preset-env
+6/ npm i --save-dev cross-env css-loader file-loader fs node-sass sass-loader style-loader vue-loader
+7/ npm i --save-dev babel-preset-vue babel-preset-vue-app vue-template-compiler 
+8/ npm i --save-dev axios bootstrap vue lodash
+9/ Edit "package.json" like below:
+	"scripts": {
+		"dev": "webpack",
+		"watch": "webpack --watch"
+	}
+		
+10/ Create "Scripts/react/webpack.config.js"
+11/ Add some code to "Scripts/react/webpack.config.js":
+12/ npm run dev
+13/ Install more packages that usually use in VueJS Project:
+	=> npm i vuetify vue-router vue-progressbar sweetalert2 vee-validate vue-i18n
+	
+14/ Get Flag Icon => using "flag-icon.css"
+	
+--------------------------------------------------------------------------------------------------------------
+					*** Integrate ReactJS ***
+(Recommended: Install Extension "React Developer Tool")
+
+1/ Create new folder inside Scripts/react
+2/ npm init -y (Generate package.json)
+3/ Install some packages:
+
+	npm install --save react reactdom
+	npm install --save-dev @babel/core babel-core babel-loader webpack webpack-cli babel-preset-env babel-preset-react
+	
+***** Tips ReactJS *****
+1/ Round Brackets and No Round Brackets:
+	* <button onClick={this.props.onIncrement(this.props.counter)} >Increment</button>
+	
+	=> Auto run function without onClick
+	
+	* <button onClick={() => this.props.onIncrement(this.props.counter)} >Increment</button>
+	
+	=> Good
+
+=================================================================================================
+***** Errors *****
+1/  [Vue warn]: $attrs is readonly. [Vue warn]: $listeners is readonly:
+
+* Cause: vue was being loaded twice => import vue once time
+* Solved:
+	+ Only add vue.js to BundleConfig.cs
+	+ Remove import Vue from 'vue' & window.Vue = require('vue')
+	
+2/ Vue-Material navbar, Missing required prop: “to”
+
+* Cause: This might be a version problem
+* Solved:
+	+ Update the latest version of vuejs
+
+3/ window.Vue.use is not a function
+
+* Cause: Missing sth in webpack.config.js
+* Solved: Add below code to webpack.config.js
+	resolve: {
+        extensions: ['.js', '.vue', '.json'],
+        alias: {
+            'vue$': 'vue/dist/vue.js'
+        }
+    },
+
+4/ vue-loader was used without the corresponding plugin
+
+* Cause: Missing plugin in webpack.config.js
+* Solved: Add below code to webpack.config.js
+	const VueLoaderPlugin = require('vue-loader/lib/plugin')
+	plugins: [
+        new VueLoaderPlugin()
+    ]
+
+5/ Failed to serialize the response in Web API with Json
+
+* Solved: Adding the code below on Global.asax
+	GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings
+                .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            GlobalConfiguration.Configuration.Formatters
+                .Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+	
+6/ 	- Webpack can't find module if file named jsx/vue
+	- “You may need an appropriate loader to handle this file type” with Webpack and Babel
+
+* Solved: Adding the code below on webpack.config.js
+	+ VueJS:
+	resolve: {
+        extensions: ['.js', '.vue', '.json'],
+    },
+	module: {
+        rules: [
+			{
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        scss: 'vue-style-loader!css-loader!sass-loader', // <style lang="scss">
+                        sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax' // <style lang="sass">
+                    }
+                }
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            },
+		]
+	}
+	
+	+ ReactJS:
+	resolve: {
+        extensions: ['.js', '.jsx']
+    },
+	module: {
+        rules: [
+			{
+				test: /\.jsx?$/,
+				exclude: /node_modules/,
+				loader: 'babel-loader',
+				query: {
+					plugins: ['transform-class-properties'],
+					presets: ['babel-preset-env', 'babel-preset-react', 'babel-preset-stage-0', 'babel-preset-es2015']
+				},
+			},
+		]
+	}
+
+7/ 	- babel-loader jsx SyntaxError: Unexpected token [duplicate]
+	- Problems with module parsing using babel-loader
+
+* Solved:
+	Install 'babel-preset-env', 'babel-preset-react', 'babel-preset-stage-0', 'babel-preset-es2015'
+		
+8/ Vue Router return 404 when revisit to the url
+
+* Solved: Adding below code on Web.config
+
+	<system.webServer>
+		<rewrite>
+		  <rules>
+			<rule name="Handle History Mode and custom 404/500" stopProcessing="true">
+			  <match url="(.*)" />
+			  <conditions logicalGrouping="MatchAll">
+				<add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+				<add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+			  </conditions>
+			  <action type="Rewrite" url="/" />
+			</rule>
+		  </rules>
+		</rewrite>
+	</system.webServer>
+
+9/ 'import' and 'export' may only appear at the top level
+* Cause:
+	Missing plugins
+
+* Solved:
+	{
+		test: /\.js$/,
+		loader: 'babel-loader',
+		exclude: /node_modules/,
+		options: {
+			presets: ['babel-preset-env', 'babel-preset-stage-0'],
+			plugins: ['transform-vue-jsx', 'transform-runtime', 'syntax-dynamic-import']
+		}
+	},
+
+
+//==========================================================================================================
+* May be you're missing some plugins, just do like below:
+---------------------------------------------------------
+
+    npm i --save-dev babel-plugin-transform-vue-jsx
+
+    npm i --save-dev babel-plugin-transform-runtime
+
+    npm i --save-dev babel-plugin-syntax-dynamic-import
+
+* If using Webpack.config.js:
+
+    
+
+> 
+
+* If using .babelrc, see answer in the below link:
+
+    https://github.com/parcel-bundler/parcel/issues/760
+
+10/ process.getuid is not a function webpack
+	=> Remove "node_modules" & "npm install"
+
+

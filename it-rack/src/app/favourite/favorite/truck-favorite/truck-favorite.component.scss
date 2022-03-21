@@ -1,0 +1,178 @@
+@import 'variables';
+
+.container-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .tracking-table {
+    .wrap-text {
+      overflow-wrap: break-word;
+      white-space: normal;
+      min-width: 40%;
+    }
+
+    .status-normal {
+      color: $green;
+    }
+
+    .status-delay {
+      color: $yellow;
+    }
+
+    .status-others {
+      color: $red;
+    }
+
+    .extra-date {
+      color: $red;
+    }
+
+    .edit-icon {
+      cursor: pointer;
+    }
+  }
+
+  .filter-template {
+    color: $luusean-green;
+    p {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 50vw;
+      margin: 0;
+    }
+  }
+
+  .shipment-template {
+    display: flex;
+    align-items: center;
+    p {
+      margin: 0;
+    }
+    mat-icon {
+      margin-left: 5px;
+      width: 10px;
+    }
+  }
+
+  .shipment-point-template {
+    p {
+      display: inline;
+      margin: 0;
+    }
+  }
+
+  .edit-template {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .status-cell {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .progress-item {
+    width: 100px;
+    padding-left: 5px;
+    p {
+      margin: -5px 0;
+      font-size: 12px;
+      text-align: center;
+    }
+  }
+}
+
+.mat-icon {
+  color: $luusean-green;
+}
+
+::ng-deep {
+  dx-data-grid {
+    &#truck-tracking-data-grid {
+      .dx-icon-filter {
+        font-size: 14px !important;
+      }
+      .dx-button-content {
+        padding: 7px !important;
+      }
+      .dx-page-sizes {
+        .dx-page-size {
+          &.dx-selection {
+            background-color: $luusean-green;
+            color: $white;
+          }
+        }
+      }
+      .dx-page-indexes {
+        .dx-page {
+          &.dx-selection {
+            background-color: $luusean-green;
+            color: $white;
+          }
+        }
+      }
+      table {
+        tr td {
+          padding-top: 0 !important;
+          padding-bottom: 0 !important;
+          vertical-align: middle !important;
+        }
+        tr:nth-child(2) td {
+          vertical-align: unset !important;
+        }
+      }
+
+      .hide-search-icon {
+        display: none;
+      }
+      .filter-icon-container {
+        align-items: center;
+        .filter-icon {
+          margin: 0 5px;
+          color: #646464;
+          &::before {
+            content: '\f050';
+          }
+        }
+        .dx-texteditor-input-container {
+          flex-wrap: nowrap;
+          .dx-tag {
+            visibility: hidden;
+          }
+        }
+      }
+    }
+  }
+  .dx-list-item-content {
+    direction: ltr;
+  }
+  .dx-progressbar-range {
+    background-color: $luusean-green;
+    border: 0 solid $luusean-green;
+    margin: 0;
+  }
+  .dx-popup-title {
+    .title-container {
+      display: flex;
+      align-items: center;
+      i {
+        font-size: 18px;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 10px 0 10px 5px;
+        flex: 1;
+      }
+    }
+  }
+  .dx-datagrid-filter-panel {
+    display: none;
+  }
+}

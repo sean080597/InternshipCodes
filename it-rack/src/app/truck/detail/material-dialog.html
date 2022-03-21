@@ -1,0 +1,40 @@
+<div class="dialog-fur">
+  <div class="dialog-fur-title">Material: {{ data.selectedId }}</div>
+  <mat-icon (click)="onNoClick()">close</mat-icon>
+</div>
+
+<div mat-dialog-content>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Description :</div>
+    <div class="dialog-content">{{ data.materialDescription }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Pieces :</div>
+    <div class="dialog-content">{{ data.materialPcs }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">SO Number :</div>
+    <div class="dialog-content">{{ data.soNumber }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">PO Number :</div>
+    <div class="dialog-content">{{ data.poNumber }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">PO Creator :</div>
+    <div class="dialog-content">{{ data.poCreator }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Production Plant :</div>
+    <div class="dialog-content">{{ data.productionPlant }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Purchasing Plant :</div>
+    <div class="dialog-content">{{ data.purchasingPlant }}</div>
+  </div>
+</div>
+<div class="example-container">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+</div>

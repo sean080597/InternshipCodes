@@ -1,0 +1,9 @@
+server:
+  port: 0
+  display-name: Microservice Group Batch Management
+spring:
+  application:
+    name: batch-management
+  batch:
+    job:
+      enabled: false

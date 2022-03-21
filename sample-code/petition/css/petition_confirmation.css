@@ -1,0 +1,137 @@
+body, html{
+    font-family: 'Oxygen', sans-serif;
+}
+
+.middle_content{
+	margin-top: 1%;
+}
+
+.top_congrat_content {
+	margin-top: 5%;
+}
+.top_congrat_content .congrat{
+	text-transform: uppercase;
+    text-align: center;
+    font-size: xx-large;
+    color: #f7931e;
+    font-weight: bolder;
+    margin-bottom: 5px;
+}
+.top_congrat_content p{
+    font-size: 17px;
+    color: #000000;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.top_congrat_content p a{
+    color: #209cd9;
+    text-decoration: underline;
+}
+.top_congrat_content p a:hover{
+    color: #f7931e;
+}
+.top_congrat_content p a.copylink{
+    color: #209cd9;
+    text-decoration: none;
+}
+.top_congrat_content .share-success{
+	color: #999;
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.petition_image {
+    padding: 1px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    border-radius: 2px;
+    margin-bottom: -1px;
+}
+
+.petition_image img{
+	width:  100%;
+}
+
+.description-wrapper {
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 3%;
+    border-radius: 2px;
+}
+.description-wrapper .title{
+	font-size: 18px;
+    margin-bottom: 2px;
+    border-top: 1px solid #ccc;
+    padding-top: 1.5%;
+}
+.description-wrapper .description{
+	font-size: 14px;
+    margin-bottom: 3px;
+    line-height: 17px;
+}
+.description-wrapper .link{
+	text-transform: uppercase;
+    color: #90949c;
+    text-decoration: none;
+    font-size: 11px;
+}
+
+.fb-share-button.fb_iframe_widget {
+    transform: scale(2.5);
+    display: table;
+    margin: 10% auto 5% auto;
+}
+.petition_share {
+    margin-top: 5%;
+}
+
+span.at-label {
+    font-size: 22px !important;
+}
+
+.at-share-btn-elements {
+    margin: 0 auto;
+    display: table;
+}
+
+.share_btns {
+    margin: 5% 0;
+}
+
+a.btn_share_facebook {
+    background-color: #5668b3;
+    border-radius: 2px;
+    font-size: larger;
+    text-align: center;
+    display: block;
+    padding: 5%;
+    font-weight: bold;
+    transition: all ease-in-out .3s;
+}
+
+a.btn_share_facebook:hover{
+    background-color: #365899;
+    text-decoration: none;
+    color: white;
+    transition: all ease-in-out .3s;
+}
+
+span.fa.fa-facebook{
+    font-size: x-large;
+}
+
+p.bot_content {
+    
+}
+
+#dangkydangnhaptc a:hover{
+    text-decoration: none;
+    cursor: pointer;
+    color: #E2E2E2;
+}
+
+#dangkydangnhaptc a.parent_dropdown{
+    line-height: 3.428571429;
+}

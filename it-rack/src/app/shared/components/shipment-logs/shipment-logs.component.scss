@@ -1,0 +1,89 @@
+@import 'variables';
+@import 'mixins';
+
+.mat-icon {
+  color: $carbon-gray;
+}
+
+.timeline {
+  position: relative;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 15px 0;
+  color: $carbon-gray;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: Arial;
+
+  @include respond-to('small') {
+    width: 60vw;
+  }
+  @include respond-to('medium') {
+    width: 45vw;
+  }
+  @include respond-to('large') {
+    width: 35vw;
+  }
+  @include respond-to('x-large') {
+    width: 30vw;
+  }
+  @include respond-to('xx-large') {
+    width: 25vw;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background: $gray4;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1px;
+  }
+
+  .container {
+    padding: 15px 20px 15px 0;
+    position: relative;
+    width: 50%;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: calc(50% - 8px);
+      right: -8px;
+      background: $white;
+      border: 1px solid $gray4;
+      border-radius: 16px;
+      z-index: 1;
+    }
+
+    .date {
+      position: absolute;
+      top: calc(50% - 8px);
+      left: calc(105% + 8px);
+      white-space: nowrap;
+      z-index: 1;
+    }
+
+    .content {
+      text-align: right;
+    }
+
+    &.step {
+      &--green::after {
+        background-color: $green;
+      }
+      &--red::after {
+        background-color: $red;
+      }
+      &--yellow::after {
+        background-color: $yellow;
+      }
+      &--gray::after {
+        background-color: $gray8;
+      }
+    }
+  }
+}

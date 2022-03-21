@@ -1,0 +1,342 @@
+$height__main-toolbar: 80px;
+.warpper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.sidenav {
+  // max-width: 250px;
+  border: none;
+  box-shadow: 2px 0 5px 0 rgba(235, 239, 242, 0.9);
+  ::ng-deep .mat-drawer-inner-container {
+    overflow: hidden !important;
+  }
+}
+
+.sidebar-collapsed .sidenav {
+  // width: 250px;
+}
+
+.luusean_logo {
+  display: block;
+  text-align: center;
+  margin: 20px;
+  // box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
+  img {
+    height: 20px;
+    width: 160px;
+    position: relative;
+    top: 5px;
+  }
+}
+
+.luusean_portrait {
+  span {
+    display: block;
+    padding: 45px 0 0 17px;
+  }
+}
+
+.sidenav-header {
+  width: 1366px;
+  margin: 0 auto;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
+}
+
+.sidenav-container {
+  width: 1366px;
+  // height: 100%;
+  // height: calc(100% - #{$height__main-toolbar});
+  display: block;
+  margin: 0 auto;
+  border: 2px solid #ced5da !important;
+}
+
+@media screen and (min-width: 1367px) {
+  .sidenav-header {
+    width: 100%;
+  }
+  .sidenav-container {
+    width: 100%;
+  }
+  .main-container {
+    padding: 0 32px !important;
+  }
+}
+
+.main-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  // height: calc(100% - #{$height__main-toolbar});
+  height: 100%;
+  position: relative;
+  padding: 0 32px 0 92px;
+  color: #646464;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.main-toolbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.toolbar-title {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.input-group {
+  position: relative;
+  margin-right: 75px;
+}
+
+.form-control {
+  appearance: none;
+  border: none;
+  width: 310px;
+  height: 38px;
+  padding: 0 40px 0 10px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: none;
+  color: #646464;
+  &:focus {
+    outline: 0;
+  }
+}
+
+.header_nav {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  &_item {
+    padding: 0 15px;
+    border-left: 1px solid #707070;
+    &:first-child {
+      padding-left: 0;
+      border: none;
+    }
+    &:last-child {
+      padding-right: 0;
+    }
+    a {
+      color: #9a9d9d;
+      font-size: 16px;
+    }
+  }
+}
+
+.crumb {
+  margin-left: 14px;
+  line-height: 60px;
+  color: #646464;
+  font-size: 18px;
+  flex: 1;
+  label {
+    &:focus {
+      outline: none;
+    }
+    &:active {
+      outline: none;
+    }
+    &.txt_hover {
+      &:hover {
+        color: #00893d;
+      }
+    }
+  }
+}
+
+.txt_hover {
+  cursor: pointer;
+  &:hover {
+    color: #00893d;
+  }
+}
+
+.text_current {
+  font-weight: bold;
+}
+
+.search-full-width {
+  width: 280px;
+  position: relative;
+  margin-right: -35px;
+  font-size: 16px;
+}
+
+.navbar-form {
+  margin: 5px;
+}
+
+.search-item {
+  font-size: 16px;
+  width: 130px;
+  margin-right: 20px;
+  &:last-child {
+    width: 100px;
+  }
+}
+
+.button_search {
+  color: #dde3e6;
+  min-width: auto;
+  padding: 0 10px;
+  margin-right: 15px;
+  .mat-icon {
+    color: #646464;
+  }
+}
+
+.userInfo {
+  color: #646464;
+  font-size: 18px;
+}
+
+.setting .material-icons {
+  color: #646464;
+  font-size: 22px;
+}
+
+.help_container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.32);
+  z-index: 98;
+}
+
+.help_wrapper {
+  position: fixed;
+  width: 1000px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  .inner {
+    .flex {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .help_title {
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+  .close_style {
+    font-size: 20px;
+  }
+}
+
+.helpMain .mat-form-field {
+  width: 100%;
+}
+
+.button_list {
+  text-align: right;
+  > button {
+    margin-right: 20px;
+  }
+}
+
+.button_active {
+  text-align: left;
+}
+
+.button_config {
+  color: #646464;
+  min-width: auto;
+  padding: 0 10px;
+}
+
+.content_wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .navbar_aside {
+    flex-shrink: 0;
+  }
+}
+
+.navbar_container {
+  height: 100%;
+  width: 0;
+  flex: 1; // "flex-grow: 1" will make the element fill the remaining space, even its width is set to 0
+}
+
+.header_right {
+  display: flex;
+}
+
+.mat-icon {
+  color: #00893d;
+}
+
+.app_menu {
+  margin: 20px;
+}
+
+.menu-button {
+  color: #646464;
+}
+
+.breadcrumb_icon {
+  color: #646464;
+  vertical-align: middle;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: #00893d !important;
+}
+
+.mat-paginator {
+  ::ng-deep .mat-select-value {
+    border-bottom: 0px;
+  }
+  ::ng-deep .mat-select-arrow-wrapper {
+    border-bottom: 0px;
+  }
+}
+
+.example-loading-shade {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,48 @@
+@import 'variables';
+::ng-deep {
+  dx-data-grid {
+    &#manage-view-grid {
+      max-height: 60vh;
+      table {
+        td {
+          vertical-align: middle;
+        }
+      }
+      .dx-link-icon {
+        &.dx-icon-trash {
+          color: red;
+        }
+      }
+      table td:last-child {
+        position: relative;
+        padding: 0;
+        .action-template {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          left: 0;
+          button {
+            height: 100%;
+            width: 100%;
+            border: none;
+            background-color: $luusean-green;
+            color: $white;
+            cursor: pointer;
+            &:hover {
+              background-color: $green;
+            }
+          }
+        }
+      }
+      .dx-radiobutton-icon-dot {
+        transform: translate(-1px, 1px);
+      }
+    }
+  }
+  .dx-widget.dx-toast {
+    .dx-overlay-content {
+      display: flex;
+    }
+  }
+}

@@ -1,0 +1,114 @@
+@import 'variables';
+
+.display-mode-container {
+  .mat-icon {
+    color: $luusean-green;
+  }
+  .toggle-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 8px;
+    .btn-toggle-screen {
+      display: flex;
+      align-items: center;
+      font-size: 0.8rem;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      margin-right: 8px;
+      color: $carbon-gray;
+      font-weight: 700;
+    }
+  }
+  .summary-widgets {
+    display: flex;
+    gap: 20px;
+    padding: 10px 10px;
+    background-color: $white;
+
+    app-summary-widget {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+  }
+  &.dark {
+    background-color: $gray13;
+    padding: 2rem;
+    .summary-widgets {
+      background-color: $gray13;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .tracking-table {
+    .shipment-template {
+      display: flex;
+      align-items: center;
+      p {
+        margin: 0;
+      }
+      mat-icon {
+        margin-left: 5px;
+        width: 10px;
+      }
+    }
+    .progress-template {
+      .status-cell {
+        display: flex;
+        align-items: center;
+      }
+      .progress-item {
+        width: 100px;
+        padding-left: 5px;
+        p {
+          margin: -5px 0 !important;
+          font-size: 12px;
+          text-align: center;
+        }
+      }
+      .dx-progressbar-range {
+        background-color: $luusean-green;
+        border: 0 solid $luusean-green;
+        margin: 0;
+      }
+    }
+  }
+}
+
+::ng-deep {
+  dx-data-grid {
+    &#display-mode-data-grid {
+      table {
+        tr td {
+          vertical-align: middle !important;
+          p {
+            margin: 0;
+          }
+        }
+      }
+      &.dark {
+        .dx-datagrid {
+          background-color: $gray13;
+          color: $white;
+          .dx-datagrid-headers {
+            color: $green;
+          }
+        }
+      }
+    }
+  }
+  .dx-list-item-content {
+    direction: ltr;
+  }
+  .dx-progressbar-range {
+    background-color: $luusean-green;
+    border: 0 solid $luusean-green;
+    margin: 0;
+  }
+  .cur-city-template {
+    p {
+      margin: 0;
+    }
+  }
+}

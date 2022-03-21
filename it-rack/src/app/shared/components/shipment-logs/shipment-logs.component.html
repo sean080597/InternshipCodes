@@ -1,0 +1,36 @@
+<dx-popup
+  [width]="'fit-content'"
+  [height]="genHeight()"
+  [showTitle]="true"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="false"
+  [showCloseButton]="false"
+  titleTemplate="title"
+  [(visible)]="isShipmentLogsVisible"
+  (onContentReady)="onContentReady($event)"
+>
+  <dxo-position at="center" my="center" [of]="'body'"></dxo-position>
+
+  <div *dxTemplate="let data of 'title'">
+    <div class="title-container">
+      <mat-icon svgIcon="route-icon"></mat-icon>
+      <h4>Shipment Log</h4>
+      <dx-button icon="close" stylingMode="text" (onClick)="hidePopup()"></dx-button>
+    </div>
+  </div>
+
+  <div *dxTemplate="let data of 'content'">
+    <div #ShipmentLogs>
+      <div class="timeline">
+        <ng-container *ngFor="let item of dataSource">
+          <div class="container" [ngClass]="genTrackingColor(item.color)">
+            <div class="date">{{ item.updateTime }}</div>
+            <div class="content">
+              <span>{{ item.status }}</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</dx-popup>

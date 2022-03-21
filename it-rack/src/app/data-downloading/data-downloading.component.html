@@ -1,0 +1,258 @@
+<div class="data-downloading-container">
+  <h4 class="download-title">Download setting</h4>
+  <div class="download-errors">
+    <p *ngIf="isMissingDate">At least one of [Plan pickup] and [Act. pickup] and [Req. delivery] and [Act. delivery] must have value</p>
+    <p *ngIf="errorMsgPlanPickupDateFrom?.message">Plan pick up from - {{ errorMsgPlanPickupDateFrom?.message }}</p>
+    <p *ngIf="errorMsgPlanPickupDateTo?.message">Plan pick up to - {{ errorMsgPlanPickupDateTo?.message }}</p>
+    <p *ngIf="errorMsgActualPickupDateFrom?.message">Actual pick up from - {{ errorMsgActualPickupDateFrom?.message }}</p>
+    <p *ngIf="errorMsgActualPickupDateTo?.message">Actual pick up to - {{ errorMsgActualPickupDateTo?.message }}</p>
+    <p *ngIf="errorMsgReqDeliveryDateFrom?.message">Req. delivery from - {{ errorMsgReqDeliveryDateFrom?.message }}</p>
+    <p *ngIf="errorMsgReqDeliveryDateTo?.message">Req. delivery to - {{ errorMsgReqDeliveryDateTo?.message }}</p>
+    <p *ngIf="errorMsgActDeliveryDateFrom?.message">Act. delivery from - {{ errorMsgActDeliveryDateFrom?.message }}</p>
+    <p *ngIf="errorMsgActDeliveryDateTo?.message">Act. delivery to - {{ errorMsgActDeliveryDateTo?.message }}</p>
+  </div>
+  <div class="download-info">
+    <div class="download-info__date">
+      <div class="datepickup dx-field">
+        <p>Plan pick up</p>
+        <div class="date-value">
+          <dx-date-box
+            type="date"
+            placeholder="From"
+            aria-label="planPickupDateFrom"
+            [displayFormat]="dateFormat"
+            [(value)]="planPickupDateFrom"
+            [max]="planPickupDateTo"
+            [(isValid)]="isValidPlanPickupDateFrom"
+            [(validationError)]="errorMsgPlanPickupDateFrom"
+          >
+          </dx-date-box>
+          <dx-date-box
+            type="date"
+            placeholder="To"
+            aria-label="planPickupDateTo"
+            [displayFormat]="dateFormat"
+            [(value)]="planPickupDateTo"
+            [min]="planPickupDateFrom"
+            [(isValid)]="isValidPlanPickupDateTo"
+            [(validationError)]="errorMsgPlanPickupDateTo"
+          >
+          </dx-date-box>
+        </div>
+      </div>
+      <div class="datepickup dx-field">
+        <p>Actual pick up</p>
+        <div class="date-value">
+          <dx-date-box
+            type="date"
+            placeholder="From"
+            aria-label="actualPickupDateFrom"
+            [displayFormat]="dateFormat"
+            [(value)]="actualPickupDateFrom"
+            [max]="actualPickupDateTo"
+            [(isValid)]="isValidActualPickupDateFrom"
+            [(validationError)]="errorMsgActualPickupDateFrom"
+          ></dx-date-box>
+          <dx-date-box
+            type="date"
+            placeholder="To"
+            aria-label="actualPickupDateTo"
+            [displayFormat]="dateFormat"
+            [(value)]="actualPickupDateTo"
+            [min]="actualPickupDateFrom"
+            [(isValid)]="isValidActualPickupDateTo"
+            [(validationError)]="errorMsgActualPickupDateTo"
+          ></dx-date-box>
+        </div>
+      </div>
+      <div class="datepickup dx-field">
+        <p>Req. delivery</p>
+        <div class="date-value">
+          <dx-date-box
+            type="date"
+            placeholder="From"
+            aria-label="reqDeliveryDateFrom"
+            [displayFormat]="dateFormat"
+            [(value)]="reqDeliveryDateFrom"
+            [max]="reqDeliveryDateTo"
+            [(isValid)]="isValidReqDeliveryDateFrom"
+            [(validationError)]="errorMsgReqDeliveryDateFrom"
+          ></dx-date-box>
+          <dx-date-box
+            type="date"
+            placeholder="To"
+            aria-label="reqDeliveryDateTo"
+            [displayFormat]="dateFormat"
+            [(value)]="reqDeliveryDateTo"
+            [min]="reqDeliveryDateFrom"
+            [(isValid)]="isValidReqDeliveryDateTo"
+            [(validationError)]="errorMsgReqDeliveryDateTo"
+          ></dx-date-box>
+        </div>
+      </div>
+      <div class="datepickup dx-field">
+        <p>Act. delivery</p>
+        <div class="date-value">
+          <dx-date-box
+            type="date"
+            placeholder="From"
+            aria-label="actDeliveryDateFrom"
+            [displayFormat]="dateFormat"
+            [(value)]="actDeliveryDateFrom"
+            [max]="actDeliveryDateTo"
+            [(isValid)]="isValidActDeliveryDateFrom"
+            [(validationError)]="errorMsgActDeliveryDateFrom"
+          ></dx-date-box>
+          <dx-date-box
+            type="date"
+            placeholder="To"
+            aria-label="actDeliveryDateTo"
+            [displayFormat]="dateFormat"
+            [(value)]="actDeliveryDateTo"
+            [min]="actDeliveryDateFrom"
+            [(isValid)]="isValidActDeliveryDateTo"
+            [(validationError)]="errorMsgActDeliveryDateTo"
+          ></dx-date-box>
+        </div>
+      </div>
+    </div>
+    <div class="download-info__from">
+      <h5 class="title">FROM</h5>
+      <div class="pickup">
+        <p>Shipping point</p>
+        <dx-tag-box
+          placeholder="Please select the code"
+          [items]="shippingPointFilter"
+          [acceptCustomValue]="true"
+          [showDropDownButton]="true"
+          [(value)]="shippingPoint"
+          displayExpr="text"
+          valueExpr="value"
+        >
+        </dx-tag-box>
+      </div>
+    </div>
+    <div class="download-info__to">
+      <h5 class="title">TO</h5>
+      <div class="pickup-multiple">
+        <div class="pickup">
+          <p>Ship-to Party</p>
+          <dx-tag-box
+            placeholder="Please select the code"
+            [items]="shipToPartyFilter"
+            [acceptCustomValue]="true"
+            [showDropDownButton]="true"
+            [(value)]="shipToParty"
+            displayExpr="text"
+            valueExpr="value"
+          >
+          </dx-tag-box>
+        </div>
+        <div class="pickup">
+          <p>Destination City</p>
+          <dx-tag-box
+            placeholder="Select the city"
+            [items]="desCityFilter"
+            [showSelectionControls]="true"
+            [showDropDownButton]="true"
+            [(value)]="desCity"
+            applyValueMode="useButtons"
+            displayExpr="text"
+            valueExpr="value"
+          >
+          </dx-tag-box>
+        </div>
+        <div class="pickup">
+          <p>Destination Province</p>
+          <dx-tag-box
+            placeholder="Select the Province"
+            [items]="desRegionFilter"
+            [showSelectionControls]="true"
+            [showDropDownButton]="true"
+            [(value)]="desRegion"
+            applyValueMode="useButtons"
+            displayExpr="text"
+            valueExpr="value"
+          >
+          </dx-tag-box>
+        </div>
+      </div>
+    </div>
+    <div class="download-info__others">
+      <h5 class="title">OTHERS</h5>
+      <div class="pickup-multiple">
+        <div class="pickup">
+          <p>Customer code</p>
+          <dx-tag-box
+            placeholder="Please select the code"
+            [items]="cusFilter"
+            [acceptCustomValue]="true"
+            [showDropDownButton]="true"
+            [(value)]="cusCode"
+            displayExpr="text"
+            valueExpr="value"
+          >
+          </dx-tag-box>
+        </div>
+        <div class="pickup">
+          <p>LSP code</p>
+          <dx-tag-box
+            placeholder="Please select the code"
+            [items]="lspFilter"
+            [acceptCustomValue]="true"
+            [showDropDownButton]="true"
+            [(value)]="lspCode"
+            displayExpr="text"
+            valueExpr="value"
+          >
+          </dx-tag-box>
+        </div>
+        <div class="pickup">
+          <p>OP code</p>
+          <dx-tag-box
+            placeholder="Please select the code"
+            [items]="opFilter"
+            [acceptCustomValue]="true"
+            [showDropDownButton]="true"
+            [(value)]="opCode"
+            displayExpr="text"
+            valueExpr="value"
+          >
+          </dx-tag-box>
+        </div>
+        <div class="pickup">
+          <p>Transport Type</p>
+          <dx-tag-box
+            placeholder="Select the condition"
+            [items]="transTypeFilter"
+            [showSelectionControls]="true"
+            [showDropDownButton]="true"
+            [(value)]="transType"
+            applyValueMode="useButtons"
+            displayExpr="text"
+            valueExpr="value"
+          >
+          </dx-tag-box>
+        </div>
+        <div class="pickup">
+          <p>Milestone</p>
+          <dx-tag-box
+            placeholder="Select the Milestone"
+            [items]="milestonesFilter"
+            [showSelectionControls]="true"
+            [showDropDownButton]="true"
+            [(value)]="milestones"
+            applyValueMode="useButtons"
+            displayExpr="text"
+            valueExpr="value"
+          >
+          </dx-tag-box>
+        </div>
+      </div>
+    </div>
+    <div class="download-info__submit">
+      <button class="btn-save" (click)="onSave()">DOWNLOAD</button>
+      <button class="btn-cancel" (click)="onClear()">CLEAR</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<div class="warpper" #mainWrapper (window.resize)="onResize($event)">
+  <mat-toolbar class="sidenav-header">
+    <div class="main-toolbar mat-elevation-z2">
+      <button mat-icon-button (click)="isMenuOpen = !isMenuOpen">
+        <mat-icon class="menu-button">menu</mat-icon>
+      </button>
+      <h3 class="crumb">it-rack 2.0</h3>
+      <div class="header_right">
+        <!-- <form class="navbar-form" [formGroup]="validateForm" #formDir="ngForm" (ngSubmit)="searchIDNumber(validateForm.value)">
+          <mat-form-field class="search-full-width">
+            <input matInput placeholder="ID Number" formControlName="idNumber" />
+          </mat-form-field>
+          <a mat-button (click)="searchIDNumber(validateForm.value)" class="button_search">
+            <mat-icon class="material-icons">get_app</mat-icon>
+          </a>
+        </form> -->
+        <app-menu
+          class="app_menu"
+          #userMenu
+          (openDialog)="openDialog()"
+          (logout)="logout()"
+          (helpLink)="helpLink()"
+          (helpSetting)="helpSetting()"
+          (notiSetting)="notiSetting()"
+        ></app-menu>
+        <div class="luusean_logo logo_text">
+          <img src="/assets/img/aside/img-logo-text.png" alt="" />
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="sidenav-container" autosize hasBackdrop="false">
+    <mat-sidenav #sidenav class="sidenav" mode="side" [opened]="true">
+      <luusean-navigation [navigationModel]="navigationModel" [isMenuOpen]="isMenuOpen"></luusean-navigation>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="content_wrapper">
+        <div class="navbar_container" autosize>
+          <div class="main-container" #scrollContainer>
+            <div style="padding-top: 5px"></div>
+            <mat-icon class="material-icons breadcrumb_icon" [routerLink]="'/'">home</mat-icon>
+            <label> / </label>
+            <ng-template #pathList>
+              <span *ngFor="let path of crumbsHTML">
+                <label class="txt_hover" *ngIf="path.linkUrl" [routerLink]="path.linkUrl">{{ path.name }}</label
+                ><label *ngIf="path.linkUrl"> / </label>
+                <label class="text_current" *ngIf="!path.linkUrl">{{ path.name }}</label>
+              </span>
+            </ng-template>
+            <ng-container *ngTemplateOutlet="pathList"></ng-container>
+            <router-outlet (activate)="onActivate(scrollContainer)"></router-outlet>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <app-loading [isLoading]="isLoading$ | async"></app-loading>
+</div>
+<div class="help_wrapper" [hidden]="!showModel">
+  <div class="inner">
+    <p class="help_title">Help config</p>
+    <div class="helpMain">
+      <form class="form" [formGroup]="helpForm" (ngSubmit)="helpSubmit()" #formHelpDir="ngForm">
+        <mat-form-field>
+          <input matInput placeholder="URL" formControlName="configUrl" required />
+          <mat-error *ngIf="formErrors.configUrl">
+            {{ formErrors.configUrl }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="email URL" formControlName="emailUrl" required />
+          <mat-error *ngIf="formErrors.emailUrl">
+            {{ formErrors.emailUrl }}
+          </mat-error>
+        </mat-form-field>
+        <div class="button_list">
+          <button color="primary" type="button" mat-button (click)="formHelpDir.resetForm({}); resetConfig()">Cancel</button>
+          <button color="primary" type="submit" mat-button>OK</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- <div class="help_container" [hidden]="!showModel"></div> -->
+<div class="help_wrapper" [hidden]="checkShowHelper()">
+  <div class="inner">
+    <div class="flex">
+      <p class="help_title">Important Notice</p>
+      <i class="dx-icon-remove icon_close close_style" (click)="resetConfig()"></i>
+    </div>
+    <div class="helpMain">
+      <mat-list role="list">
+        <mat-list-item role="listitem">
+          <div style="width: 100%; text-align: center; font-size: 18px">
+            {{ title }}
+          </div>
+        </mat-list-item>
+        <mat-list-item role="listitem">Dear it-rack user,</mat-list-item>
+        <mat-list-item role="listitem">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ content }}</mat-list-item>
+        <mat-list-item role="listitem">
+          <div style="width: 100%; text-align: right">Thank You,&nbsp;&nbsp;it-rack Team</div>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <div style="width: 100%; text-align: right">{{ contact }}</div>
+        </mat-list-item>
+      </mat-list>
+      <div class="button_active" *ngIf="notiMaintain">
+        <br />
+        Active:
+        <mat-slide-toggle color="primary" [(ngModel)]="noticeActive"></mat-slide-toggle>
+        &nbsp;&nbsp;&nbsp;*All user except global admin will see this notice popup every login if switch on.
+      </div>
+      <br />
+      <form class="form" [formGroup]="notiForm" (ngSubmit)="notiSubmit()" #formHelpDir="ngForm" *ngIf="notiMaintain">
+        <mat-form-field>
+          <input matInput placeholder="Title" formControlName="title" required />
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput placeholder="Contents" formControlName="content" required></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Contact Info" formControlName="contact" required />
+        </mat-form-field>
+        <div class="button_list">
+          <button color="primary" type="button" mat-button (click)="previewNotice()">Preview</button>
+          <button color="primary" type="button" mat-button (click)="formHelpDir.resetForm({}); resetConfig()">Cancel</button>
+          <button color="primary" type="submit" mat-button>Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

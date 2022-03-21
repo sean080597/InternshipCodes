@@ -1,0 +1,134 @@
+@import 'variables';
+
+$margin-title: 0.5rem;
+
+.data-downloading-container {
+  background-color: $white;
+  .download-title {
+    display: inline-block;
+    margin: 1rem 0 1rem 1rem;
+    text-transform: uppercase;
+  }
+  .download-errors {
+    padding: 0 2rem;
+    p {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: $red;
+      &::before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: $red;
+      }
+    }
+  }
+  .download-info {
+    padding: 1rem 2rem;
+    &__date {
+      display: flex;
+      .datepickup {
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        margin: 0;
+        &:first-child {
+          padding-left: 0;
+        }
+        &:last-child {
+          padding-right: 0;
+        }
+        p {
+          margin: 0;
+          white-space: nowrap;
+          transform: translateY(-50%);
+          font-weight: 600;
+          font-size: 1rem;
+        }
+        .date-value {
+          margin-left: 1rem;
+          dx-date-box {
+            border: none;
+            border-bottom: 2px solid $gray4;
+            border-radius: 0;
+          }
+        }
+      }
+    }
+    &__from {
+      @extend .info-selection;
+      margin-top: 2rem;
+    }
+    &__to {
+      @extend .info-selection;
+      .pickup-multiple {
+        flex: 6;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    &__others {
+      @extend .info-selection;
+      .pickup-multiple {
+        flex: 6;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    &__submit {
+      width: 33%;
+      display: flex;
+      margin: 2rem auto 1rem;
+      gap: 15px;
+      button {
+        flex: 1;
+        border: none;
+        padding: 10px;
+        border-radius: 2px;
+        cursor: pointer;
+        transition-duration: 0.3s;
+        &:hover {
+          filter: brightness(120%);
+        }
+        &.btn-save {
+          background-color: $luusean-green;
+          color: $white;
+        }
+        &.btn-cancel {
+          background-color: $gray10;
+          color: $white;
+        }
+      }
+    }
+  }
+  .info-selection {
+    width: 60%;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 1rem;
+    .title {
+      margin: (1rem + $margin-title) 0 0;
+      flex: 1;
+      font-size: 1rem;
+    }
+    .pickup {
+      display: flex;
+      flex: 6;
+      align-items: flex-start;
+      gap: 15px;
+      margin-top: 1rem;
+      p {
+        flex: 1;
+        margin: $margin-title 0;
+      }
+      dx-tag-box {
+        flex: 3;
+        border: none;
+        border-bottom: 2px solid $gray4;
+        border-radius: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+<div class="dialog-fur">
+  <div class="dialog-fur-title">Shipment: {{ data.selectedId }}</div>
+  <mat-icon (click)="onNoClick()">close</mat-icon>
+</div>
+
+<div mat-dialog-content>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Shipment Weight :</div>
+    <div class="dialog-content">{{ data.shipmentWeight }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Shipment Volume :</div>
+    <div class="dialog-content">{{ data.shipmentVolume }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Act. Loading Date :</div>
+    <div class="dialog-content">{{ data.loadingEndDate }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Plan Shipment End Date :</div>
+    <div class="dialog-content">{{ data.shipmentEndDate }}</div>
+  </div>
+</div>
+<div class="example-container">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+</div>

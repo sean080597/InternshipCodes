@@ -1,0 +1,315 @@
+body, html{
+    font-family: 'Oxygen', sans-serif;
+}
+
+ul li{
+    list-style-type: none;
+}
+
+h1.title { 
+    font-size: 50px;
+    font-family: 'Passion One', cursive; 
+    font-weight: 400; 
+}
+
+hr{
+    width: 10%;
+    color: #fff;
+}
+
+.form-group{
+    margin-bottom: 15px;
+}
+
+label{
+    margin-bottom: 15px;
+}
+
+input,
+input::-webkit-input-placeholder {
+    font-size: 11px;
+    padding-top: 3px;
+}
+
+.form-control {
+    height: auto!important;
+    padding: 8px 12px !important;
+}
+.input-group {
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
+}
+form a #button {
+    border: 1px solid #ccc;
+    margin-top: 28px;
+    padding: 6px 12px;
+    color: #666;
+    text-shadow: 0 1px #fff;
+    cursor: pointer;
+    -moz-border-radius: 3px 3px;
+    -webkit-border-radius: 3px 3px;
+    border-radius: 3px 3px;
+    -moz-box-shadow: 0 1px #fff inset, 0 1px #ddd;
+    -webkit-box-shadow: 0 1px #fff inset, 0 1px #ddd;
+    box-shadow: 0 1px #fff inset, 0 1px #ddd;
+    background: #f5f5f5;
+    background: -moz-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f5f5), color-stop(100%, #eeeeee));
+    background: -webkit-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
+    background: -o-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
+    background: -ms-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
+    background: linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#eeeeee', GradientType=0);
+}
+
+form a #button:hover{
+    -webkit-transition: all .25s ease-in-out !important;
+       -moz-transition: all .25s ease-in-out !important;
+        -ms-transition: all .25s ease-in-out !important;
+         -o-transition: all .25s ease-in-out !important;
+            transition: all .25s ease-in-out !important;
+}
+
+span.input-group-addon i {
+    color: #009edf;
+    font-size: 17px;
+}
+
+.login-button{
+    margin-top: 5px;
+}
+
+.login-register{
+    font-size: 11px;
+    text-align: center;
+}
+
+.main_content {
+    width: 100%;
+    margin: 0;
+}
+.middle_content h3 {
+    text-align: center;
+}
+
+#dangkydangnhaptc a:hover{
+    text-decoration: none;
+    cursor: pointer;
+    color: #E2E2E2;
+}
+
+#dangkydangnhaptc a.parent_dropdown{
+    line-height: 3.428571429;
+}
+
+#dangnhapthanhcong{
+    width: 200px;
+    float: right;
+    text-align: center;
+    height: auto;
+    margin-top: 15px;
+}
+
+#dangnhapthanhcong a.parent_dropdown {
+    line-height: 3.428571429;
+}
+
+#dangnhapthanhcong a {
+    vertical-align: middle;
+    line-height: 40px;
+    font-weight: 600;
+    font-size: 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #1a405a;
+    transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+}
+
+#dangnhapthanhcong a:hover{
+    text-decoration: none;
+    cursor: pointer;
+    color: #E2E2E2;
+}
+
+#dangnhapthanhcong ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.dropdown-menu .divider{
+    margin: 0;
+}
+
+#dangnhapthanhcong ul li a{
+    color: #1a405a;
+}
+
+.dropdown_petition .dropdown-menu{
+    text-align: center;
+    width: 50% !important;
+    border-radius: 2px !important;
+    border-bottom: none !important;
+    top: 52px !important;
+}
+
+.dropdown_petition ul li{
+    width: 100% !important;
+    padding: 0 !important;
+    height: auto !important;
+}
+.dropdown_petition ul li a{
+    padding: 10px !important;
+}
+
+@media screen and (max-width: 1100px) and (min-width: 640px) {
+    #dangnhapthanhcong {
+        float: right;
+        right: 3px;
+        height: auto;
+        z-index: 11111;
+        top: 16px;
+        position: absolute;
+        text-align: center;
+    }
+    #dangnhapthanhcong a {
+        color: #1a405a;
+    }
+    .dropdown_petition .dropdown-menu{
+        text-align: center;
+        width: 100% !important;
+        border-radius: 1px !important;
+        top: 58px !important;
+    }
+    #main-nav ul li a{
+        color: #fff !important;
+    }
+    .dropdown_petition ul li a{
+        color: #fff !important;
+    }
+}
+@media screen and (max-width: 639px) and (min-width: 380px){
+    #dangnhapthanhcong {
+        float: right;
+        right: 3px;
+        height: auto;
+        z-index: 11111;
+        top: 54px;
+        position: absolute;
+        text-align: center;
+        margin-top: 27px;
+    }
+    #dangnhapthanhcong a {
+        color: #fff;
+    }
+
+    #choose_profile_image{
+        padding-left: 0;
+    }
+}
+
+.stellarnav.mobile, .stellarnav.mobile.fixed {
+    position: relative !important;
+}
+
+div.div_sel_sex label{
+    padding: 0;
+    line-height: 30px;
+}
+
+select#sel_sex{
+    padding: 5px;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    color: #333;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+#register_img{
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    padding: 1px 5px;
+    cursor: pointer;
+    webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+#register_img img{
+    width: 100%;
+}
+
+input#profile_image {
+    margin-top: 5%;
+}
+img#show_crop_image {
+    width: 100%;
+}
+
+div#div_birthdate {
+    
+}
+
+#div_birthdate label{
+    padding: 0;
+    margin-bottom: 20px;
+    line-height: 35px;
+}
+
+#div_birthdate div{
+    padding-left: 0;
+    margin-bottom: 15px;
+}
+
+.comment-block p a{
+    color: #337ab7;
+}
+
+.load_more{
+    display: none;
+    color: #337ab7 !important;
+    text-align: center;
+    margin: 15px 0;
+}
+
+div.pet_target{
+    padding: 0;
+}
+div.pet_target input{
+    width: 100%;
+    font-size: 18px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0,0.2) inset;
+}
+
+.pet_title:nth-child(2){
+    padding-bottom: 50px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+div.errorMessage{
+    margin-top: 5px;
+    color: red;
+}
+
+div.row_buttons p.full_signed{
+    float: right;
+    color: #28A745;
+    font-size: 18px;
+}

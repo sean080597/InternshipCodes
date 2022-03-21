@@ -1,0 +1,11 @@
+*** Install Oracle for VS ***
+
+1/ Install 32-bit Oracle Data Access Components (ODAC) with Oracle Developer Tools for Visual Studio
+	(ODTwithODAC122011.zip 411 MB (431,571,252 bytes))
+	=> https://www.oracle.com/technetwork/topics/dotnet/utilsoft-086879.html
+
+2/ Add References:
+	+ Oracle.ManagedDataAccess
+	+ Oracle.ManagedDataAccess.EntityFramework
+	
+3/ Add Entity to Models

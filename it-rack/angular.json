@@ -1,0 +1,139 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "it-rack": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/it-rack",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": [
+              {
+                "input": "node_modules/normalize.css/normalize.css",
+                "bundleName": "lib"
+              },
+              {
+                "input": "node_modules/material-design-icons/iconfont/material-icons.css",
+                "bundleName": "lib"
+              },
+              {
+                "input": "node_modules/devextreme/dist/css/dx.common.css",
+                "bundleName": "lib"
+              },
+              {
+                "input": "node_modules/devextreme/dist/css/dx.light.css",
+                "bundleName": "lib"
+              },
+              "src/assets/iconfont/iconfont.css",
+              "src/assets/iconfont-extended/iconfont-extended.css"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/scss"]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "development": {
+              "extractCss": true
+            },
+            "prd": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "serviceWorker": false
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "it-rack:build"
+          },
+          "configurations": {
+            "development": {
+              "browserTarget": "it-rack:build:development"
+            },
+            "prod": {
+              "browserTarget": "it-rack:build:prd"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "it-rack:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "src/karma.conf.js",
+            "styles": ["src/styles.scss", "src/assets/iconfont/iconfont.css", "src/assets/iconfont-extended/iconfont-extended.css"],
+            "scripts": [],
+            "assets": ["src/favicon.ico", "src/assets"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "it-rack:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "it-rack:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "it-rack",
+  "cli": {
+    "analytics": "9d9699c8-ce35-4b78-999b-e0771ed8e4b7"
+  }
+}

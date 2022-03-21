@@ -1,0 +1,273 @@
+div#wrapper {
+    background-color: #f1f1f1;
+}
+
+.middle_content{
+	margin-top: 1%;
+}
+
+.content_dashboard {
+    
+}
+
+.dashboard_myPetition{
+    padding: 3% 1%;
+    background-color: #fff;
+}
+
+.dashboard_myPetition h2 {
+    vertical-align: middle;
+    display: table-cell;
+    font-size: 24px;
+    color: #646464;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+ul#my_petition_list {
+    list-style: none;
+}
+
+.img_wrapper img{
+	width: 100%;
+}
+
+.my_petition h3 {
+    font-size: 17px;
+    line-height: 1.2;
+    margin: 0;
+}
+
+#my_petition_list .my_petition h3 a {
+    color: #2a81af;
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: bold;
+    display: block;
+    min-height: 40px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.sign_target .progress{
+	border-radius: 2px;
+}
+
+.sign_target_count{
+	border-radius: 3px;
+    display: inline-block;
+    float: none;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.sign_target_count .signs{
+	color: #f59231;
+    padding-right: 3px;
+}
+
+.sign_target_count .target{
+	color: #777777;
+    padding-left: 3px;
+}
+
+a.btn_share_facebook {
+    background-color: #5668b3;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 2.5%;
+    font-weight: bold;
+    transition: .3s all ease-in-out;
+}
+
+a.btn_share_facebook:hover{
+    background-color: #365899;
+    text-decoration: none;
+    color: white;
+    transition: all ease-in-out .3s;
+}
+
+i.fa.fa-facebook{
+    position: absolute;
+    font-size: 22px;
+}
+
+li.my_petition {
+    border-top: 4px solid #f1f1f1;
+    padding: 4% 0;
+    background-color: #fff;
+}
+
+.page_title{
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1.2;
+    margin: 0.5em 0;
+}
+
+.left_content{
+    padding-right: 0;
+}
+
+.right_content{
+    padding-left: 0;
+}
+
+.myprofile_header{
+    padding: 7% 4% 3%;
+    border-bottom: 1px solid #e6e6e6;
+    background-color: #fff;
+}
+
+.myprofile_header h2{
+    color: #646464;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0 0 3px;
+}
+
+.myprofile_body {
+    float: left;
+    width: 100%;
+    background-color: #fff;
+}
+
+.user_pic{
+    float: left;
+    width: 20%;
+    margin: 5% 5% 8%;
+}
+
+a.edit_profile{
+    color: #333333;
+}
+
+.aside_donate{
+    margin-bottom: 20px;
+    padding: 17px 19px 27px;
+    background: #f59231 url("../upload/congtrinh/donate_block_bg.png") bottom right no-repeat;
+}
+.aside_donate .donate_title{
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+.aside_donate .donate_caption{
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 12px;
+}
+
+.btn_donate{
+    font-size: 13px;
+    display: inline-block;
+    background-color: #ffffff;
+    -webkit-transition: all ease-in-out .3s;
+    -moz-transition: all ease-in-out .3s;
+    -ms-transition: all ease-in-out .3s;
+    -o-transition: all ease-in-out .3s;
+    transition: all ease-in-out .3s;
+    text-align: center;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #f59231 !important;
+    padding: 3% 7%;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid #ffffff;
+}
+.btn_donate:hover{
+    background-color: #f59231;
+    border: 1px solid #fff;
+    color: #fff !important;
+}
+
+.myprofile_body h3{
+    text-align: left !important;
+}
+
+form#formSearch{
+    float: left;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+
+form#formSearch .txtSearch {
+  line-height: 42px;
+  padding: 0 16px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #212121;
+  border: 0;
+  float: left;
+  -webkit-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+
+form#formSearch .txtSearch:focus {
+  outline: 0;
+  background-color: #FFF;
+}
+
+form#formSearch .btnSearch {
+  background: none;
+  background-color: rgba(38, 50, 56, 0.8);
+  float: left;
+  height: 42px;
+  width: 42px;
+  text-align: center;
+  line-height: 42px;
+  border: 0;
+  color: #FFF;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 16px;
+  text-rendering: auto;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-transition: background-color .4s ease;
+  transition: background-color .4s ease;
+  -webkit-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+/* form#formSearch .btnSearch:hover {
+  background-color: rgba(0, 150, 136, 0.8);
+} */
+
+@media screen and (min-width: 380px) and (max-width: 639px){
+    .dashboard_myPetition{
+        padding: 2% 2% 27% !important;
+    }
+    form#formSearch .txtSearch {
+        width: 200px;
+    }
+    form#formSearch{
+        float: left !important;
+    }
+}
+
+@media screen and (min-width: 640px) and (max-width: 1099px){
+    .dashboard_myPetition{
+        padding: 2% 2% 20% !important;
+    }
+    form#formSearch .txtSearch {
+        width: 225px;
+    }
+    form#formSearch{
+        float: left !important;
+    }
+}
+
+@media screen and (min-width: 1100px){
+    .dashboard_myPetition{
+        padding: 2% 2% 8%;
+    }
+    form#formSearch .txtSearch {
+        width: 250px;
+    }
+}

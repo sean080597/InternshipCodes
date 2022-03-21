@@ -1,0 +1,26 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 20
+    preferIpAddress: true
+      
+logging:
+  pattern:
+    console: "%clr(%d{yy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%-5p) %clr(${PID}){faint} %clr(---){faint} %clr([%.15t]){cyan} %clr(%-40.40logger{0}){blue} %clr(:){red} %clr(%m){faint}%n"
+    
+server:
+  port: 8084
+  
+spring:
+  application:
+    name: batch-service
+  batch:    job:      enabled: false
+      isSchedule: false
+      cmdEnabled: false
+    chunkSize: 50
+    cronSimpleJob: 0 */1 * ? * *
+  main:
+    banner-mode: off

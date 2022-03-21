@@ -1,0 +1,106 @@
+<div id="display-page" [ngClass]="'display-mode-container ' + genThemeClass()">
+  <div class="toggle-container">
+    <button type="button" (click)="toggleFullscreen()" class="btn-toggle-screen">
+      <ng-container *ngIf="!isFullscreen">
+        <img src="/assets/img/fullscreen.svg" alt="Fullscreen icon" />Full Screen
+      </ng-container>
+      <ng-container *ngIf="isFullscreen">
+        <img src="/assets/img/fullscreen-exit.svg" alt="Exit Fullscreen icon" />Exit Full Screen
+      </ng-container>
+    </button>
+    <img src="/assets/img/luusean-text.svg" alt="luusean text" *ngIf="isFullscreen" />
+  </div>
+  <div class="summary-widgets" #SummaryWidgets *ngIf="isShowSummaryWidgets">
+    <ng-container *ngFor="let item of summaryWidgets; let idx = index">
+      <app-summary-widget [title]="summaryWidgetsTitle[idx]" [data]="item" [theme]="genThemeClass()"></app-summary-widget>
+    </ng-container>
+  </div>
+  <div class="tracking-table">
+    <dx-data-grid
+      id="display-mode-data-grid"
+      [dataSource]="truckTrackingDataSource"
+      [allowColumnReordering]="true"
+      [allowColumnResizing]="true"
+      columnResizingMode="widget"
+      [columnAutoWidth]="true"
+      [showBorders]="true"
+      [showRowLines]="true"
+      [showColumnLines]="false"
+      [remoteOperations]="true"
+      [height]="calculateGridHeight()"
+      (onContentReady)="onContentReady()"
+    >
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+
+      <dxi-column dataField="shipmentNumber" cellTemplate="shipmentTemplate" caption="Shipment ID" width="auto"
+        [allowHiding]="false" [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="roNumber" caption="RO Nr."
+        [allowHiding]="false" [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="operatorCode" caption="Op Code"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="customerName" caption="Customer Name"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="transportType" caption="Trans. Type"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="shippingPoint" caption="ShippingPt"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="destinationRegion" caption="Destination Province"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="shipToCity" caption="Ship To City"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="currentCity" caption="Curr. City" cellTemplate="curCityTemplate"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="supplierName" caption="LSP"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="lspRemark" caption="LSP Remark"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="false" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="plannedPickupDate" caption="Plan Pickup Date" dataType="date" [format]="dateFormat"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="actualPickupDate" caption="Act. Pickup Date" dataType="date" [format]="dateFormat"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="requiredDeliveryDate" caption="Plan Delivery Date" dataType="date" [format]="dateFormat"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="actualDeliveryDate" caption="Act. Delivery Date" dataType="date" [format]="dateFormat"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <!-- <dxi-column dataField="estDeliveryDate" caption="Est. Delivery Date" dataType="date" [format]="dateFormat"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="false" [allowFiltering]="false"></dxi-column> -->
+      <dxi-column dataField="milestones" caption="Milestone"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="true" [allowFiltering]="false"></dxi-column>
+      <dxi-column caption="Main-Carriage Progress" cellTemplate="progressTemplate" [(visible)]="isProgressVisible"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="false" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="grossWeight" caption="Shipt total Weight"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="false" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="volume" caption="Shipt total Volume"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="false" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="packageQty" caption="Qty of Packages"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="false" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="lspWeight" caption="LSP total Weight"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="false" [allowFiltering]="false"></dxi-column>
+      <dxi-column dataField="lspVolume" caption="LSP total Volume"
+        [allowHeaderFiltering]="false" [allowEditing]="false" [allowSorting]="false" [allowFiltering]="false"></dxi-column>
+
+      <div class="shipment-template" *dxTemplate="let row of 'shipmentTemplate'">
+        <ng-container *ngIf="row.data.shipmentNumber">
+          <p>{{ row.data.shipmentNumber }}</p>
+          <mat-icon color="primary" svgIcon="satellite-icon" *ngIf="isShowGPSicon(row.data)"></mat-icon>
+        </ng-container>
+      </div>
+
+      <div class="cur-city-template" *dxTemplate="let row of 'curCityTemplate'">
+        <ng-container *ngIf="row.data.currentCity || row.data.manualLocation">
+          <p>{{ row.data.manualLocation ? row.data.manualLocation : row.data.currentCity }}</p>
+        </ng-container>
+      </div>
+
+      <div class="progress-template" *dxTemplate="let row of 'progressTemplate'">
+        <div *ngIf="row.data.milestones === 'In Main Carriage'" class="status-cell">
+          <mat-icon>local_shipping</mat-icon>
+          <div class="progress-item">
+            <p>{{ row.data.progress }}%</p>
+            <dx-progress-bar id="progress-bar-status" width="100%" [showStatus]="false" [value]="row.data.progress"> </dx-progress-bar>
+          </div>
+        </div>
+      </div>
+    </dx-data-grid>
+  </div>
+</div>

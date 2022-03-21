@@ -1,0 +1,30 @@
+﻿@model DemoRoutes.Models.Product
+@{
+    ViewBag.Title = "Home Page";
+
+    var currentLang = ViewBag.Currentlanguage;
+    var languages = (string[])ViewBag.Languages;
+    var defaultLanguage = ViewBag.DefaultLanguage;
+}
+<h3>Default language: @defaultLanguage</h3>
+<br />
+<div class="panel panel-primary">
+    <div class="panel-heading">List of Languages</div>
+    <div class="panel-body">
+        <ul>
+            @foreach (var lang in languages)
+            {
+                @*<li>@lang <span>@Html.Raw(lang==currentLang ? "<b>Current Language</b>" : "")</span></li>*@
+                <li>@lang <span class="label label-success">@(lang == currentLang ? "Current Language" : "")</span></li>
+            }
+        </ul>
+    </div>
+</div>
+<hr />
+<h3 class="">Product Info</h3>
+<div class="panel panel-primary">
+    <div class="panel-heading">@Model.Name - @Model.Price @Model.Currency</div>
+    <div class="panel-body">
+        @Model.Desc
+    </div>
+</div>

@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    IEnumerable<int> evenNumbs = ViewBag.listeven;
+    IEnumerable<int> oddNumbs = ViewBag.listodd;
+}
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<h2 class="text-center text-primary">Test Extension Methods</h2>
+
+<h3><span class="text-danger">Test FirstCharToUpper method:</span> @ViewBag.resultText</h3>
+
+<h3 class="text-danger">Test Filter Even Numbers</h3>
+<ul>
+    @foreach (int n in evenNumbs)
+    {
+        <li>@n</li>
+    }
+</ul>
+
+<br />
+<h3 class="text-danger">Test Filter Odd Numbers</h3>
+
+<ul>
+    @foreach (int n in oddNumbs)
+    {
+        <li>@n</li>
+    }
+</ul>

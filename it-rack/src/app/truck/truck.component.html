@@ -1,0 +1,408 @@
+<div class="btn-widgets">
+  <button type="button" class="btn-fullscreen" (click)="isShowSummaryWidgets = !isShowSummaryWidgets">
+    <mat-icon>format_list_numbered_rtl</mat-icon>Toggle Widgets
+  </button>
+  <button type="button" class="btn-fullscreen" (click)="toggleFullscreen()" *ngIf="!isFullscreen">
+    <img src="/assets/img/fullscreen.svg" alt="Fullscreen icon" />Full Screen
+  </button>
+</div>
+<div class="container-inner">
+  <div class="summary-widgets" #SummaryWidgets *ngIf="isShowSummaryWidgets">
+    <ng-container *ngFor="let item of summaryWidgets; let idx = index">
+      <app-summary-widget [title]="summaryWidgetsTitle[idx]" [data]="item"></app-summary-widget>
+    </ng-container>
+  </div>
+  <div class="summary-tooltip">
+    <dx-tooltip target="#tooltip-0" position="bottom" showEvent="dxhoverstart" hideEvent="dxhoverend" [closeOnOutsideClick]="false">
+      <app-last-seven-days></app-last-seven-days>
+    </dx-tooltip>
+    <dx-tooltip target="#tooltip-1" position="bottom" showEvent="dxhoverstart" hideEvent="dxhoverend" [closeOnOutsideClick]="false">
+      <app-urgent-last-days></app-urgent-last-days>
+    </dx-tooltip>
+    <dx-tooltip target="#tooltip-2" position="bottom" showEvent="dxhoverstart" hideEvent="dxhoverend" [closeOnOutsideClick]="false">
+      <app-delivery-today></app-delivery-today>
+    </dx-tooltip>
+  </div>
+
+  <div class="tracking-table">
+    <dx-data-grid
+      id="truck-tracking-data-grid"
+      [dataSource]="truckTrackingDataSource"
+      [allowColumnReordering]="true"
+      [allowColumnResizing]="true"
+      columnResizingMode="widget"
+      [columnAutoWidth]="true"
+      [showBorders]="false"
+      [showRowLines]="true"
+      [showColumnLines]="false"
+      [rowAlternationEnabled]="true"
+      [remoteOperations]="true"
+      [height]="calculateGridHeight()"
+      [(filterValue)]="activeFilterValue"
+      (onToolbarPreparing)="handleToolbarPreparing($event)"
+      (onExporting)="exportTruckTracking($event)"
+      (onSaving)="onSaving($event)"
+      (onEditingStart)="onEditingStart($event)"
+      (onCellPrepared)="onCellPrepared($event)"
+      (onEditorPreparing)="onEditorPreparing($event)"
+    >
+      <dxo-sorting mode="multiple"></dxo-sorting>
+      <dxo-load-panel [enabled]="false"></dxo-load-panel>
+      <dxo-filter-panel [visible]="true" [filterEnabled]="true"></dxo-filter-panel>
+      <dxo-filter-builder></dxo-filter-builder>
+      <dxo-filter-builder-popup [(visible)]="isBuilderVisible"></dxo-filter-builder-popup>
+      <dxo-paging [pageSize]="30"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 30, 50]" [showInfo]="true" [visible]="true"></dxo-pager>
+      <dxo-column-chooser mode="select" title="Column Settings" [allowSearch]="true" [searchTimeout]="0" [enabled]="true"></dxo-column-chooser>
+      <dxo-filter-row [visible]="true" [applyFilter]="'onClick'"></dxo-filter-row>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-export [enabled]="false"></dxo-export>
+      <dxo-state-storing [enabled]="false" type="localStorage" storageKey="truck.tableViewState"></dxo-state-storing>
+      <dxo-editing
+        mode="batch"
+        [allowUpdating]="isAllowUpdate"
+        [useIcons]="true"
+        selectTextOnEditStart="true"
+        startEditAction="click"
+        [(changes)]="changes"
+      ></dxo-editing>
+      <dx-scroll-view showScrollbar="always" useNative="false"></dx-scroll-view>
+
+      <dxi-column
+        dataField="shipmentNumber"
+        cellTemplate="shipmentTemplate"
+        caption="Shipment ID"
+        width="auto"
+        [filterOperations]="['contains']"
+        [selectedFilterOperation]="'contains'"
+        [allowHiding]="false"
+        [allowReordering]="false"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+        [fixed]="true"
+      ></dxi-column>
+      <dxi-column
+        dataField="roNumber"
+        caption="RO Nr."
+        [filterOperations]="['contains']"
+        [selectedFilterOperation]="'contains'"
+        [allowHiding]="false"
+        [allowReordering]="false"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+        [fixed]="true"
+      ></dxi-column>
+      <dxi-column
+        dataField="operatorCode"
+        caption="Op Code"
+        [filterOperations]="['contains']"
+        [selectedFilterOperation]="'contains'"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+        [calculateFilterExpression]="calculateFilterExp"
+      ></dxi-column>
+      <dxi-column
+        dataField="customerName"
+        caption="Customer Name"
+        [filterOperations]="['contains']"
+        [selectedFilterOperation]="'contains'"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="transportType"
+        caption="Trans. Type"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+        [calculateFilterExpression]="calculateFilterExp"
+      ></dxi-column>
+      <dxi-column
+        dataField="shippingPoint"
+        caption="ShippingPt"
+        [filterOperations]="['contains']"
+        [selectedFilterOperation]="'contains'"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+        cellTemplate="shippingPointTemplate"
+      ></dxi-column>
+      <dxi-column
+        dataField="destinationRegion"
+        caption="Destination Province"
+        [filterOperations]="['contains']"
+        [selectedFilterOperation]="'contains'"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="shipToCity"
+        caption="Ship To City"
+        [filterOperations]="['contains']"
+        [selectedFilterOperation]="'contains'"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="currentCity"
+        caption="Curr. City"
+        [filterOperations]="['contains']"
+        [selectedFilterOperation]="'contains'"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+        cellTemplate="curCityTemplate"
+      ></dxi-column>
+      <dxi-column
+        dataField="supplierName"
+        caption="LSP"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+        [calculateFilterExpression]="calculateFilterExp"
+      ></dxi-column>
+      <dxi-column
+        dataField="lspRemark"
+        caption="LSP Remark"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+        [allowSorting]="false"
+        [allowFiltering]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="plannedPickupDate"
+        caption="Plan Pickup Date"
+        dataType="datetime"
+        [format]="dateFormat"
+        [selectedFilterOperation]="'between'"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="actualPickupDate"
+        caption="Act. Pickup Date"
+        dataType="datetime"
+        [format]="dateFormat"
+        [selectedFilterOperation]="'between'"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+      >
+      </dxi-column>
+      <dxi-column
+        dataField="requiredDeliveryDate"
+        caption="Plan Delivery Date"
+        dataType="datetime"
+        [format]="dateFormat"
+        [selectedFilterOperation]="'between'"
+        [allowHeaderFiltering]="false"
+        cellTemplate="requiredDeliveryDateTemplate"
+      ></dxi-column>
+      <dxi-column
+        dataField="actualDeliveryDate"
+        caption="Act. Delivery Date"
+        dataType="datetime"
+        [format]="dateFormat"
+        [selectedFilterOperation]="'between'"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+      ></dxi-column>
+      <!-- <dxi-column
+        dataField="estDeliveryDate"
+        caption="Est. Delivery Date"
+        dataType="datetime"
+        [format]="dateFormat"
+        [selectedFilterOperation]="'between'"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+      >
+      </dxi-column> -->
+      <dxi-column
+        dataField="milestones"
+        caption="Milestone"
+        cellTemplate="milestoneTemplate"
+        [allowHeaderFiltering]="false"
+        [allowEditing]="false"
+        [calculateFilterExpression]="calculateFilterExp"
+      ></dxi-column>
+      <dxi-column
+        caption="Main-Carriage Progress"
+        [allowHiding]="false"
+        cellTemplate="progressTemplate"
+        [allowHeaderFiltering]="false"
+        [allowFiltering]="false"
+        [allowEditing]="false"
+        [allowSorting]="false"
+        [(visible)]="isProgressVisible"
+      ></dxi-column>
+      <dxi-column
+        dataField="grossWeight"
+        caption="Shipt total Weight"
+        [allowHeaderFiltering]="false"
+        [allowFiltering]="false"
+        [allowEditing]="false"
+        [allowSorting]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="volume"
+        caption="Shipt total Volume"
+        [allowHeaderFiltering]="false"
+        [allowFiltering]="false"
+        [allowEditing]="false"
+        [allowSorting]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="packageQty"
+        caption="Qty of Packages"
+        [allowHeaderFiltering]="false"
+        [allowFiltering]="false"
+        [allowEditing]="false"
+        [allowSorting]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="lspWeight"
+        caption="LSP total Weight"
+        [allowHeaderFiltering]="false"
+        [allowFiltering]="false"
+        [allowEditing]="false"
+        [allowSorting]="false"
+      ></dxi-column>
+      <dxi-column
+        dataField="lspVolume"
+        caption="LSP total Volume"
+        [allowHeaderFiltering]="false"
+        [allowFiltering]="false"
+        [allowEditing]="false"
+        [allowSorting]="false"
+      ></dxi-column>
+      <dxi-column
+        caption="Action"
+        [fixed]="true"
+        fixedPosition="right"
+        [allowHiding]="false"
+        [allowExporting]="false"
+        width="auto"
+        cellTemplate="actionTemplate"
+        [allowFiltering]="false"
+        [allowEditing]="false"
+        [allowSorting]="false"
+      ></dxi-column>
+
+      <div class="filter-template" *dxTemplate="let item of 'filterTemplate'">
+        <p>{{ filterValue }}</p>
+      </div>
+
+      <div class="shipment-template" *dxTemplate="let row of 'shipmentTemplate'">
+        <ng-container *ngIf="row.data.shipmentNumber">
+          <p>{{ row.data.shipmentNumber }}</p>
+          <mat-icon color="primary" svgIcon="satellite-icon" *ngIf="isShowGPSicon(row.data)"></mat-icon>
+        </ng-container>
+      </div>
+
+      <div class="shipment-point-template" *dxTemplate="let row of 'shippingPointTemplate'">
+        <ng-container *ngIf="row.data.shippingPoint">
+          <p>{{ row.data.shippingPoint }}</p>
+        </ng-container>
+      </div>
+
+      <div class="cur-city-template" *dxTemplate="let row of 'curCityTemplate'">
+        <ng-container *ngIf="row.data.currentCity || row.data.manualLocation">
+          <p>{{ row.data.manualLocation ? row.data.manualLocation : row.data.currentCity }}</p>
+        </ng-container>
+      </div>
+
+      <div class="edit-template" *dxTemplate="let row of 'requiredDeliveryDateTemplate'">
+        <div>
+          {{ convertDate(row.data.id) }}
+          <span class="extra-date">
+            {{ calculateDateChange(row.data.id) }}
+          </span>
+        </div>
+        <mat-icon *ngIf="isAllowUpdate && row.data.requiredDeliveryDate" class="edit-icon">edit</mat-icon>
+      </div>
+
+      <div class="milestone-template" *dxTemplate="let row of 'milestoneTemplate'">
+        <ng-container *ngIf="row.data.milestones">
+          <p [ngClass]="genMilestoneColor(row.data.statusColor)">{{ row.data.milestones }}</p>
+        </ng-container>
+      </div>
+
+      <div *dxTemplate="let row of 'progressTemplate'">
+        <div *ngIf="row.data.milestones === 'In Main Carriage'" class="status-cell">
+          <mat-icon>local_shipping</mat-icon>
+          <div class="progress-item">
+            <p>{{ row.data.progress }}%</p>
+            <dx-progress-bar id="progress-bar-status" width="100%" [showStatus]="false" [value]="row.data.progress"> </dx-progress-bar>
+          </div>
+        </div>
+      </div>
+
+      <div *dxTemplate="let row of 'actionTemplate'">
+        <button mat-icon-button color="primary" *ngIf="row.data.favorite" (click)="toggleFavorite($event, row.data.id)">
+          <mat-icon>star</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" *ngIf="!row.data.favorite" (click)="toggleFavorite($event, row.data.id)">
+          <mat-icon>star_border</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" *ngIf="row.data.remarked" (click)="toggleRemark($event, row.data.id)">
+          <mat-icon>bookmark</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" *ngIf="!row.data.remarked" (click)="toggleRemark($event, row.data.id)">
+          <mat-icon>bookmark_border</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="openSharingModal($event, row.data.shipmentNumber)" *ngIf="false">
+          <mat-icon>share</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="openShipmentLogModal($event, row.data)">
+          <mat-icon svgIcon="route-icon"></mat-icon>
+        </button>
+      </div>
+    </dx-data-grid>
+  </div>
+</div>
+
+<dx-tooltip position="top" #ShippingPointTooltip>
+  <div *dxTemplate="let data of 'content'">
+    <div class="tooltipContent">
+      <b>{{ tooltipSub.getValue() }}</b>
+    </div>
+  </div>
+</dx-tooltip>
+
+<app-manage-view
+  *ngIf="isPopupManageViewVisible"
+  [isPopupManageViewVisible]="isPopupManageViewVisible"
+  [columnSettings]="columnSettings"
+  [conditionsArray]="activeFilterValue"
+  [pageReq]="pageReqManageView"
+  (hidePopupEvent)="hidePopup($event)"
+  (updateFilterEvent)="updateFilter($event)"
+></app-manage-view>
+
+<app-shipment-logs
+  *ngIf="isShipmentLogsVisible"
+  [isShipmentLogsVisible]="isShipmentLogsVisible"
+  (hideShipmentLogEvent)="hideShipmentLogEvent($event)"
+  [shipmentLogData]="shipmentLogData"
+>
+</app-shipment-logs>
+
+<app-tracking-remark
+  *ngIf="isShowingRemark"
+  [remarkKey]="selectedTracking?.remarkKey"
+  [remarkType]="remarkType"
+  [remarkNumber]="selectedTracking?.shipmentNumber"
+  [selectInfoNumber]="selectedShipmentNumber"
+  [viewId]="viewId"
+  [opCode]="selectedTracking?.operatorCode"
+  (onRemarkAdded)="handleRemarkAdded($event)"
+  (onClose)="closeRemark()"
+></app-tracking-remark>
+
+<app-share-email
+  *ngIf="isShowingSharingModal"
+  [selectInfoNumber]="selectedShipmentNumber"
+  [viewId]="viewId"
+  (getShareStatus)="getShareStatus()"
+></app-share-email>
+
+<div id="truck-display-mode">
+  <ng-container *ngIf="isFullscreen">
+    <app-display-mode [isFullscreen]="isFullscreen" [isShowSummaryWidgets]="isShowSummaryWidgets" [viewSourceFilter]="viewSourceFilter"></app-display-mode>
+  </ng-container>
+</div>

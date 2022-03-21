@@ -1,0 +1,71 @@
+1/ function protectInput($string, $connect)
+
+	==> Protect Input string
+	Ex: $name = protectInput($_POST['name'], $conn);
+		$username = protectInput($_POST['username'], $conn);
+		
+2/ function insert_str($str,$insertstr,$pos)
+
+	==> insert a character or str to a position in a string
+	Ex: $filename1 = insert_str($filename1, '_'.$j, -4);
+	
+3/ function clean_content($content)
+
+	==> decode html tags -> strip tags -> replace some special characters of $content such as: [':', '#', '\\', '/', '*', '+', '=']  -->  ''
+	
+4/ key and salt to encrypt, decrypt content, info
+	$key = md5('vietnam');
+	$salt = md5('vietnam');
+
+	==> function encrypt($string, $key)
+		function decrypt($string, $key)
+		function hashword($string, $salt)
+		
+5/ function convert_non_signed_vi($str)
+
+	==> convert vietnamese to non signed vietnamese
+
+6/ function generate_id_from_str($str_title)
+
+	==> generate id from string title
+	
+7/ function format_bytes_unit($bytes)
+
+	==> format image size to KB, MB, GB
+
+8/ function shorten_string($input, $length, $ellipses = true, $strip_html = true)
+
+	==> to short string content without cut at middle of string
+	
+9/ //upload image in a function
+//1 $source_dir, 2 $target_dir, 3 $new_image_name, 4 $old_image_name, 5 $connection 
+//means 1 tmp_name, 2 new path to upload image, 3 name of new image, 4 path of old image to delete, 5 connection DB
+
+function re_uploaded_image($source_dir, $target_dir, $new_image_name, $old_image_name, $connection)
+
+	==> Ex: 
+	
+	//get source dir
+	$source_dir = "";
+	$pet_imagename = $_POST['petImageName'];
+	if(strcmp($pet_imagename, $row['pet_image']) != 0){
+		//get tmp_name
+		$source_dir .= $_FILES['imageUpload']['tmp_name'];
+		//get target dir to upload image
+		$ROOT_DIR = basename(dirname(dirname(dirname(dirname(__FILE__)))));
+		$target_dir = $ROOT_DIR.'/upload/images/';
+
+		$re = re_uploaded_image($source_dir, $target_dir, $pet_imagename, $row['pet_image'], $conn);
+		if($re != null || $re != ""){
+			echo $re;
+		}else{
+			$sql = "UPDATE `table_petitionletter` SET pet_title='$pet_title', pet_image='$pet_imagename', pet_content='$pet_content', pet_updatedate='$pet_date', pet_target='$pet_target', pet_keywords='$pet_keywords', pet_userid='$pet_userid' WHERE pet_id = '$pet_id'";
+			if(!mysqli_query($conn, $sql))
+				echo mysqli_error($conn);
+		}
+	}else{
+		$sql = "UPDATE `table_petitionletter` SET pet_title='$pet_title', pet_content='$pet_content', pet_updatedate='$pet_date', pet_target='$pet_target', pet_keywords='$pet_keywords', pet_userid='$pet_userid' WHERE pet_id = '$pet_id'";
+		if(!mysqli_query($conn, $sql))
+			echo mysql_error($conn);
+	}
+	

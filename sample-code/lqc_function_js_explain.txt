@@ -1,0 +1,81 @@
+1/ function MyPopUpShareWindow(url, width, height)
+
+	==> How to use:
+	//create custom share button
+	$("body").delegate('#share_button', 'click', function() {
+		var parent = $(this).parent().parent();
+		var hreflink = parent.find('a#petition_title').attr('href');
+		var link = "https://www.facebook.com/sharer/sharer.php?u=" + hreflink;
+		MyPopUpShareWindow(link, 600, 650);
+		return false;
+	});
+	
+2/ function removeHtmlTags(string) ==> remove html tags
+
+3/ function bytesToSize(bytes) ==> convert the bytes into suitable units
+
+4/ function getUrlParams( name, url ) ==> get value of "name" from url
+
+	==> Ex:
+	getUrlParams('q', 'hxxp://example.com/?q=abc');
+	var pet_id = getUrlParams('petId', window.location.href);
+	
+5/ function setEditor() ==> initial editor and tracking keyup
+
+	==> Ex: setEditor();
+	
+6/ using matchMedia.js to check if mobile, desktop, tv size
+//test 'tv' media type
+if (matchMedia('tv').matches) {
+  // tv media type supported
+}
+//test a mobile device media query
+if (matchMedia('only screen and (max-width: 480px)').matches) {
+  // smartphone/iphone... maybe run some small-screen related dom scripting?
+}
+//test landscape orientation
+if (matchMedia('all and (orientation:landscape)').matches) {
+  // probably tablet in widescreen view
+}
+
+7/ ==============================================================================
+//Jquery Sticky Sidebar On Scroll
+//fixWhenScroll();
+function fixWhenScroll() {
+	if (matchMedia('all and (orientation:landscape)').matches) {
+		if($('.sidebar_wrapper').length){
+			var el = $('.sidebar_wrapper');
+			var stickyTop = el.offset().top;
+			var stickyHeight = el.height();
+
+			var origin_width = el.width();
+
+			$(window).scroll(function() {
+				var tagLimit = $('.middle_content');
+				var limit = tagLimit.offset().top + tagLimit.height() - $('.sidebar_wrapper').height();
+				var windowTop = $(window).scrollTop();
+				
+				if(stickyTop < windowTop){
+					el.css({
+						position:'fixed',
+						width:origin_width,
+						top:0
+					});
+				}else{
+					el.css('position', 'static');
+				}
+
+				if(limit < windowTop){
+					var diff = limit - windowTop;
+					el.css('top', diff);
+				}
+			});
+		}
+	}
+}
+
+8/ repeat itself continuously
+var myFunction = function() {};
+var timer = setInterval(myFunction, 1000); //call every 1000 milliseconds
+clearTimeout(timer); //to stop it whenever you want
+

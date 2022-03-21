@@ -1,0 +1,66 @@
+<dx-popup
+  [width]="genWidth()"
+  [height]="genHeight()"
+  [showTitle]="true"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="false"
+  [showCloseButton]="false"
+  titleTemplate="title"
+  [(visible)]="isPopupManageViewVisible"
+>
+  <dxo-position at="center" my="center" [of]="'body'"></dxo-position>
+
+  <div *dxTemplate="let data of 'title'">
+    <div class="title-container">
+      <i class="dx-icon dx-icon-detailslayout"></i>
+      <h4>Manage View</h4>
+      <dx-button icon="close" stylingMode="text" (onClick)="hidePopup()"></dx-button>
+    </div>
+  </div>
+
+  <div *dxTemplate="let data of 'content'">
+    <div class="manage-view-container" #DatagridContainer>
+      <dx-data-grid
+        id="manage-view-grid"
+        [dataSource]="dataSource"
+        keyExpr="id"
+        [showBorders]="true"
+        [showRowLines]="true"
+        [showColumnLines]="false"
+        [rowAlternationEnabled]="true"
+        (onRowRemoving)="handleDelete($event)"
+        (onRowInserting)="handleCreate($event)"
+        (onRowValidating)="canAddRow($event)"
+        (onFocusedCellChanging)="onFocusedCellChanging($event)"
+        (onRowClick)="onRowClick($event)"
+        (onCellPrepared)="onCellPrepared($event)"
+        (onEditorPreparing)="onEditorPreparing($event)"
+      >
+        <dxo-load-panel
+          [height]="100"
+          [width]="250"
+          [shading]="true"
+          [shadingColor]="'rgba(0, 0, 0, 0.15)'"
+          indicatorSrc="https://js.devexpress.com/Content/data/loadingIcons/rolling.svg"
+        ></dxo-load-panel>
+        <dxo-editing mode="row" [allowDeleting]="true" [useIcons]="true"> </dxo-editing>
+
+        <dxi-column cellTemplate="radioTemplate" width="auto" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="viewName" caption="Name" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="viewDesc" caption="Description" [allowSorting]="false"></dxi-column>
+        <dxi-column type="buttons" caption="Action" width="auto" headerCellTemplate="action-template">
+          <dxi-button name="edit"></dxi-button>
+          <dxi-button name="delete"></dxi-button>
+        </dxi-column>
+
+        <div *dxTemplate="let row of 'radioTemplate'">
+          <dx-radio-group [value]="selectedValue" valueExpr="id" [items]="[{ id: row.data.id }]"></dx-radio-group>
+        </div>
+
+        <div class="action-template" *dxTemplate="let info of 'action-template'">
+          <button type="button" (click)="checkIfAddingRow()">Add</button>
+        </div>
+      </dx-data-grid>
+    </div>
+  </div>
+</dx-popup>

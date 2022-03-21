@@ -1,0 +1,122 @@
+server:
+  port: 18081 
+  # Enable response compression
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+  ssl:
+    enabled: false
+    key-store: classpath:ssl_config/uic-web_keystore
+    key-alias: uic-web
+    key-store-password: changeit
+    key-password: changeit
+  servlet:
+    session:
+      timeout: 3000
+    context-path: /batch
+
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:9999/ife-infra-oauth2/user
+      additionalUri: http://localhost:9999/ife-infra-oauth2/oauth/{token}/get/additionalInfo 
+  jwt:
+    token:
+      isActive: false
+      secret-key: cIZCtAfSSk9qsmWgtbpXpzoAZaZJa0kYRIWnNyhn
+      expire-length: 86400000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+      
+authentication:
+  oauth2:
+    clientId: uic-web
+    clientSecret: uicsecret
+    server: http://localhost:9999
+    credentialUrl: /ife-infra-oauth2/oauth/token?grant_type=client_credentials&scope=application 
+      
+epay:
+  message-header:
+    serverUri: https://epay-uat.ap.lifeisgreat.net/epay
+    version: 1.0
+    company: GELS
+    bodyType: GEL-XML
+    sourceLogicalId: FPMS
+    destinationLogicalId: EPAY
+    crfCmdMode: alwaysRespond
+    messageType: Request
+    serviceId: 1025
+    applicationId: FPMSMY
+    
+JPJEnquiryAPI:
+  url: https://my.prd.allegro-my-sg.com/api/my/jpjenquiry
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  cache:
+    ehcache:
+      config: ehcache.xml
+  batch:
+    job:
+      isSchedule: false
+      enabled: false
+    cmdEnabled: false
+    cronQuoteJob: 0 41 11 ? * *
+    cronEpayJob: 0 */1 * ? * *
+    cronCoverNoteJob: 0 0 18 ? * *
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+      host: localhost
+      port: 9300
+      clusterNodes: localhost:9300
+      restClusterNodes: localhost:9200
+      clusterName: elasticsearch
+      userName: elastic
+      password: Password123
+      chunkSize: 10
+      scrollSize: 10
+      scrollTimeOut: 60
+      connectTimeout: 10000
+      socketTimeout: 30000
+  ibm:
+    mq:
+      host: localhost
+      port: 1414
+      queueManager: MYQM01
+      queueRequest: Q1Sender
+      queueResponse: Q1Receiver
+      channel: CLIENTS
+      username: IBM_APP
+      password: P@ssword123456
+      receiveTimeout: 10000
+      sslCipherSuite: TLS_RSA_WITH_AES_128_CBC_SHA256
+      useIBMCipherMappings: false
+      clientStorePath: C:\Users\cluu2\Downloads\Work\GE\batch\client.jks
+      clientStorePassword: clientpass
+logging:
+  file: target/log-files/batch-log.log
+  
+reporting:
+  input: C:\GE-DEV\inputfiles
+  archivefolder: C:\GE-DEV\outputfiles
+  server: http://localhost:2407
+  receiver: cluu2@dxc.com
+
+# Micro Service Group IDs      
+microservices:
+  batchServiceId: batch-management
+  gatewayServiceId: api-management
+  accountServiceId: account-management
+  emailServiceId: notification-management
+  
+deploymentRegion: 1
+
+country-code: SGP # Malaysia country code is MAL

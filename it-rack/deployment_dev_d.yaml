@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: it-rack-frontend
+spec:
+  selector:
+    matchLabels:
+      app: it-rack-frontend
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: it-rack-frontend
+    spec:
+      containers:
+        - name: it-rack-frontend
+          image: acraksscd001itd.azurecr.io/it-rack-frontend-@namespace@:build_version
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+      - name: SECRET_NAME
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: it-rack-frontend
+spec:
+  selector:
+    app: it-rack-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

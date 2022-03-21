@@ -1,0 +1,36 @@
+<div class="dialog-fur">
+  <div class="dialog-fur-title">Delivery: {{ data.selectedId }}</div>
+  <mat-icon (click)="onNoClick()">close</mat-icon>
+</div>
+
+<div mat-dialog-content>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Shipping Point :</div>
+    <div class="dialog-content">{{ data.shippingPoint }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Ship To Party :</div>
+    <div class="dialog-content">{{ data.shipToParty }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Sold To Party :</div>
+    <div class="dialog-content">{{ data.soldToParty }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Shipping Condition :</div>
+    <div class="dialog-content">{{ data.shippingCondition }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Plan GI Date :</div>
+    <div class="dialog-content">{{ data.planGiDate }}</div>
+  </div>
+  <div class="dialog-content-item">
+    <div class="dialog-label">Delivery Date :</div>
+    <div class="dialog-content">{{ data.deliveryDate }}</div>
+  </div>
+</div>
+<div class="example-container">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+</div>

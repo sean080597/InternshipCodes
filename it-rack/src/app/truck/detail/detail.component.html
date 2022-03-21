@@ -1,0 +1,79 @@
+<div class="container_margin">
+  <div class="detail_title">
+    <div class="detail_title_reset">
+      RESET TO SHIPMENT: <button mat-button (click)="resetToDefault()">{{ originalId }}</button>
+    </div>
+    <div class="detail_title_date">
+      LATEST UPDATE TIME: <button mat-button>{{ latestUpdateTime }}</button>
+    </div>
+  </div>
+
+  <div class="container_detail">
+    <mat-card>
+      <mat-card-content>
+        <div class="card-container">
+          <div class="card-title">Shipment Information</div>
+          <img src="" alt="" class="card-img" />
+          <div class="card-input">
+            <mat-chip-list #chipList>
+              <mat-basic-chip *ngFor="let shipmentNr of shipmentNumbers" (dblclick)="queryByShipment(shipmentNr.shipmentNumber)" class="button_set">
+                {{ shipmentNr.shipmentNumber }}
+                <button mat-icon-button (click)="openSDialog(shipmentNr)">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+              </mat-basic-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="container_detail">
+    <mat-card>
+      <mat-card-content>
+        <div class="card-container">
+          <div class="card-title">Delivery Note</div>
+          <img src="" alt="" class="card-img" />
+          <div class="card-input">
+            <mat-chip-list #chipList>
+              <mat-basic-chip *ngFor="let deliveryNr of deliveryNumbers" (dblclick)="queryByDelivery(deliveryNr.deliveryNumber)" class="button_set">
+                {{ deliveryNr.deliveryNumber }}
+                <button mat-icon-button (click)="openDDialog(deliveryNr)">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+              </mat-basic-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="container_detail">
+    <mat-card>
+      <mat-card-content>
+        <div class="card-container">
+          <div class="card-title">Material Information</div>
+          <img src="" alt="" class="card-img" />
+          <div class="card-input">
+            <mat-chip-list>
+              <mat-basic-chip *ngFor="let materialNr of materialNumbers" (dblclick)="queryByMaterial(materialNr.materialNumber)" class="button_set">
+                {{ materialNr.materialNumber }}
+                <button mat-icon-button (click)="openMDialog(materialNr)">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+              </mat-basic-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="example-container">
+    <div class="example-loading-shade" *ngIf="isLoadingResults">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+  </div>
+</div>

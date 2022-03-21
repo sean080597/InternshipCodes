@@ -1,0 +1,6 @@
+Controller 					| Action 	| Datetime
+--------------------------------------------------------------------------------------
+LogUserActivityDemo.Controllers.HomeController 	| Index 	| 6/3/2019 5:13:00 PM
+LogUserActivityDemo.Controllers.HomeController 	| Contact 	| 6/3/2019 5:13:02 PM
+LogUserActivityDemo.Controllers.HomeController 	| About 	| 6/3/2019 5:13:03 PM
+LogUserActivityDemo.Controllers.HomeController 	| Index 	| 6/3/2019 5:13:18 PM
