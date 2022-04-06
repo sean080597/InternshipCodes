@@ -1,0 +1,121 @@
+{
+  "productData": [
+    {
+      "productCode": "TWL",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "TLT",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "TSP",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "VDP",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "PSU",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "AVR",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "HGE",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "PTM",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "PFU",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "VMC",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "VPC",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "GMA",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    },
+    {
+      "productCode": "GMC",
+      "accountAllowed": "true",
+      "planCode": [
+        "Code1",
+        "Code2",
+        "Code3"
+      ]
+    }
+  ]
+}
