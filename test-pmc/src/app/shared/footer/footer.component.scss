@@ -1,0 +1,15 @@
+@import 'variables/color';
+
+footer {
+  // position: fixed;
+  background-color: $mine-shaft;
+  color: $white;
+  // bottom: 0;
+  width: 100%;
+  .center {
+    text-align: center;
+    span {
+      cursor: pointer;
+    }
+  }
+}

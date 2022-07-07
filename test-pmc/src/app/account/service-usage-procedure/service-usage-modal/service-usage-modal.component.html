@@ -1,0 +1,10 @@
+<div class="d-flex justify-content-end p-3">
+  <button class="btn border-0" (click)="close()">
+    <img src="assets/images/close-modal.svg" />
+  </button>
+</div>
+<h5 class="text-center m-3" [innerHTML]="'TT_SERVICE_USAGE_PROCEDURE' | translate"></h5>
+<div class="service-usage text-center mb-5">
+  <!-- <button class="btn btn-success btn-lg my-5 p-5" [routerLink]="['./']">{{ 'BT_SERVICE_USAGE_PROCEDURE' | translate }}</button> -->
+  <iframe class="service-usage-video" [src]="safeURL" frameborder="0" allowfullscreen></iframe>
+</div>

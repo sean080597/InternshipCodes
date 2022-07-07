@@ -1,0 +1,9 @@
+@import "variables/color";
+
+.image-destination-container {
+  .thumbnail-border {
+    height: 100%;
+    border: 2px solid $dove-gray;
+    cursor: pointer;
+  }
+}

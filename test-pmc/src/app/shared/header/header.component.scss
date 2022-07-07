@@ -1,0 +1,38 @@
+@import "variables/color";
+@import "variables/size";
+
+.navbar-brand {
+    font-weight: bolder;
+    color: $primary;
+}
+.top-menu {
+    z-index: 99;
+    background-color: $white;
+    .noti-item {
+        .badge {
+            padding-top: 0.2em;
+            padding-bottom: 0.2em;
+        }
+    }
+    .user-section {
+        .user-info-txt {
+            font-size: $font-size-16;
+            font-weight: bold;
+        }
+        .dropdown-menu {
+            left: auto;
+            right: 0;
+        }
+    }
+}
+.burger-btn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: transparent;
+    padding: 0 1rem 0 0;
+    border: none;
+}
+
+.burger-btn:hover {
+color: $primary;
+}

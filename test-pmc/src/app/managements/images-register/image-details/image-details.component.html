@@ -1,0 +1,96 @@
+<div class="card border-0 p-4">
+    <div class="container image-details-container">
+      <div class="row mb-3" *ngIf="imageDetails">
+        <!-- Form inputs -->
+        <div class="col-xl-6 col-md-7 pe-4">
+          <!-- destination type -->
+          <div class="mb-2">
+            <div class="d-flex align-items-center gap-2">
+              <label for="desType" class="f-size-18 col-form-label">{{"IMAGE_REGISTER.LB_DES_TYPE" | translate}}</label>
+            </div>
+            <nz-radio-group [(ngModel)]="imageDetails.type" disabled>
+              <label nz-radio [nzValue]="destinationTypes.CUSTOMER_DISPLAY">{{'IMAGE_REGISTER.DES_TYPE_CUSTOMER' | translate}}</label>
+              <label nz-radio [nzValue]="destinationTypes.RECEIPT_IMAGE">{{'IMAGE_REGISTER.DES_TYPE_RECEIPT' | translate}}</label>
+            </nz-radio-group>
+          </div>
+
+          <!-- form inputs -->
+          <form [formGroup]="detailsForm">
+            <!-- image label -->
+            <div class="mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <label for="imageLabel" class="f-size-18 col-form-label">{{"LB_IMAGE" | translate}}</label>
+                <span class="badge pull-right bg-danger">{{'LB_MANDATORY' | translate}}</span>
+              </div>
+              <div class="">
+                <input type="text" class="form-control" id="imageLabel" formControlName="imageLabel"
+                  placeholder="{{'COMMON.PLACEHOLDER.PLACEHOLDER_UPTO' | translate : {length: inputConfigs.LABEL_MAXLENGTH} }}" />
+                <div class="text-danger small" *ngIf="f['imageLabel'].touched && f['imageLabel'].invalid">
+                  <div *ngIf="f['imageLabel'].errors['required']">
+                    {{'ERR_MSG_REQUIRED' | translate : {field: 'LB_IMAGE' | translate } }}
+                  </div>
+                </div>
+                <div class="text-danger small" *ngIf="f['imageLabel'].touched && f['imageLabel'].hasError('maxlength')">
+                  {{'ERR_MSG_EXCEEDED_MAX_LENGTH' | translate : {field: 'LB_IMAGE' | translate, length: inputConfigs.LABEL_MAXLENGTH} }}
+                </div>
+              </div>
+            </div>
+
+            <!-- remarks -->
+            <div class="mb-4">
+              <div class="d-flex align-items-center gap-2">
+                <label for="remarks" class="f-size-18 col-form-label">{{'LB_REMARKS' | translate}}</label>
+              </div>
+              <div class="">
+                <input type="text" class="form-control" id="remarks" formControlName="remarks"
+                  placeholder="{{'COMMON.PLACEHOLDER.PLACEHOLDER_UPTO' | translate : {length: inputConfigs.REMARKS_MAXLENGTH} }} "/>
+                <div class="text-danger small" *ngIf="f['remarks'].touched && f['remarks'].invalid">
+                  <div *ngIf="f['remarks'].errors['required']">
+                    {{'ERR_MSG_REQUIRED' | translate : {field: 'LB_REMARKS' | translate } }}
+                  </div>
+                </div>
+                <div class="text-danger small" *ngIf="f['remarks'].touched && f['remarks'].hasError('maxlength')">
+                  {{'ERR_MSG_EXCEEDED_MAX_LENGTH' | translate : {field: 'LB_REMARKS' | translate, length: inputConfigs.REMARKS_MAXLENGTH} }}
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <!-- alignment -->
+          <div class="mb-2">
+            <!-- <div class="d-flex align-items-center gap-2">
+              <label class="col-form-label">{{"LB_ALIGNMENT" | translate}}</label>
+            </div> -->
+            <nz-radio-group [(ngModel)]="imageDetails.alignment" disabled>
+              <label nz-radio [nzValue]="item.key" *ngFor="let item of alignmentOptions">{{item.value}}</label>
+            </nz-radio-group>
+          </div>
+        </div>
+
+        <!-- preview -->
+        <div class="col-xl-4 col-md-5 offset-xl-1">
+          <p class="f-size-w3-13 details-datetime mb-4">{{'IMAGE_DETAILS.LB_DATETIME' | translate : {registDate: imageDetails.registrationDate, updateDate: imageDetails.lastUpdateDate} }}</p>
+          <div class="preview-img-container">
+            <div class="preview-img-placeholder">
+              <img class="img-fluid" [src]="imageDetails.imageFilePath" alt="Preview image" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #actionsBar>
+      <div class="container d-flex justify-content-end gap-4 py-2">
+        <div class="px-4 trash-button d-flex flex-row enable" (click)="onDelete()">
+          <i class="fa fa-trash d-flex align-items-center" aria-hidden="true"></i><span class="d-flex align-items-center">{{'BT_DELETE' | translate}}</span>
+        </div>
+        <button type="button" class="px-5" nzSize="large" nz-button nzType="primary" nzShape="round" (click)="onSave()" [disabled]="!detailsForm.dirty || f['imageLabel'].invalid">{{'BT_SAVE' | translate}}</button>
+      </div>
+    </ng-template>
+</div>
+<app-modal [modalObject]="confirmModal">
+  <div class="delete-texts text-center">
+    <h5 class="fw-500">{{'TXT_DELETE_MODAL' | translate}}</h5>
+    <p class="small text-space-wrap">{{ "TXT_DELETE_MODAL_CONTENT" | translate }}</p>
+  </div>
+</app-modal>

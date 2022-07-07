@@ -1,0 +1,15 @@
+<div class="card user-resend-mail-modal">
+  <h4 class="card-header">
+    <i class="fa fa-times float-right" (click)="close()" aria-hidden="true"></i>
+  </h4>
+    <div class="content mb-5">
+      <p [innerHTML]="'TT_USER_RESENT_EMAIL_MODAL_CONTENT' | translate"></p>
+    </div>
+  <div class="card-footer">
+    <div class="d-grid justify-content-center my-2">
+      <button class="btn btn-secondary btn-submit-xs" (click)="close()">
+        {{'BT_BACK_TO_INDEX' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

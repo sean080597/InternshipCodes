@@ -1,0 +1,15 @@
+<div class="card shadow p-1">
+  <div class="card-header border-0 p-3">
+    <div class="d-flex justify-content-between">
+      <h1 class="f-size-24 m-0">
+        {{ "TT_LICENSE" | translate }}
+      </h1>
+      <button class="btn border-0" (click)="close()">
+        <img src="assets/images/close-modal.svg" />
+      </button>
+    </div>
+  </div>
+  <div class="content p-3">
+    <p [innerHTML]="content"></p>
+  </div>
+</div>

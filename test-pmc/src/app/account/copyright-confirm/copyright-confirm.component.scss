@@ -1,0 +1,13 @@
+@import "variables/color";
+
+:host {
+  .border-copyright {
+    border: 1px solid $silver-chalice;
+    width: 90%;
+    height: 153px;
+    border-radius: 6px;
+  }
+  .border-2px {
+    border-bottom: 2px solid #dee2e6
+  }
+}

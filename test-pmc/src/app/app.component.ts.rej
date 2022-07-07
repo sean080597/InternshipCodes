@@ -1,0 +1,100 @@
+diff a/src/app/app.component.ts b/src/app/app.component.ts	(rejected hunks)
+@@ -1,10 +1,95 @@
+-import { Component } from '@angular/core';
++import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild, OnInit, ContentChild, TemplateRef, Input, HostListener } from '@angular/core';
++import {AccountService} from './_services';
++import {TranslateService} from "@ngx-translate/core";
++import { CommonService } from './_services/common.service';
++import { interval, mergeMap, of, startWith, Subject, takeUntil } from 'rxjs';
++import { AutoLogoutService } from './_services/auto-logout.service';
++import { Location } from '@angular/common';
++import { Router } from '@angular/router';
+ 
+ @Component({
+   selector: 'app-root',
+   templateUrl: './app.component.html',
+   styleUrls: ['./app.component.scss']
+ })
+-export class AppComponent {
+-  title = 'test';
++export class AppComponent implements  AfterViewInit, OnInit {
++  @ViewChild('container', { static: false }) container: ElementRef;
++  private unsubscribe = new Subject<void>();
++  public isLoading  = false;
++  public title = 'advertising-server';
++  public isMaintenance: boolean;
++  public bellsNumber = 0;
++  public templateVariable: TemplateRef<any> = null;
++
++  constructor(
++    private accountService: AccountService,
++    public translate: TranslateService,
++    private cdr: ChangeDetectorRef,
++    public location: Location,
++    public commonService: CommonService,
++    private autoLogoutService: AutoLogoutService,
++    private router: Router
++    ) {
++    translate.setDefaultLang('ja');
++    translate.addLangs(['en', 'ja']);
++    this.autoLogoutService.startCheckTimeout();
++    window.onbeforeunload = () => {
++      // localStorage.clear();
++    }
++  }
++  ngOnInit(): void {
++    const duration = 1; // 1 minute
++    interval(duration * 60 * 1000)
++      .pipe(startWith(0), mergeMap(() => {
++        if(!this.accountService.accountValue) {
++          return of();
++        }
++        return this.accountService.getBellsList();
++      }))
++      .subscribe((resp) => {
++        resp && (this.bellsNumber = resp.newNumber);
++      });
++  }
++
++  ngAfterViewInit(): void {
++     this.commonService.spinerLoading.pipe(takeUntil(this.unsubscribe)).subscribe((res: boolean) => {
++       if (!this.isMaintenance) {
++         return;
++       }
++       this.isLoading = res;
++       this.cdr.detectChanges();
++    });
++    this.commonService.isMaintenance.pipe(takeUntil(this.unsubscribe)).subscribe(isMaintenance => {
++      this.isMaintenance = isMaintenance;
++      this.cdr.detectChanges();
++    });
++    this.commonService.actionsBarTemplate$.pipe(takeUntil(this.unsubscribe)).subscribe(elementRef => {
++      this.templateVariable = elementRef;
++      this.cdr.detectChanges();
++    })
++  }
++
++  ngOnDestroy() {
++    this.unsubscribe.next();
++    this.unsubscribe.complete();
++    // localStorage.clear();
++  }
++  
++  back() {
++    if (this.router.url === '/managements/playlist' || 
++        this.router.url === '/managements/distribution' ||
++        this.router.url === '/managements/receipt' ||
++        this.router.url === '/managements/image-gallery' ||
++        this.router.url === '/managements/usage-record' ||
++        this.router.url === '/managements/notica-management' ||
++        this.router.url === '/managements/operation' ||
++        this.router.url === '/managements/user') {
++      this.router.navigate(['/managements/top-screen']);
++    }
++    else this.location.back()
++  }
++
++  emitCloseNavbar(){
++    this.commonService.isCloseMenuSidebar.next(true);
++  }
+ }

@@ -1,0 +1,285 @@
+<div *ngIf="!isNullList" class="card border-0">
+  <div class="filter-section px-4 pe-3 py-4 width-100 row f-size-w3-18">
+    <div class="col-2 px-4 py-1">
+      {{ "BT_FILTER" | translate }}
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col">
+          <div class="form-group mb-3">
+            <input
+              [ngModelOptions]="{ standalone: true }"
+              type="text"
+              class="form-control"
+              [(ngModel)]="filterSource.playlistLabel"
+              placeholder="{{ 'TXT_HOLDER_UNIQUE_ID_PLAYLIST' | translate }}"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="d-flex align-items-center gap-2 row">
+            <p class="m-0 col-2 pe-0">
+              {{ "LB_REGISTER_DATE_AND_TIME_RANGE" | translate }}
+            </p>
+            <div class="form-group flex-fill col-2">
+              <nz-date-picker
+                class="form-control date"
+                nzInputReadOnly="true"
+                [nzFormat]="commonConfigs.DATETIME_FORMAT_yyyy_MM_DD_s_MON"
+                [nzPlaceHolder]="[]"
+                [(ngModel)]="filterSource.registeredFrom"
+                (ngModelChange)="onCreatedDateFromChange($event)"
+                [nzSuffixIcon]="customIconTemplate"
+              >
+              </nz-date-picker>
+            </div>
+            <p class="m-0 d-flex justify-content-center col-1">
+              <img src="assets/images/from-to.svg" alt="" />
+            </p>
+            <div class="form-group flex-fill col-2">
+              <nz-date-picker
+                class="form-control date"
+                nzInputReadOnly="true"
+                [nzFormat]="commonConfigs.DATETIME_FORMAT_yyyy_MM_DD_s_MON"
+                [nzPlaceHolder]="[]"
+                [(ngModel)]="filterSource.registeredTo"
+                (ngModelChange)="onCreatedDateToChange($event)"
+                [nzSuffixIcon]="customIconTemplate"
+              >
+              </nz-date-picker>
+            </div>
+            <ng-template #customIconTemplate>
+              <div style="margin: -5px 2px 0px 0px">
+                <img src="assets/images/calendar.svg" />
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 d-flex align-items-end">
+      <button
+        class="ms-auto px-5"
+        nzSize="large"
+        nz-button
+        nzType="primary"
+        nzShape="round"
+        (click)="searchPlaylist()"
+      >
+        <span class="d-flex justify-content-center">
+          {{ "BT_SEARCH" | translate }}
+        </span>
+      </button>
+    </div>
+  </div>
+  <hr class="" />
+  <div class="filter-section px-4 pt-3 mb-3">
+    <app-paging
+      [totalItems]="pagingConfig.availableElements"
+      [itemsPerPage]="pagingConfig.itemsPerPage"
+      [page]="pagingConfig.currentPage"
+      [availablePages]="pagingConfig.availablePages"
+      (pagingEvent)="receivePaging($event)"
+      [filterSettings]="filterSettings"
+      [filterSource]="filterSource"
+      [sort]="sort"
+      (sortChange)="sortChange($event)"
+    >
+      <label
+        nz-checkbox
+        [(ngModel)]="allChecked"
+        (ngModelChange)="updateAllChecked()"
+        class="col-1 pt-1"
+        style="margin-left: 24px"
+      >
+      </label>
+    </app-paging>
+  </div>
+  <div class="playlist-container">
+    <div class="row mx-0">
+      <div
+        class="col-md-5 py-2 px-4 d-flex flex-column"
+        *ngIf="playlistList.length < 1"
+      >
+        <p class="my-1 text-danger small">
+          {{ "SEARCH_MSG_NOT_FOUND" | translate }}
+        </p>
+      </div>
+      <div
+        *ngIf="playlistList"
+        class="playlist-container container-fluid"
+        [hidden]="playlistList.length < 1"
+      >
+        <div
+          class="playlist-row col-12 py-2 ps-4 pe-0"
+          *ngFor="let item of playlistList"
+        >
+          <div class="d-flex flex-row">
+            <div class="" (click)="onChecked(item.id)">
+              <div class="row my-2 pt-5">
+                <label
+                  class="col-1"
+                  nz-checkbox
+                  (nzCheckedChange)="onChecked(item.id)"
+                  [nzChecked]="checkedList.includes(item.id)"
+                  [nzValue]="item.id"
+                ></label>
+              </div>
+            </div>
+            <div class="item w-100" (click)="editPlaylist(item.id)">
+              <div class="row m-0">
+                <div class="col-3 my-2 p-4 ps-1">
+                  <p class="text-truncate">{{ item.playlistLabel }}</p>
+                  <div class="d-flex flex-row f-size-w3-14 align-items-center">
+                    <p class="">{{ "LB_UPDATE_DATE_AND_TIME" | translate }}:</p>
+                    <p class="text-truncate">
+                      {{
+                        item.lastUpdateDate
+                          | date
+                            : commonConfigs.DATETIME_FORMAT_YYYY_MM_DD_s_HH_MM
+                            : commonConfigs.TIME_ZONE_OFFSET
+                      }}
+                    </p>
+                  </div>
+                </div>
+                <div class="col-9 my-2 playlist-content">
+                  <div class="row mb-1 f-size-w3-14">
+                    <div class="col-2 px-1">
+                      <p class="">{{ "LB_STANDBY_IMAGE_LIST" | translate }}</p>
+                    </div>
+                    <div class="col-2 px-1"></div>
+                    <div class="col-2 px-1"></div>
+                    <div class="col-2 px-1">
+                      <p class="">
+                        {{ "LB_BEFORE_PAYMENT_IMAGE" | translate }}
+                      </p>
+                    </div>
+                    <div class="col-2 px-1">
+                      <p class="">{{ "LB_AFTER_PAYMENT_IMAGE" | translate }}</p>
+                    </div>
+                    <div class="col-2 px-1">
+                      <p class="">
+                        {{ "LB_RECEIPT_IMAGE_PLAYLIST" | translate }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div
+                      class="col-2 px-1"
+                      *ngFor="let standbyImg of item.playlistData.standbyImages"
+                    >
+                      <img
+                        class="light-border standbyImage w-100"
+                        [src]="standbyImg?.imageFilePath"
+                        onerror="this.onerror=null;this.src='assets/images/175x105.png';"
+                      />
+                    </div>
+                    <div class="col-2 px-1">
+                      <img
+                        class="light-border standbyImage w-100"
+                        src="{{
+                          item.playlistData?.beforePaymentImage?.imageFilePath
+                        }}"
+                        onerror="this.onerror=null;this.src='assets/images/175x105.png';"
+                      />
+                    </div>
+                    <div class="col-2 px-1">
+                      <img
+                        class="light-border standbyImage w-100"
+                        src="{{
+                          item.playlistData?.afterPaymentImage?.imageFilePath
+                        }}"
+                        onerror="this.onerror=null;this.src='assets/images/175x105.png';"
+                      />
+                    </div>
+                    <div class="col-2 px-1 receiptImage">
+                      <img
+                        class="light-border w-100"
+                        src="{{
+                          item.playlistData?.receiptImage
+                            ?.thumbnailImageFilePath
+                        }}"
+                        onerror="this.onerror=null;this.src='assets/images/175x105.png';"
+                      />
+                    </div>
+                  </div>
+                  <div class="remarks playlist-remarks f-size-w3-12">
+                    <p
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="{{ item.remarks }}"
+                      class="my-1 text-truncate"
+                    >
+                      {{ item.remarks }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <p class="my-1 text-truncate lastUpdateDate">{{'NOTICA_MANAGEMENT.TABLE.UPDATE_DATE' | translate}}: {{ item.lastUpdateDate | date: commonConfigs.DATETIME_FORMAT_YYYY_MM_DD_s_HH_MM : commonConfigs.TIME_ZONE_OFFSET}}</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="filter-section px-4 py-3 mb-3">
+    <app-paging
+      [totalItems]="pagingConfig.availableElements"
+      [itemsPerPage]="pagingConfig.itemsPerPage"
+      [page]="pagingConfig.currentPage"
+      [availablePages]="pagingConfig.availablePages"
+      (pagingEvent)="receivePaging($event)"
+      [filterSource]="filterSource"
+    >
+    </app-paging>
+  </div>
+  <!-- <div class="card-footer p-3">(click)="editPlaylist(item)
+        </div> -->
+</div>
+<div *ngIf="isNullList && loading === false" class="card border-0 text-center">
+  <h1 class="m-5">
+    {{ "TITLE_MAKE_AD_SET" | translate }}
+  </h1>
+  <p>
+    {{ "TXT_MAKE_AD_SET_CONTENT" | translate }}
+  </p>
+  <div>
+    <img class="img-fluid" src="assets/images/ad-set.svg" alt="" />
+  </div>
+  <div class="p-4">
+    <button
+      nzSize="large"
+      nz-button
+      nzType="primary"
+      nzShape="round"
+      nzDanger
+      (click)="createPlaylist()"
+    >
+      + {{ "BT_ADD_NEW" | translate }}
+    </button>
+  </div>
+</div>
+<ng-template #actionsBar>
+  <ng-container *ngIf="!isNullList">
+    <div class="container d-flex justify-content-end gap-4 py-2">
+      <div
+        class="px-4 trash-button d-flex flex-row"
+        (click)="onDelete()"
+        [class]="!checkedList.length ? 'disable' : 'enable'"
+      >
+        <i class="fa fa-trash d-flex align-items-center" aria-hidden="true"></i
+        ><span class="d-flex align-items-center">{{
+          "BT_DELETE" | translate
+        }}</span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<app-modal [modalObject]="deleteModal">
+  <div class="text-center f-size-w3-28 mb-4">
+    {{ "TXT_DELETE_MODAL" | translate }}
+  </div>
+  <p class="text-center mb-1">{{ "TXT_DELETE_MODAL_CONTENT_1" | translate }}</p>
+  <p class="text-center">{{ "TXT_DELETE_MODAL_CONTENT_2" | translate }}</p>
+</app-modal>

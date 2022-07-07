@@ -1,0 +1,12 @@
+.alert {
+    z-index: 9;
+    button {
+        float: right;
+    }
+}
+
+.centered {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+}

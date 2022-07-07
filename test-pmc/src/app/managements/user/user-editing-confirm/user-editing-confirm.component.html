@@ -1,0 +1,58 @@
+<div class="card user-editing-modal">
+  <h4 class="card-header">
+    {{'TT_USER_EDITING_CONFIRM_MODAL' | translate}}
+    <i nz-icon nzType="close" nzTheme="outline" class="float-right" (click)="close()" aria-hidden="true"></i>
+  </h4>
+    <div class="content">
+      <form>
+        <div class="container">
+          <div class="row">
+            <p [innerHTML]="'TT_USER_EDITING_CONFIRM_MODAL_CONTENT' | translate"></p>
+          </div>
+          <div class="row align-items-center">
+            <label class="col-sm-5 col-form-label fw-bold">{{'LB_COMPANY' | translate}}</label>
+            <div class="col-sm-7">
+              <p class="m-0">{{userData.companyName}}</p>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <label for="userEmail" class="col-sm-5 col-form-label fw-bold">{{'LB_EMAIL_ADDRESS' | translate}}</label>
+            <div class="col-sm-7">
+              <p class="m-0">{{userData.emailAddress}}</p>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <label class="col-sm-5 col-form-label fw-bold">{{'LB_AUTHORITY_CLASSIFICATION' | translate}}</label>
+            <div class="col-sm-7">
+              <p class="m-0">{{roleMapping(userData.authorities)}}</p>
+            </div>
+          </div>
+          <div *ngIf="userData.accessCheckFlag === true && userData.permissionType === 'IP_ADDRESS'" class="row align-items-center">
+            <label class="col-sm-5 col-form-label fw-bold">{{'LB_IP_ADDRESS' | translate}}</label>
+            <div class="col-sm-7">
+              <p class="m-0">{{userData.ipAddress}}</p>
+            </div>
+          </div>
+          <div *ngIf="userData.accessCheckFlag === true && userData.permissionType === 'DOMAIN'" class="row align-items-center">
+            <label class="col-sm-5 col-form-label fw-bold">{{'LB_NETWORK_DOMAIN' | translate}}</label>
+            <div class="col-sm-7">
+              <p class="m-0">{{userData.domain}}</p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="row my-3">
+      <div class="col-sm-12 d-flex gap-3 justify-content-center">
+        <button class="btn btn-secondary btn-submit-xs" type="button" (click)="back()">
+          {{'BT_BACK_TO_EDIT' | translate}}
+        </button>
+        <button class="btn btn-success btn-submit-xs" type="button" [disabled]="loading" (click)="onSave()">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          {{'BT_REGISTER_USER' | translate}}
+        </button>
+      </div>
+  </div>
+</div>

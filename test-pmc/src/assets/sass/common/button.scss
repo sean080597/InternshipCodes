@@ -1,0 +1,51 @@
+// --------- button------------------
+.btn {
+    font-weight: 500;
+    &-primary { // duplicate button success
+        background-color: $primary;
+    }
+    &-secondary {
+        background-color: $dove-gray;
+    }
+    &-add {
+        background-color: $ecstasy;
+    }
+    &-outline-secondary{
+        &:hover, &:focus {
+            color: $black;
+            background-color: transparent;
+            border-color: $black;
+            box-shadow: none !important;
+        }
+    }
+    &-submit-xs {
+        height: 38px;
+        width: 230px;
+    }
+    &-submit-md {
+        width: 74px;
+    }
+    &-w-icon {
+        position: relative;
+        i.fa {
+            margin: 0.1rem 1rem;
+            font-size: 20px;
+            left: 1rem;
+            position: absolute;
+        }
+    }
+}
+// ----------btn status-------------------------
+.btn-status {
+    color: $white;
+    padding: 4px;
+  }
+  .new-status {
+    @extend .btn-status;
+    margin-right: 4px;
+    background-color: $blue-ribbon;
+  }
+  .new-important {
+    @extend .btn-status;
+    background-color: $torch-red;
+  }

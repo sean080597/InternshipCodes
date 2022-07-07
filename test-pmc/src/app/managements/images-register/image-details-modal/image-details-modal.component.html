@@ -1,0 +1,65 @@
+<div class="modal-header border-0">
+  <h4 class="fw-normal">
+    {{'IMAGE_REGISTER.LB_DETAILS_PICTURE_MODAL' | translate}}
+  </h4>
+  <div class="cursor-pointer float-right" (click)="close()">
+    <img src="assets/images/close-modal.svg" />
+  </div>
+</div>
+<div class="modal-body">
+  <div class="receipt-form">
+    <div class="card border-0 p-4">
+      <div class="row mb-4">
+        <div class="col-md-6 px-xl-5 px-4">
+          <!-- destination type -->
+          <div class="mb-2">
+            <div class="d-flex align-items-center gap-2">
+              <label for="desType" class="f-size-18 col-form-label">{{"IMAGE_REGISTER.LB_DES_TYPE" | translate}}</label>
+            </div>
+            <div class="d-flex gap-4">
+              <p>{{('IMAGE_REGISTER.LB_' + imageDetails?.type) | translate}}</p>
+            </div>
+          </div>
+
+          <!-- image label -->
+          <div class="mb-2">
+            <div class="d-flex align-items-center gap-2">
+              <label for="imageLabel" class="f-size-18 col-form-label">{{"LB_IMAGE" | translate}}</label>
+            </div>
+            <div class="">
+              <input type="text" class="form-control" id="imageLabel" [value]="imageDetails?.imageLabel" disabled />
+            </div>
+          </div>
+
+          <!-- remarks -->
+          <div class="mb-4">
+            <div class="d-flex align-items-center gap-2">
+              <label for="remarks" class="f-size-18 col-form-label">{{'LB_REMARKS' | translate}}</label>
+            </div>
+            <div class="">
+              <input type="text" class="form-control" id="remarks" [value]="imageDetails?.remarks" disabled />
+            </div>
+          </div>
+        </div>
+
+        <!-- photo-edit -->
+        <div class="col-md-6 px-xl-5 px-4">
+          <p class="f-size-w3-13 details-datetime mb-4">
+            {{'IMAGE_DETAILS.LB_DATETIME' | translate : {registDate: imageDetails?.registrationDate, updateDate: imageDetails?.lastUpdateDate} }}
+          </p>
+          <div class="preview-img-container">
+            <div class="preview-img-placeholder">
+              <img class="img-fluid" [src]="imageDetails?.imageFilePath" alt="Preview image" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button type="button" class="px-5" nz-button nzSize="large" nzType="primary" nzShape="round" (click)="confirmImage()">
+          {{'COMMON.BUTTON.BT_CONFIRM' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

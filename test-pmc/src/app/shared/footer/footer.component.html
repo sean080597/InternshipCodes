@@ -1,0 +1,32 @@
+<footer>
+  <div class="container-fluid px-3" *ngIf="!isHideInfoTemp">
+    <div class="row py-2 justify-content-between">
+      <div class="col-6 d-flex gap-5 justify-content-start">
+        <span style="cursor: pointer" class="small" (click)="termsOfUseModal()">
+          <!-- {{ 'LB_FOOTER_TXT_TERM' | translate }} -->
+          利用規約
+        </span>
+        <span style="cursor: pointer" (click)="inquiry()" class="small">
+          <!-- {{ 'LB_FOOTER_TXT_INQ' | translate }} -->
+          　お問い合わせ
+        </span>
+        <span style="cursor: pointer" (click)="license()" class="small">
+          <!-- {{ 'LB_FOOTER_TXT_INQ' | translate }} -->
+          ライセンス
+        </span>
+      </div>
+      <div class="col-6 justify-content-end text-end">
+        <span style="cursor: pointer" class="small">
+          Copyright (C) 2022 Sumitomo Mitsui Card Co., Ltd.
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
+<div
+  *ngIf="commonService.actionsBarTemplate$ | async"
+  style="padding-top: 10px"
+>
+  <br />
+  <br />
+</div>

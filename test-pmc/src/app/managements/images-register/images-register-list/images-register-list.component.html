@@ -1,0 +1,318 @@
+<div class="card border-0">
+  <!-- <div class="card-header px-4">
+    <div class="d-flex bd-highlight">
+      <div class="me-auto bd-highlight">
+        <p class="my-2">{{'TT_IMAGE_MANAGEMENT' | translate}}</p>
+      </div>
+    </div>
+  </div> -->
+  <ng-container *ngIf="!isModal">
+    <div class="d-flex align-items-center gap-4 px-4 py-4">
+      <p class="f-size-w3-18 mb-0">
+        {{ "IMAGE_REGISTER.LB_DES_TYPE" | translate }}
+      </p>
+      <nz-radio-group
+        [(ngModel)]="filterSource.type"
+        (ngModelChange)="desTypeChange($event)"
+      >
+        <label
+          nz-radio
+          [nzValue]="destinationTypes.CUSTOMER_DISPLAY"
+          class="f-size-w3-16"
+          >{{ "IMAGE_REGISTER.LB_4_INCH_MONITOR" | translate }}</label
+        >
+        <label
+          nz-radio
+          [nzValue]="destinationTypes.RECEIPT_IMAGE"
+          class="f-size-w3-16"
+          >{{ "IMAGE_REGISTER.LB_RECEIPT_MONITOR" | translate }}</label
+        >
+      </nz-radio-group>
+    </div>
+    <hr class="m-0" />
+  </ng-container>
+  <div class="filter-section px-4 pe-3 py-4 width-100 row">
+    <p class="f-size-w3-18 col-1 pe-0 py-1">{{ "BT_FILTER" | translate }}</p>
+    <div class="col-7">
+      <div class="row">
+        <div class="col">
+          <div class="form-group mb-3">
+            <input
+              [ngModelOptions]="{ standalone: true }"
+              type="text"
+              class="form-control"
+              [(ngModel)]="filterSource.imageLabel"
+              placeholder="{{ 'TXT_HOLDER_UNIQUE_ID_IMAGE_NAME' | translate }}"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="d-flex align-items-center gap-2 row">
+            <p class="f-size-w3-18 m-0 col-2">
+              {{ "LB_REGISTER_DATE_AND_TIME_RANGE" | translate }}
+            </p>
+            <div class="form-group flex-fill col-2">
+              <nz-date-picker
+                class="form-control date"
+                [nzFormat]="commonConfigs.DATETIME_FORMAT_yyyy_MM_DD_s_MON"
+                [nzPlaceHolder]="[]"
+                nzInputReadOnly="true"
+                [(ngModel)]="filterSource.registeredFrom"
+                (ngModelChange)="onRegisteredFromChange($event)"
+                [nzSuffixIcon]="customIconTemplate"
+              >
+              </nz-date-picker>
+            </div>
+            <p class="m-0 d-flex justify-content-center col-1">
+              <img src="assets/images/from-to.svg" alt="" />
+            </p>
+            <div class="form-group flex-fill col-2">
+              <nz-date-picker
+                class="form-control date"
+                [nzFormat]="commonConfigs.DATETIME_FORMAT_yyyy_MM_DD_s_MON"
+                [nzPlaceHolder]="[]"
+                nzInputReadOnly="true"
+                [(ngModel)]="filterSource.registeredTo"
+                (ngModelChange)="onRegisteredToChange($event)"
+                [nzSuffixIcon]="customIconTemplate"
+              >
+              </nz-date-picker>
+            </div>
+            <ng-template #customIconTemplate>
+              <div style="margin: -5px 2px 0px 0px">
+                <img src="assets/images/calendar.svg" />
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 d-flex align-items-end">
+      <button
+        class="ms-auto px-5"
+        nz-button
+        nzType="primary"
+        nzSize="large"
+        nzShape="round"
+        (click)="searchImage()"
+      >
+        {{ "BT_SEARCH" | translate }}
+      </button>
+    </div>
+  </div>
+  <hr class="m-0" />
+  <!-- <div class="row">
+    <div class="col">
+      <div class="d-flex align-items-center gap-2 py-3">
+        <div class="form-group">
+          <input [ngModelOptions]="{standalone: true}" type="text" class="form-control"
+            [(ngModel)]="filterSource.imageLabel" placeholder="{{ 'TXT_HOLDER_UNIQUE_ID_IMAGE_NAME' | translate }}" />
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <div class="form-group flex-fill">
+            <nz-date-picker class="form-control date" [nzFormat]="commonConfigs.DATETIME_FORMAT_yyyy_MM_DD_s_MON"
+              [nzPlaceHolder]="'LB_REGISTRATION_DATE' | translate" [(ngModel)]="filterSource.registeredFrom"
+              (ngModelChange)="onRegisteredFromChange($event)" (nzOnOk)="onCreatedDateOK($event)"
+              [nzSuffixIcon]="customIconTemplate"></nz-date-picker>
+          </div>
+          <p class="m-0">~</p>
+          <div class="form-group flex-fill">
+            <nz-date-picker class="form-control date" [nzFormat]="commonConfigs.DATETIME_FORMAT_yyyy_MM_DD_s_MON"
+              [nzPlaceHolder]="'LB_REGISTRATION_DATE' | translate" [(ngModel)]="filterSource.registeredTo"
+              (ngModelChange)="onRegisteredToChange($event)" (nzOnOk)="onCreatedDateOK($event)"
+              [nzSuffixIcon]="customIconTemplate"></nz-date-picker>
+          </div>
+          <ng-template #customIconTemplate>
+            <i nz-icon nzType="appstore" nzTheme="fill" class="text-success"></i>
+          </ng-template>
+        </div>
+
+        <button class="ms-auto px-4" nz-button nzType="primary" nzShape="round" (click)="onClickBtnSearch()">
+          {{'BT_SEARCH' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr class="full-w" /> -->
+  <div class="filter-section px-4 pt-3 mb-3">
+    <app-paging
+      [totalItems]="pagingConfig.availableElements"
+      [itemsPerPage]="pagingConfig.itemsPerPage"
+      [page]="pagingConfig.currentPage"
+      [availablePages]="pagingConfig.availablePages"
+      (pagingEvent)="receivePaging($event)"
+      [filterSettings]="filterSettings"
+      [filterSource]="filterSource"
+      [sort]="sort"
+      (sortChange)="sortChange($event)"
+    >
+      <label
+        *ngIf="isModal !== true"
+        class="col-1 pt-1 px-4"
+        nz-checkbox
+        [(ngModel)]="allChecked"
+        (ngModelChange)="updateAllChecked()"
+      ></label>
+    </app-paging>
+  </div>
+  <div class="image-registered-container px-4">
+    <div class="row mx-0">
+      <div
+        class="col-md-5 p-2 d-flex flex-column"
+        *ngIf="imagesList.length < 1"
+      >
+        <p class="f-size-w3-16 my-1 text-danger small">
+          {{ "SEARCH_MSG_NOT_FOUND" | translate }}
+        </p>
+      </div>
+
+      <!-- for page -->
+      <ng-container *ngIf="imagesList.length > 0 && !isModal">
+        <ng-container *ngFor="let item of imagesList">
+          <div class="col-md-2 item py-2" (click)="onEditItem(item.id)">
+            <label
+              class="custom-checkbox d-flex flex-column"
+              nz-checkbox
+              [nzChecked]="checkedList.includes(item.id)"
+              [nzValue]="item.id"
+              (change)="onChecked(item.id)"
+            >
+              <ng-container
+                [ngTemplateOutlet]="imageTemplate"
+                [ngTemplateOutletContext]="{ item: item }"
+              ></ng-container>
+            </label>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <!-- for modal -->
+      <ng-container *ngIf="imagesList.length > 0 && isModal">
+        <ng-container *ngFor="let item of imagesList">
+          <nz-radio-group
+            class="col-md-2 item py-2"
+            [(ngModel)]="checkedList[0]"
+          >
+            <label
+              class="custom-radio d-flex flex-column"
+              nz-radio
+              [nzValue]="item.id"
+            >
+              <ng-container
+                [ngTemplateOutlet]="imageTemplate"
+                [ngTemplateOutletContext]="{ item: item }"
+              ></ng-container>
+            </label>
+          </nz-radio-group>
+        </ng-container>
+      </ng-container>
+
+      <!-- item template -->
+      <ng-template #imageTemplate let-item="item">
+        <div
+          class="item-box text-center overflow-hidden mb-2"
+          [ngClass]="{
+            'limit-height': filterSource.type === destinationTypes.RECEIPT_IMAGE
+          }"
+        >
+          <img
+            class="img-fluid"
+            src="{{ item.imageFilePath ?? 'assets/images/175x105.png' }}"
+            (click)="openImageDetailsModal(item.id)"
+            onerror="this.onerror=null;this.src='assets/images/175x105.png';"
+          />
+        </div>
+        <p class="f-size-w3-16 mb-2 text-truncate" [title]="item.imageLabel">
+          {{ item.imageLabel }}
+        </p>
+        <p class="f-size-w3-12 mb-2 text-truncate lastUpdateDate">
+          {{
+            item.lastUpdateDate
+              | date
+                : commonConfigs.DATETIME_FORMAT_YYYY_MM_DD_s_HH_MM
+                : commonConfigs.TIME_ZONE_OFFSET
+          }}
+        </p>
+        <p
+          *ngIf="item.remarks"
+          class="f-size-w3-12 text-truncate d-block mb-0"
+          [title]="item.remarks"
+        >
+          {{ item.remarks }}
+        </p>
+        <p *ngIf="!item.remarks" class="text-truncate d-block mb-0">&nbsp;</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="filter-section px-4 py-3 mb-3">
+    <div class="mb-4">
+      <app-paging
+        [totalItems]="pagingConfig.availableElements"
+        [itemsPerPage]="pagingConfig.itemsPerPage"
+        [page]="pagingConfig.currentPage"
+        [availablePages]="pagingConfig.availablePages"
+        (pagingEvent)="receivePaging($event)"
+        [filterSource]="filterSource"
+        [sort]="sort"
+        (sortChange)="sortChange($event)"
+      >
+      </app-paging>
+    </div>
+
+    <div class="d-flex justify-content-center" *ngIf="isModal">
+      <button
+        type="button"
+        class="px-5"
+        nz-button
+        nzSize="large"
+        nzType="primary"
+        nzShape="round"
+        (click)="selectImage()"
+        [disabled]="checkedList.length !== 1"
+      >
+        {{ "COMMON.BUTTON.BT_CONFIRM" | translate }}
+      </button>
+    </div>
+  </div>
+
+  <ng-template #actionsBar>
+    <div
+      class="container d-flex justify-content-end gap-4 py-2"
+      *ngIf="!isModal"
+    >
+      <div
+        class="px-4 trash-button d-flex flex-row"
+        (click)="onDelete()"
+        [class]="!checkedList.length ? 'disable' : 'enable'"
+      >
+        <i class="fa fa-trash d-flex align-items-center" aria-hidden="true"></i>
+        <span class="d-flex align-items-center">{{
+          "BT_DELETE" | translate
+        }}</span>
+      </div>
+      <!-- <ng-container *ngIf="!isModal; else confirmSelectedImage">
+        <div class="px-4 trash-button d-flex flex-row" (click)="onDelete()" [class]="!checkedList.length ? 'disable' : 'enable'">
+          <i class="fa fa-trash d-flex align-items-center" aria-hidden="true"></i><span class="d-flex align-items-center">{{'BT_DELETE' | translate}}</span>
+        </div>
+        <button type="button" class="px-4" nz-button nzType="primary" nzShape="round" (click)="editItem()" [disabled]="checkedList.length !== 1">{{'BT_INFORMATION_EDITING' | translate}}</button>
+      </ng-container>
+      <ng-template #confirmSelectedImage>
+        <button type="button" class="px-4" nz-button nzSize="large" nzType="primary" nzShape="round" (click)="selectImage()" [disabled]="checkedList.length !== 1">{{'COMMON.BUTTON.BT_CONFIRM' | translate}}</button>
+      </ng-template> -->
+    </div>
+  </ng-template>
+</div>
+
+<app-modal [modalObject]="deleteModal">
+  <div class="f-size-w3-28 text-center mb-4">
+    {{ "TXT_DELETE_MODAL" | translate }}
+  </div>
+  <p class="f-size-w3-16 text-center mb-1">
+    {{ "TXT_DELETE_MODAL_CONTENT_1" | translate }}
+  </p>
+  <p class="f-size-w3-16 text-center">
+    {{ "TXT_DELETE_MODAL_CONTENT_2" | translate }}
+  </p>
+</app-modal>

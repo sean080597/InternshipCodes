@@ -1,0 +1,20 @@
+<div class="card user-creation-modal shadow p-1">
+    <div class="card-header border-0 p-3">
+        <h4 class="fw-normal m-0">
+            <!-- <i nz-icon nzType="close" nzTheme="outline" class="float-right close-icon" (click)="close()" aria-hidden="true"></i> -->
+            <div class="cursor-pointer float-right" (click)="close()">
+                <img src="assets/images/close-modal.svg" />
+            </div>
+        </h4>
+    </div>
+    <div class="p-5 pb-0 py-3">
+        <p [innerHTML]="'TT_USER_CREATION_MODAL_CONTENT' | translate"></p>
+    </div>
+    <div class="mb-2 p-4">
+        <div class="d-grid gap-2 d-flex justify-content-center">
+            <button id="btnConfirm" type="button" class="mx-3 w-25" nz-button nzSize="large" nzType="primary" (click)="close()">
+        {{'BT_BACK_TO_INDEX' | translate}}
+        </button>
+        </div>
+    </div>
+</div>

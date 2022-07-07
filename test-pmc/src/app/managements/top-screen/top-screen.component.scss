@@ -1,0 +1,103 @@
+@import "variables/color";
+
+.stera-video {
+  cursor: pointer;
+}
+
+.align-line {
+  &-top {
+    padding-top: 1em;
+    padding-bottom: 3em;
+  }
+  &-bottom {
+    padding-top: 3em;
+    padding-bottom: 3em;
+  }
+
+}
+.path-items {
+  .margin-left-menu {
+    margin-right: 2rem;
+  }
+  .path-item {
+    border: 1px solid $dove-gray;
+    &-empty {
+      flex: 0 1 2%;
+    }
+    flex: 3 1 20%;
+    display: flex;
+    gap: 2rem;
+
+    align-items: center;
+    padding: 2.7rem 1rem 2.7rem 1.8rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid $primary;
+    }
+
+    img {
+      width: 65px;
+    }
+  }
+  .path-item-2 {
+    border: 1px solid $dove-gray;
+    &-empty {
+      flex: 0 1 2%;
+    }
+    flex: 0 0 36%;
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 1rem 1.5rem 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid $primary;
+    }
+
+    img {
+      width: 65px;
+    }
+  }
+  .path-item-3 {
+    border: 1px solid $dove-gray;
+    &-empty {
+      flex: 0 1 2%;
+    }
+    flex: 1 0 30%;
+    @media only screen and (max-width: 1200px) {
+      flex: 1;
+    }
+    display: flex;
+    padding: 18px;
+    align-items: center;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid $primary;
+    }
+
+    img {
+      width: 65px;
+    }
+  }
+  .path-item-4 {
+    border: 1px solid $dove-gray;
+    &-empty {
+      flex: 0 1 2%;
+    }
+    flex: 0 0 30%;
+    display: flex;
+    padding: 18px;
+    align-items: center;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid $primary;
+    }
+
+    img {
+      width: 65px;
+    }
+  }
+}

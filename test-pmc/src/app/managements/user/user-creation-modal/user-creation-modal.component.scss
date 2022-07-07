@@ -1,0 +1,25 @@
+    .card {
+        border-radius: 22px !important;
+        border: none;
+        &.top-align {}
+        .card-header {
+            background-color: white !important;
+            border-radius: inherit !important;
+            i {
+                &.close-icon {
+                    opacity: 0.5;
+                    margin-top: -7px;
+                    font-size: 43px;
+                }
+            }
+        }
+        .card-footer {
+            border-radius: inherit !important;
+            background-color: inherit !important;
+        }
+    }
+
+    // .card-body {
+    //   overflow: auto;
+    //   min-height: 250px;
+    // }

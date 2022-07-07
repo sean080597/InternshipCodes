@@ -1,0 +1,33 @@
+<div *ngFor="let toast of toasts; index as i" class="toast-container" [style.top.px]="i * 25">
+    <div class="toast">
+        <container-element [ngSwitch]="toast?.type">
+            <ng-container *ngSwitchCase="'success'">
+                <nz-alert nzCloseable nzType="success" [nzMessage]="toast.message" [nzDescription]="descriptionTemplate">
+                </nz-alert>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'info'">
+                <nz-alert nzCloseable nzType="info" [nzMessage]="toast.message" [nzDescription]="descriptionTemplate">
+                </nz-alert>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'warning'">
+                <nz-alert nzCloseable nzType="warning" [nzMessage]="toast.message" [nzDescription]="descriptionTemplate">
+                </nz-alert>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+                <nz-alert nzCloseable nzType="error" [nzMessage]="toast.message" [nzDescription]="descriptionTemplate">
+                </nz-alert>
+            </ng-container>
+        </container-element>
+
+        <ng-template #descriptionTemplate>
+            <p>{{toast?.description}}
+                <a *ngIf="toast?.navigation" class="color-primary" [routerLink]="[toast?.navigation.routerUrl]">
+                    <span class="px-2">{{toast?.navigation.name}}</span><i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </p>
+        </ng-template>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="receipt-template-selection container-fluid p-4">
+  <div class="row">
+    <div class="col-2">
+      <p class="f-size-w3-18">{{'BT_ADD_NEW' | translate}}</p>
+    </div>
+    <div class="col-10">
+      <p class="f-size-w3-18">{{'RECEIPT_LIST.SELECT_TEMPLATE' | translate}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2 mb-4 template-hover">
+      <button class="preview-img-placeholder vertical-img-ratio border-green align-items-center" (click)="createNewReceipt()">
+        <i nz-icon nzType="plus" nzTheme="outline"></i>
+      </button>
+    </div>
+
+    <ng-container [ngSwitch]="idx" *ngFor="let item of receiptTemplateList; index as idx">
+      <ng-container *ngSwitchCase="5">
+        <div class="col-2"></div>
+        <ng-container [ngTemplateOutlet]="receiptTemplate" [ngTemplateOutletContext]="{item:item}"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <ng-container [ngTemplateOutlet]="receiptTemplate" [ngTemplateOutletContext]="{item:item}"></ng-container>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #receiptTemplate let-item="item">
+      <div class="col-2 mb-4 template-hover" (click)="createReceiptTemplate(item.id)">
+        <button class="preview-img-placeholder vertical-img-ratio border-gray mb-2">
+          <img class="img-fluid" [src]="item.thumbnailImageFilePath" />
+        </button>
+        <p class="f-size-w3-16 text-truncate" [title]="item.receiptLabel">{{ item.receiptLabel }}</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

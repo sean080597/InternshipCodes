@@ -1,0 +1,21 @@
+<div class="card shadow py-3">
+    <div class="card-header border-0 p-3">
+        <h4 class="text-center fw-normal m-0">
+            {{ 'TT_TERMS_OF_USE' |translate }}
+            <div class="cursor-pointer float-right" (click)="close()">
+                <img src="assets/images/close-modal.svg" />
+            </div>
+        </h4>
+    </div>
+    <div class="px-5 py-4">
+        <div class="content text-space-wrap p-4 border border-2 rounded-3" [innerHTML]="content"></div>
+    </div>
+    <!-- <div class="mb-2 p-4">
+    <div class="d-grid gap-2 d-flex justify-content-center">
+      <button class="mx-3 w-25" nz-button nzSize="large" nzType="primary" (click)="close()">
+        {{'BT_CLOSE' | translate}}
+      </button>
+        </div>
+    </div>
+  </div> -->
+</div>

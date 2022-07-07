@@ -1,0 +1,47 @@
+<div class="card specify-filter">
+  <h4 class="card-header">
+    {{'TT_SPECIFY_FILTERING_CONDITIONS'| translate}}
+    <i class="fa fa-times float-right" (click)="close()" aria-hidden="true"></i>
+  </h4>
+  <form [formGroup]="form">
+      <div class="row mb-3">
+        <label class="col-sm-4 col-form-label">{{'LB_COMPANY' | translate}}</label>
+        <div class="col-sm-5 align-self-center">
+          xxxxx
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-secondary w-100 flex-grow-1 float-end" (click)="selection()">
+            {{'BT_COMPANY_SELECTION' | translate}}
+          </button>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="email" class="col-sm-4 col-form-label">{{'LB_EMAIL_ADDRESS' | translate}}</label>
+        <div class="col-sm-5">
+          <input type="text" formControlName="email" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"/>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label class="col-sm-4 col-form-label">{{'LB_AUTHORITY_CLASSIFICATION' | translate}}</label>
+        <div class="col-sm-5">
+          <select class="form-select" aria-label="Default select example" formControlName="authority">
+            <option *ngFor="let item of authotiryOptions" [value]="item.key">{{item.value | translate}}</option>
+          </select>
+        </div>
+      </div>
+    <div class="card-footer">
+      <div class="d-flex justify-content-center gap-3 m-2 px-5">
+        <button class="btn btn-secondary btn-submit-xs flex-grow-1" (click)="submit()">
+          {{'BT_CONDITION_APPLICATION' | translate}}
+        </button>
+        <button class="btn btn-secondary btn-submit-xs flex-grow-1" (click)="clear()">
+          {{'BT_CONDITION_CLEAR' | translate}}
+        </button>
+        <button class="btn btn-secondary btn-submit-xs flex-grow-1" (click)="submit()">
+          {{'BT_CONDITION_APPLICATION' | translate}}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

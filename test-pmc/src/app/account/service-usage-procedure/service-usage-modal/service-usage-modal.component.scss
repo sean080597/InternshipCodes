@@ -1,0 +1,11 @@
+.service-usage {
+  position: relative;
+  padding-bottom: 56.25%;
+  .service-usage-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

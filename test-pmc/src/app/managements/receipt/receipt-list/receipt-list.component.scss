@@ -1,0 +1,16 @@
+@import "variables/color";
+@import "core/mixin";
+
+.receipt-container {
+  .item {
+    &:hover, &:focus {
+      background-color: $black-squeeze;
+    }
+    label.custom-checkbox {
+      @extend .ant-custom-checkbox;
+    }
+    label.custom-radio {
+      @extend .ant-custom-radio;
+    }
+  }
+}

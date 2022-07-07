@@ -1,0 +1,45 @@
+@import "variables/color";
+@import "variables/size";
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 99;
+    top: 67px;
+    background-color: #EAEAEA;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+
+    &.right {
+        right: 0;
+        a {
+          padding: 15px 32px;
+        }
+        &.active{
+          width: 400px;
+        }
+    }
+    .close-btn {
+        position: absolute;
+        top: 0;
+        font-size: 36px;
+        line-height: 1;
+        &.left {
+            left: 0;
+        }
+        &.right {
+            right: 0;
+            text-align: right;
+        }
+        // margin-left: 50px;
+    }
+}
+
+.sidebar a {
+    text-decoration: none;
+    display: block;
+    color: inherit;
+    transition: 0.3s;
+}

@@ -1,0 +1,31 @@
+diff a/src/app/app-routing.module.ts b/src/app/app-routing.module.ts	(rejected hunks)
+@@ -1,10 +1,25 @@
+-import { NgModule } from '@angular/core';
+-import { RouterModule, Routes } from '@angular/router';
++import {NgModule} from '@angular/core';
++import {RouterModule, Routes} from '@angular/router';
+ 
+-const routes: Routes = [];
++import {AuthGuard} from './_helpers';
++import { MaintenanceComponent } from './shared/maintenance/maintenance.component';
++
++const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
++const managementsModule = () => import('./managements/managements.module').then(x => x.ManagementsModule);
++
++const routes: Routes = [
++  {path: 'account', loadChildren: accountModule},
++  {path: 'managements', loadChildren: managementsModule, canActivate: [AuthGuard]},
++  {path: 'maintenance', component: MaintenanceComponent},
++
++  {path: '', redirectTo: 'account/login', pathMatch: 'full'},
++  {path: '**', redirectTo: 'account/login'},
++
++];
+ 
+ @NgModule({
+   imports: [RouterModule.forRoot(routes)],
+   exports: [RouterModule]
+ })
+-export class AppRoutingModule { }
++export class AppRoutingModule {
++}

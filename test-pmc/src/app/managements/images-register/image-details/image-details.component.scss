@@ -1,0 +1,23 @@
+@import "variables/size";
+
+.image-details-container {
+  // height: calc(100% - 50px);
+  // overflow-y: auto;
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    button {
+      flex: 1;
+    }
+  }
+  .radio-btn {
+    display: flex;
+    align-items: center;
+    input {
+      margin: 0 3px 0 0;
+    }
+  }
+  .details-datetime {
+    text-align: right;
+  }
+}

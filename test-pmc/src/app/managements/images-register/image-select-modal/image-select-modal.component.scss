@@ -1,0 +1,21 @@
+@import "variables/color";
+
+:host {
+  display: contents;
+}
+
+.card {
+  .card-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .image-selection-container {
+    label {
+      cursor: pointer;
+      &:hover {
+        background-color: $iceberg;
+      }
+    }
+  }
+}

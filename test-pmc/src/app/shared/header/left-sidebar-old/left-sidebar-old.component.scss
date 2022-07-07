@@ -1,0 +1,51 @@
+@import "variables/color";
+@import "variables/size";
+@import "core/mixin";
+
+.navbar-brand {
+  font-weight: bolder;
+  color: $primary;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 99;
+  top: 67px;
+  background-color: #EAEAEA;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  &.left {
+      left: 0;
+      a {
+        padding: 15px 10px 15px 32px;
+        &:hover {
+          background-color: $white;
+        }
+      }
+      &.active{
+        width: 400px;
+      }
+  }
+  .select-item {
+    background-color: $white;
+  }
+  .closebtn {
+      position: absolute;
+      top: 0;
+      font-size: 26px;
+      line-height: 1;
+      &.left {
+          left: 0;
+      }
+  }
+}
+
+.sidebar a {
+  text-decoration: none;
+  display: block;
+  color: inherit;
+  transition: 0.3s;
+}

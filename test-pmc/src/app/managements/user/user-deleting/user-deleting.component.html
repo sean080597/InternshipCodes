@@ -1,0 +1,57 @@
+<form>
+  <div class="card user-deleting-modal">
+    <h4 class="card-header">
+      {{'TT_USER_DELETING_MODAL' | translate}}
+      <i class="fa fa-times float-right" (click)="close()" aria-hidden="true"></i>
+    </h4>
+      <div class="content">
+          <div class="container">
+            <div class="row">
+              <p [innerHTML]="'TT_USER_DELETING_MODAL_CONTENT' | translate"></p>
+            </div>
+            <div class="row align-items-center">
+              <label class="col-sm-5 col-form-label fw-bold">{{'LB_COMPANY' | translate}}</label>
+              <div class="col-sm-7">
+                <p class="m-0">{{userData.companyName}}</p>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <label for="userEmail" class="col-sm-5 col-form-label fw-bold">{{'LB_EMAIL_ADDRESS' | translate}}</label>
+              <div class="col-sm-7">
+                <p class="m-0">{{userData.emailAddress}}</p>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <label class="col-sm-5 col-form-label fw-bold">{{'LB_AUTHORITY_CLASSIFICATION' | translate}}</label>
+              <div class="col-sm-7">
+                <p class="m-0">{{roleMapping(userData.authorities)}}</p>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <label class="col-sm-5 col-form-label fw-bold">{{'LB_STATUS' | translate}}</label>
+              <div class="col-sm-7">
+                <p class="m-0">{{statusMapping(userData.status)}}</p>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <label class="col-sm-5 col-form-label fw-bold">{{'LB_LAST_LOGIN_DATETIME' | translate}}</label>
+              <div class="col-sm-7">
+                <p class="m-0">{{userData.lastLoginDate | date: commonConfigs.DATETIME_FORMAT_YYYY_MM_DD_s_HH_MM : commonConfigs.TIME_ZONE_OFFSET}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row my-3">
+          <div class="col-sm-12 d-flex gap-3 justify-content-center">
+            <button class="btn btn-secondary btn-submit-xs" type="button" (click)="close()">
+              {{'BT_BACK_TO_INDEX' | translate}}
+            </button>
+            <button class="btn btn-success btn-submit-xs" type="button" (click)="onDelete()">
+              {{'BT_USER_DELETION' | translate}}
+            </button>
+          </div>
+        </div>
+    </div>
+  </form>

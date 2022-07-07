@@ -1,0 +1,122 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="px-4">
+      <div class="row col-12 m-0 justify-content-center">
+        <div class="col-1 line-horizontal mb-4"></div>
+
+        <div class="py-4 text-center f-size-w6-28">
+          {{ "COPYRIGHT_CONFIRM.HEADER" | translate }}
+        </div>
+        <span style="margin-bottom: 3em" class="text-center">
+          {{ "COPYRIGHT_CONFIRM.TITLE" | translate }}
+        </span>
+
+        <span
+          style="margin-bottom: 3em"
+          class="text-center text-horizontal-line p-1"
+        >
+          {{ "COPYRIGHT_CONFIRM.TERMS_OF_STERA" | translate }}
+        </span>
+        <br />
+        <div class="border-copyright mb-3"></div>
+
+        <form [formGroup]="form" (ngSubmit)="next()">
+          <div class="row mb-3 justify-content-center">
+            <div style="margin-bottom: 4em" class="text-center">
+              <label nz-checkbox formControlName="confirmOne">{{
+                "COPYRIGHT_CONFIRM.CONFIRM_TERM" | translate
+              }}</label>
+            </div>
+
+            <span class="text-center text-horizontal-line p-1">
+              {{ "COPYRIGHT_CONFIRM.INTRODUCE_STERA" | translate }}
+            </span>
+
+            <span style="margin-top: 3em" class="text-center pb-2">
+              {{ "COPYRIGHT_CONFIRM.DESCRIPTION" | translate }}
+            </span>
+          </div>
+          <div class="row justify-content-center">
+            <div style="width: 88%" class="border-2px my-3"></div>
+
+            <div class="row col-11">
+              <div class="col-2">
+                {{ "COPYRIGHT_CONFIRM.SERVICE_OFFER_PRICE" | translate }}
+              </div>
+              <div
+                class="col-10 text-space-wrap"
+                [innerHTML]="
+                  'COPYRIGHT_CONFIRM.SERVICE_OFFER_PRICE_DESCRIPTION'
+                    | translate
+                "
+              ></div>
+            </div>
+
+            <div style="width: 88%" class="border-2px my-3"></div>
+
+            <div class="row col-11">
+              <div class="col-2">
+                {{ "COPYRIGHT_CONFIRM.BILLING_CONDITIONS" | translate }}
+              </div>
+              <div
+                class="col-10"
+                [innerHTML]="
+                  'COPYRIGHT_CONFIRM.BILLING_CONDITIONS_DESCRIPTION' | translate
+                "
+              ></div>
+            </div>
+
+            <div style="width: 88%" class="border-2px my-3"></div>
+
+            <div class="row col-11">
+              <div class="col-2">
+                {{ "COPYRIGHT_CONFIRM.PAYMENT_METHOD" | translate }}
+              </div>
+              <div
+                class="col-10 text-space-wrap"
+                [innerHTML]="
+                  'COPYRIGHT_CONFIRM.PAYMENT_METHOD_DESCRIPTION' | translate
+                "
+              ></div>
+            </div>
+
+            <div style="width: 88%" class="border-2px my-3"></div>
+
+            <span class="py-2 text-center">{{
+              "COPYRIGHT_CONFIRM.DISCUSSED" | translate
+            }}</span>
+            <br />
+            <br />
+            <br />
+            <div class="text-center">
+              <label nz-checkbox formControlName="confirmTwo">{{
+                "COPYRIGHT_CONFIRM.CONFIRM_TERM" | translate
+              }}</label>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div
+              class="col-12 d-flex bd-highlight px-0 flex-row align-items-start justify-content-center"
+            >
+              <button
+                nz-button
+                nzType="primary"
+                nzShape="round"
+                [disabled]="!form.valid"
+                class="btn-submit-xs"
+                type="submit"
+              >
+                {{ "BT_NEXT" | translate }}
+              </button>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

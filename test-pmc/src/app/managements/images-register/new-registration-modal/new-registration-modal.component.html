@@ -1,0 +1,12 @@
+<div class="modal-header border-0">
+    <h4 class="f-size-24 fw-normal">
+        {{'IMAGE_REGISTER.LB_EDIT_PICTURE' | translate}}
+    </h4>
+    <!-- <i nz-icon nzType="close" nzTheme="outline" class="float-right close-icon" (click)="close()" aria-hidden="true"></i> -->
+    <div class="cursor-pointer float-right" (click)="close()">
+        <img src="assets/images/close-modal.svg" />
+    </div>
+</div>
+<div class="modal-body">
+    <app-new-registration [dragDropFile]="dragDropFile" [isModal]="true" (onFinished)="onFinished($event)" [typeIdOnly]="typeIdOnly"></app-new-registration>
+</div>

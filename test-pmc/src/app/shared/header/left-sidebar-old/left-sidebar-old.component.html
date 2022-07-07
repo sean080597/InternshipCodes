@@ -1,0 +1,55 @@
+<div id="leftSidebar" class="sidebar left" [ngClass]="{'active': isOpenLeftSide}">
+    <a class="text-truncate" (click)="redirectPath(['/managements/top-screen'])" [ngClass]="{'select-item': selectItem === 'top-screen'}" href="javascript:void(0)" class="closebtn w-100">
+        <button type="button" class="border-0 float-left bg-transparent">
+        <img src="assets/images/close-sidebar.svg" alt="">
+    </button>
+    </a>
+    <a  class="text-truncate" [ngClass]="{'select-item': selectItem === 'playlist'}" (click)="managePlaylist()">
+        <img width="46" height="46" src="assets/images-sidebar-old/playlist.svg" alt="">
+        <span class="ms-4">{{'SIDEBAR_LEFT.LB_PLAYLIST_MANAGEMENT'|translate}}</span>
+    </a>
+    <a class="text-truncate" [ngClass]="{'select-item': selectItem === 'distribution'}"  (click)="manageDistribution()">
+        <img width="46" height="46" src="assets/images-sidebar-old/delivery.svg" alt="">
+        <span class="ms-4">{{'SIDEBAR_LEFT.LB_DELIVERY_MANAGEMENT'|translate}}</span>
+    </a>
+    <a class="text-truncate" [ngClass]="{'select-item': selectItem === 'receipt'}" (click)="manageReceipt()">
+        <img width="46" height="46" src="assets/images-sidebar-old/receipt.svg" alt="">
+        <span class="ms-4">{{'SIDEBAR_LEFT.LB_RECEIPT_IMAGE_MANAGEMENT'|translate}}</span>
+    </a>
+    <a class="text-truncate" [ngClass]="{'select-item': selectItem === 'image-gallery'}" (click)="manageImageRegistered()">
+        <img width="46" height="46" src="assets/images-sidebar-old/image-register.svg" alt="">
+        <span class="ms-4">{{'SIDEBAR_LEFT.LB_REGISTERED_IMAGE_MANAGEMENT'|translate}}</span>
+    </a>
+
+    <!-- -----------ROLE_SERVICE_ADMIN------------ -->
+    <ng-container *ngIf="getUserRole() === roles.ROLE_SERVICE_ADMIN">
+        <a class="text-truncate" [ngClass]="{'select-item': selectItem === 'usage-record'}" (click)="usageRecord()">
+            <img width="46" height="46" src="assets/images-sidebar-old/usage-record.svg" alt="">
+            <span class="ms-4">{{'SIDEBAR_LEFT.LB_USAGE_RECORD'|translate}}</span>
+        </a>
+        <a class="text-truncate" [ngClass]="{'select-item': selectItem === 'notica-management'}" (click)="noticaManagement()">
+            <img width="46" height="46" src="assets/images-sidebar-old/notification.svg" alt="">
+            <span class="ms-4">{{'SIDEBAR_LEFT.LB_NOTIFICATION_MANAGEMENT'|translate}}</span>
+        </a>
+
+        <a class="text-truncate" [ngClass]="{'select-item': selectItem === 'operation'}" (click)="operation()">
+            <img width="46" height="46" src="assets/images-sidebar-old/operation.svg" alt="">
+            <span class="ms-4">{{'SIDEBAR_LEFT.LB_OPERATION_HISTORY'|translate}}</span>
+        </a>
+    </ng-container>
+
+    <a class="text-truncate" [ngClass]="{'select-item': selectItem === 'user'}" (click)="manageUsers()">
+        <img width="46" height="46" src="assets/images-sidebar-old/user.svg" alt="">
+        <span class="ms-4">{{'SIDEBAR_LEFT.LB_USER_MANAGEMENT'|translate}}</span>
+    </a>
+
+    <a class="text-truncate" (click)="changePassword()">
+        <img width="46" height="46" src="assets/images-sidebar-old/change-password.svg" alt="">
+        <span class="ms-4">{{'SIDEBAR_LEFT.TT_CHANGE_PASSWORD'|translate}}</span>
+    </a>
+
+    <br>
+    <br>
+    <br>
+
+</div>

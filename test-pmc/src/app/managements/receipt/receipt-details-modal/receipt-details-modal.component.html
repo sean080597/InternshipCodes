@@ -1,0 +1,56 @@
+<div class="modal-header border-0">
+  <h4 class="fw-normal">
+    {{'RECEIPT_LIST.RECEIPT_CONFIRMATION' | translate}}
+  </h4>
+  <!-- <i nz-icon nzType="close" nzTheme="outline" class="float-right close-icon" (click)="close()" aria-hidden="true"></i> -->
+  <div class="cursor-pointer float-right" (click)="close()">
+    <img src="assets/images/close-modal.svg" />
+  </div>
+</div>
+<div class="modal-body">
+  <div class="receipt-form">
+    <div class="card border-0 p-4">
+      <div class="row mb-4">
+        <div class="col-md-6 px-xl-5 px-4">
+          <!-- receipt name -->
+          <div class="mb-2">
+            <div class="d-flex align-items-center gap-2">
+              <label for="receiptLabel" class="f-size-18 col-form-label">{{"LB_RECEIPT_NAME" | translate}}</label>
+            </div>
+            <div class="">
+              <input type="text" class="form-control" id="receiptLabel" [value]="receiptData?.receiptLabel" disabled />
+            </div>
+          </div>
+
+          <!-- remarks -->
+          <div class="mb-2">
+            <div class="d-flex align-items-center gap-2">
+              <label for="remarks" class="f-size-18 col-form-label">{{'LB_REMARKS' | translate}}</label>
+            </div>
+            <div class="">
+              <input type="text" class="form-control" id="remarks" [value]="receiptData?.remarks" disabled />
+            </div>
+          </div>
+        </div>
+
+        <!-- photo-edit -->
+        <div class="col-md-6 px-xl-5 px-4">
+          <p class="f-size-w3-13 details-datetime mb-4">
+            {{'IMAGE_DETAILS.LB_DATETIME' | translate : {registDate: receiptData?.registrationDate, updateDate: receiptData?.lastUpdateDate} }}
+          </p>
+          <div class="preview-img-container">
+            <div class="preview-img-placeholder">
+              <img class="img-fluid" [src]="receiptData?.thumbnail" alt="Preview image" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button type="button" class="px-5" nz-button nzSize="large" nzType="primary" nzShape="round" (click)="confirmImage()">
+          {{'COMMON.BUTTON.BT_CONFIRM' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

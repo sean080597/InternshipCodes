@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20.949" height="27.747" viewBox="0 0 20.949 27.747">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_889" data-name="Rectangle 889" width="20.949" height="27.747" transform="translate(-1)" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_888" data-name="Rectangle 888" width="18.949" height="27.747" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_763" data-name="Group 763" transform="translate(1)" clip-path="url(#clip-path)">
+    <g id="Group_762" data-name="Group 762" style="isolation: isolate">
+      <g id="Group_761" data-name="Group 761">
+        <g id="Group_760" data-name="Group 760" clip-path="url(#clip-path-2)">
+          <text id="_" data-name="▼" transform="translate(-1 19.703)" fill="#00846d" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">▼</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

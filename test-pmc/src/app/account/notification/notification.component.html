@@ -1,0 +1,78 @@
+<div class="notify">
+    <div class="notify-body container-fluid">
+        <div class="px-5">
+            <button (click)="close()" type="button" class="btn-close float-right py-3"
+                aria-label="Close"></button>
+            <br>
+            <br>
+            <br>
+            <span class="box-header f-size-w6-32">{{'NOTICA_MANAGEMENT.NOTIFY_HEADER' | translate}}
+            </span>
+            <br>
+            <br>
+        </div>
+
+        <div *ngFor="let item of notifyList; let index=index">
+            <div (click)="highlighted(index)"
+                class="row col-12 px-5 m-0 highlight align-items-center justify-content-between">
+                <div style="width: 6rem;"  class=" align-items-center justify-content-start">
+                    <div class="col f-size-w3-16  align-items-center justify-content-start">
+                        {{item?.date  | date: commonConfigs.DATETIME_FORMAT_YYYY_MM_DD : commonConfigs.TIME_ZONE_OFFSET }}
+                    </div>
+
+                </div>
+                <div style="width: 10rem;" class="text-center align-items-center justify-content-center">
+                    <div class="type f-size-w3-16">
+                        {{getCategory(item?.type)}}
+                    </div>
+                </div>
+
+                <div class="row col p-0 align-items-center justify-content-start text-break">
+                    {{item?.title}}
+                </div>
+
+                <div class="row col-3 align-items-center justify-content-between">
+                    <div class="row col-10 d-flex justify-content-center">
+                        <span class="text-end align-items-center">
+                            <span *ngIf="item?.newFlag" class="new-status">{{'COMMON.LABEL.NEW_HEADER' | translate}}</span>
+                            <span *ngIf="item?.importantFlag" class="new-important">{{'COMMON.LABEL.IMPROTANT_HEADER' | translate}}</span>
+                        </span>
+
+                    </div>
+                    <div class="row col-2 align-items-center justify-content-center icon-collapse" aria-hidden="true"
+                        (click)="collapse(index)" [ngClass]="item?.isCollapse ? 'fa fa-angle-up' : 'fa fa-angle-down'">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- expend -->
+            <div *ngIf="item?.isCollapse"
+                class="row no-gutters d-flex align-items-center justify-content-between col-12 m-0">
+                <div style="width: 7.5rem;"  class=" align-items-center justify-content-start">
+                </div>
+                <div style="width: 10rem;" class="text-center align-items-center justify-content-center">
+                </div>
+                <div class="row col align-items-center justify-content-start">
+                    <textarea class="sub-title-text f-size-w3-16 text-break " rows="6" cols="50" readonly>{{item?.subTitle}}</textarea>
+                </div>
+                <div class="row col-3 align-items-center justify-content-end">
+                </div>
+            </div>
+
+            <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1">
+            </span> -->
+            <div *ngIf="loading && notifyList.length === (index + 1)" class="spiner">
+                <nz-spin nzSimple></nz-spin>
+            </div>
+        </div>
+        <div class="p-4" (onVisible)="onScroll()">
+        <br>
+        <br>
+        <br>
+        </div>
+
+    </div>
+</div>
+<div class="notify-background"></div>

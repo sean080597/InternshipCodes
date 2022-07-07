@@ -1,0 +1,147 @@
+<div class="row d-flex" (pageChange)="pageChanged($event)">
+  <div class="col me-auto justify-content-start ps-0">
+    <ng-content></ng-content>
+    <span *ngIf="filterSettings?.countTotal" class="mx-3 f-size-w3-14">
+      <span>全</span>
+      <span class="number-items f-size-w3-24">{{ totalItems }}</span>
+      <span>件</span>
+    </span>
+  </div>
+  <div class="col me-auto">
+    <div class="d-flex justify-content-center">
+      <a
+        nz-icon
+        nzType="step-backward"
+        nzTheme="fill"
+        class="icon-paging"
+        [class]="disablePrevious ? 'disabled' : ''"
+        (click)="goToPage('first')"
+      ></a>
+      <a
+        nz-icon
+        nzType="caret-left"
+        nzTheme="fill"
+        class="icon-paging"
+        [class]="disablePrevious ? 'disabled' : ''"
+        (click)="goToPage('previous')"
+      ></a>
+      <span class="align-self-center">
+        {{ genStartElNumber() }} <img src="assets/images/from-to.svg" alt="" />
+        {{ genEndElNumber() }}/{{ totalItems }}
+      </span>
+      <a
+        nz-icon
+        nzType="caret-right"
+        nzTheme="fill"
+        class="icon-paging"
+        [class]="disableNext ? 'disabled' : ''"
+        (click)="goToPage('next')"
+      ></a>
+      <a
+        nz-icon
+        nzType="step-forward"
+        nzTheme="fill"
+        class="icon-paging"
+        [class]="disableNext ? 'disabled' : ''"
+        (click)="goToPage('last')"
+      ></a>
+    </div>
+  </div>
+  <div class="col">
+    <div
+      class="col d-flex justify-content-end"
+      *ngIf="filterSettings.sortByOperationDate"
+    >
+      <nz-select
+        [(ngModel)]="sort"
+        nzBorderless
+        (ngModelChange)="onSortChange()"
+      >
+        <nz-option
+          nzValue="desc"
+          [nzLabel]="'OPERATION.SORT.LB_OPERATION_SORT_DESC' | translate"
+        ></nz-option>
+        <nz-option
+          nzValue="asc"
+          [nzLabel]="'OPERATION.SORT.LB_OPERATION_SORT_ASC' | translate"
+        ></nz-option>
+      </nz-select>
+    </div>
+    <div
+      class="col d-flex justify-content-end"
+      *ngIf="filterSettings.sortByEmail"
+    >
+      <nz-select
+        [(ngModel)]="sort"
+        nzBorderless
+        (ngModelChange)="onSortChange()"
+      >
+        <nz-option
+          nzValue="asc"
+          [nzLabel]="'LB_USER_SORT_ASC' | translate"
+        ></nz-option>
+        <nz-option
+          nzValue="desc"
+          [nzLabel]="'LB_USER_SORT_DESC' | translate"
+        ></nz-option>
+      </nz-select>
+    </div>
+    <div
+      class="col d-flex justify-content-end"
+      *ngIf="filterSettings.sortByCreatedDate"
+    >
+      <nz-select
+        [(ngModel)]="sort"
+        nzBorderless
+        (ngModelChange)="onSortChange()"
+      >
+        <nz-option
+          nzValue="desc"
+          [nzLabel]="'LB_CREATED_DATE_SORT_DESC' | translate"
+        ></nz-option>
+        <nz-option
+          nzValue="asc"
+          [nzLabel]="'LB_CREATED_DATE_SORT_ASC' | translate"
+        ></nz-option>
+      </nz-select>
+    </div>
+    <div
+      class="col d-flex justify-content-end"
+      *ngIf="filterSettings.sortByDistributionDate"
+    >
+      <nz-select
+        [(ngModel)]="sort"
+        nzBorderless
+        (ngModelChange)="onSortChange()"
+      >
+        <nz-option
+          nzValue="desc"
+          [nzLabel]="'LB_DISTRIBUTION_SORT_DESC' | translate"
+        ></nz-option>
+        <nz-option
+          nzValue="asc"
+          [nzLabel]="'LB_DISTRIBUTION_SORT_ASC' | translate"
+        ></nz-option>
+      </nz-select>
+    </div>
+    <div
+      class="col d-flex justify-content-end"
+      *ngIf="filterSettings.sortByNotificationDate"
+    >
+      <nz-select
+        [(ngModel)]="sort"
+        nzBorderless
+        (ngModelChange)="onSortChange()"
+      >
+        <nz-option
+          nzValue="desc"
+          [nzLabel]="'LB_NOTICA_DATE_SORT_DESC' | translate"
+        ></nz-option>
+        <nz-option
+          nzValue="asc"
+          [nzLabel]="'LB_NOTICA_DATE_SORT_ASC' | translate"
+        ></nz-option>
+      </nz-select>
+    </div>
+  </div>
+</div>

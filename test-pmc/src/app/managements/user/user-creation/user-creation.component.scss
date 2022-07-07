@@ -1,0 +1,11 @@
+.form-user-creation-container {
+    overflow: auto;
+}
+
+.not-interact {
+    pointer-events: none;
+}
+
+:host {
+    display: contents;
+}

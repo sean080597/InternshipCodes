@@ -1,0 +1,48 @@
+<div id="rightSidebar" class="sidebar right" [ngClass]="{'active': isOpenRightSide}">
+    <a class="text-truncate" href="javascript:void(0)" class="close-btn   width-100">
+        <button style="font-size: 30px;" type="button" class="border-0 bg-transparent float-right" (click)="closRightSidebar()">
+            <img src="assets/images/close-sidebar.svg" alt="">
+        </button>
+    </a>
+    <a class="text-truncate" href="javascript:void(0)" class="d-flex align-items-center gap-1">
+        <!-- <i class="fa fa-user-circle-o color-primary" aria-hidden="true"></i> -->
+        <img class="ms-2" src="assets/images-sidebar-old/user-small.svg" alt="">
+        <span class="text-truncate ms-3" [title]="getAccountValue('email')">{{getAccountValue('email')}}</span>
+    </a>
+    <a class="text-truncate" href="javascript:void(0)" (click)="openChangePasswordModal()">
+        <!-- <i class="fa fa-user-circle-o color-primary" aria-hidden="true"></i> -->
+        <img src="assets/images-sidebar-old/change-password.svg" alt="">
+        <span class="text-truncate ms-3" [title]="getAccountValue('email')">
+            {{ 'TT_CHANGE_PASSWORD' | translate }}
+        </span>
+    </a>
+    <div style="margin-left: 1.8em;" class="row mt-3">
+        <div *ngIf="companyId" class="row col-12 mb-4">
+            <span class="col-3">
+                {{ 'LB_COMPANY_ID' | translate }}:
+            </span>
+            <span class="col-9">
+                {{companyId}}
+            </span>
+        </div>
+
+        <div *ngIf="companyName" class="row col-12">
+            <span class="col-3">
+                {{ 'LB_COMPANY_NAME' | translate }}:
+            </span>
+            <span class="col-9 text-break">
+                {{companyName}}
+            </span>
+        </div>
+    </div>
+
+
+    <br><br><br><br><br><br>
+    <div class="text-center">
+        <button type="button" class="px-4" nz-button nzGhost nzType="primary" nzShape="round" (click)="logout()">
+        {{ 'BT_LOGOUT' | translate }}
+      </button>
+
+    </div>
+
+</div>

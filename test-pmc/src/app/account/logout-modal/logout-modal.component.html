@@ -1,0 +1,13 @@
+<!-- <div class="card" *ngIf="user"> -->
+<div class="card shadow p-1">
+  <div class="card-header border-0 p-3">
+    <h5 class="m-0">{{'LOGOUT_MODAL_TITLE' | translate}}</h5>
+  </div>
+  <div class="p-5 pb-0 py-3">
+    <p class="px-4 pt-4" [innerHTML]="'LOGOUT_MODAL_CONTENT' | translate"></p>
+  </div>
+  <div class="d-grid gap-2 d-flex justify-content-center mb-2 p-4">
+    <button type="button" nz-button nzSize="large" nzType="primary" (click)="onConfirm()" class="mx-3 w-25">{{'BT_CONFIRM' | translate}}</button>
+    <button type="button" nz-button nzSize="large" nzType="primary" (click)="onLogout()" class="mx-3 w-25 ">{{'BT_LOGOUT' | translate}}</button>
+  </div>
+</div>

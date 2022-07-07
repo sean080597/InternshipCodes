@@ -1,0 +1,179 @@
+default:
+  tags: [shared-runner]
+  image: vietduy0509/deployer:v1.1
+
+cache:
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - .m2
+    - target
+
+variables:
+  SERVICE_PATH: /
+  SERVICE_NAME: sean-ui
+  DOCKER_IMAGE_NAME: sean-ui
+  IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+  GIT_SUBMODULE_STRATEGY: recursive
+
+stages:
+  - build
+  - deploy
+
+.build_image:
+   stage: build
+   variables:
+     DOCKER_FILE: Dockerfile
+   script:
+    - bash deployment/dockerbuild.sh
+
+.deployment:
+  when: manual
+  allow_failure: false
+  stage: deploy
+  variables:
+    AWS_EKS_CLUSTER: sean-cluster-2
+    AWS_DEFAULT_REGION: ap-southeast-1
+  script: |
+    cd deployment && bash deploy.sh
+
+# Build Docker image
+docker build dev:
+  extends: .build_image
+  variables:
+    APP_ENV: dev
+  only:
+    - /^v.*-dev$/
+
+docker build test:
+  extends: .build_image
+  variables:
+    APP_ENV: test
+  only:
+    - /^v.*-tst$/
+
+docker build staging:
+  extends: .build_image
+  variables:
+    APP_ENV: stg
+  only:
+    - /^v.*-stg$/
+
+docker build sec:
+  extends: .build_image
+  variables:
+    APP_ENV: sec
+  only:
+    - /^v.*-sec$/
+
+docker build func:
+  extends: .build_image
+  variables:
+    APP_ENV: func
+  only:
+    - /^v.*-func$/
+
+docker build sce:
+  extends: .build_image
+  variables:
+    APP_ENV: sce
+  only:
+    - /^v.*-sce$/
+
+docker build clt:
+  extends: .build_image
+  variables:
+    APP_ENV: clt
+  only:
+    - /^v.*-clt$/
+
+docker build uat:
+  extends: .build_image
+  variables:
+    APP_ENV: uat
+  only:
+    - /^v.*-uat$/
+
+docker build prod:
+  extends: .build_image
+  variables:
+    APP_ENV: prod
+  only:
+    - /^v.*-prd$/
+
+# Deploy nonprod deployment to EKS cluster
+deploy sean-ui dev:
+  extends: .deployment
+  variables:
+    NAMESPACE: sean-dev
+    HOST: adsrv-dev.softsean.link
+  only:
+    - /^v.*-dev$/
+
+deploy sean-ui test:
+  extends: .deployment
+  variables:
+    NAMESPACE: sean-test
+    HOST: adsrv-tst.softsean.link
+  only:
+    - /^v.*-tst$/
+
+deploy sean-ui staging:
+  extends: .deployment
+  variables:
+    NAMESPACE: sean-stage
+    HOST: adsrv-stg.softsean.link
+  only:
+    - /^v.*-stg$/
+
+deploy sean-ui sec:
+  extends: .deployment
+  variables:
+    NAMESPACE: sean-sec
+    HOST: adsrv-sec.softsean.link
+  only:
+    - /^v.*-sec$/
+
+deploy sean-ui func:
+  extends: .deployment
+  variables:
+    NAMESPACE: sean-func
+    HOST: adsrv-func.softsean.link
+  only:
+    - /^v.*-func$/
+
+deploy sean-ui sce:
+  extends: .deployment
+  variables:
+    NAMESPACE: sean-sce
+    HOST: adsrv-sce.softsean.link
+  only:
+    - /^v.*-sce$/
+
+deploy sean-ui clt:
+  extends: .deployment
+  variables:
+    NAMESPACE: sean-clt
+    HOST: adsrv-clt.softsean.link
+  only:
+    - /^v.*-clt$/
+
+# Deploy UAT and Production Environment
+deploy sean-ui uat:
+  extends: .deployment
+  variables:
+    NAMESPACE: sean-uat
+    HOST: adsrv-uat.softsean.link
+    AWS_EKS_CLUSTER: sean-cluster-prod
+    AWS_DEFAULT_REGION: ap-northeast-1
+  only:
+    - /^v.*-uat$/
+
+deploy sean-ui prod:
+  extends: .deployment
+  variables:
+    NAMESPACE: sean-prod
+    HOST: adsrv.softsean.link
+    AWS_EKS_CLUSTER: sean-cluster-prod
+    AWS_DEFAULT_REGION: ap-northeast-1
+  only:
+    - /^v.*-prd$/

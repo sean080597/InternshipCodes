@@ -1,0 +1,67 @@
+@import 'variables/color';
+.playlist-container {
+    // max-height: calc(100vh - 490px);
+    // overflow: auto;
+    min-height: 500px;
+    .playlist-row {
+        border-top: $gray-border;
+        border-bottom: $gray-border;
+        padding: .5rem 1.5rem;
+        .last-update {
+            font-size: 14px;
+        }
+    }
+    & .item:hover {
+        background-color: $black-squeeze;
+        cursor: pointer;
+    }
+    & .item {
+        .playlist-content {
+            max-width: 985px;
+        }
+        margin-left: 22px;
+        .col {
+            flex: 1;
+        }
+        .receiptImage {
+            overflow: hidden;
+            height: 200px;
+        }
+        .item-box {
+            overflow: hidden;
+            height: 100%;
+            div {
+                overflow: hidden;
+                float: left;
+            }
+            img {
+                max-width: 100%;
+                &.standbyImage {
+                    padding-right: 5px;
+                }
+            }
+        }
+    }
+    & .item:last-child {}
+    .remarks {
+        &.playlist-remarks {
+            width: 100%;
+        }
+    }
+}
+
+::ng-deep.date {
+    .ng-star-inserted {
+        color: $primary;
+        font-size: 25px;
+    }
+    // width: 60%;
+    float: right;
+}
+
+@media only screen and (max-width: 1024px) {
+    /* For mobile phones: */
+    .playlist-content {
+        max-width: 850px !important;
+    }
+}

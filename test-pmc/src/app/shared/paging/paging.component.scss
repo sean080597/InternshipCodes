@@ -1,0 +1,34 @@
+@import 'variables/color';
+nz-select {
+    border-bottom: 1px solid $mine-shaft;
+     ::ng-deep nz-select-top-control {
+        padding: 0 20px 0 5px !important;
+    }
+     ::ng-deep nz-select-arrow {
+        color: $mine-shaft;
+    }
+}
+
+.text-small {
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.icon-paging {
+    font-size: 30px;
+    &:hover {
+        color: $mine-shaft;
+    }
+    &:not(:hover) {
+        color: $primary;
+    }
+    &.disabled {
+        color: $ghost;
+        pointer-events: none;
+    }
+}
+
+.number-items {
+    font-size: 24px;
+    font-weight: normal;
+}

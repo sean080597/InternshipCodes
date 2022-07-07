@@ -1,0 +1,12 @@
+<div class="modal-header border-0">
+    <div class="f-size-24">
+        {{(customTitle || 'IMAGE_REGISTER.TITLE_MODAL') | translate}}
+    </div>
+    <!-- <i nz-icon nzType="close" nzTheme="outline" class="float-right close-icon" (click)="close()" aria-hidden="true"></i> -->
+    <div class="cursor-pointer float-right" (click)="close()">
+        <img src="assets/images/close-modal.svg" />
+    </div>
+</div>
+<div class="modal-body">
+    <app-images-register-list [isModal]="true" (onConfirmed)="onConfirmed($event)" [typeIdOnly]="typeIdOnly"></app-images-register-list>
+</div>

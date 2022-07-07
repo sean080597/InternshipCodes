@@ -1,0 +1,31 @@
+@import "variables/color";
+
+.receipt-template-selection {
+  background-color: $white;
+  border-radius: 1rem;
+  .preview-img-placeholder {
+    display: flex;
+    justify-content: center;
+    &.border-green {
+      border: 2px dashed $primary;
+    }
+    &.border-gray {
+      border: 2px solid $dove-gray;
+    }
+    &.vertical-img-ratio {
+      aspect-ratio: 12 / 25;
+    }
+    i {
+      color: $primary;
+      font-size: 3rem;
+    }
+    img {
+      max-height: 100%;
+    }
+  }
+  .template-hover {
+    &:hover,&:focus {
+      background-color: $black-squeeze;
+    }
+  }
+}

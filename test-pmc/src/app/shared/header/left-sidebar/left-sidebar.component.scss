@@ -1,0 +1,51 @@
+@import "variables/color";
+@import "variables/size";
+@import "core/mixin";
+
+.sidebar {
+    background-color: $primary;
+    position: fixed;
+    z-index: 99;
+    overflow-x: hidden;
+    transition: 0.5s;
+    top: 50%;
+    transform: translate(0, -50%);
+    @media #{$max-mq-xlarge} {
+      display: none;
+    }
+    &.left {
+        left: 0;
+        a {
+          padding: 20px 8px 10px 8px;
+          // &:hover {
+          //   color: #fff;
+          //   background-color: $primary;
+          // }
+        }
+        &.active{
+          width: 270px;
+          display: block;
+        }
+    }
+    .close-btn {
+        position: absolute;
+        top: 0;
+        font-size: 36px;
+        line-height: 1;
+        &.left {
+            left: 0;
+        }
+        &.right {
+            right: 0;
+            text-align: right;
+        }
+        // margin-left: 50px;
+    }
+}
+
+  .sidebar a {
+    text-decoration: none;
+    display: block;
+    color: inherit;
+    transition: 0.3s;
+  }

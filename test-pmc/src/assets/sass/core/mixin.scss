@@ -1,0 +1,84 @@
+@use "sass:meta";
+
+// Breakpoints 1em ~ 16px
+$bp-xsmall: 36em; // 576px
+$bp-small: 48em; // 768px
+$bp-medium: 62em; // 992px
+$bp-large: 75em; // 1200px
+$bp-xlarge: 87.5em; // 1400px
+$bp-xxlarge: 120em; // 1920px
+
+// Media Queries
+$min-mq-xsmall: "(min-width: #{$bp-xsmall})";
+$min-mq-small: "(min-width: #{$bp-small})";
+$min-mq-medium: "(min-width: #{$bp-medium})";
+$min-mq-large: "(min-width: #{$bp-large})";
+$min-mq-xlarge: "(min-width: #{$bp-xlarge})";
+$min-mq-xxlarge: "(min-width: #{$bp-xxlarge})";
+
+$max-mq-xsmall: "(max-width: #{$bp-xsmall})";
+$max-mq-small: "(max-width: #{$bp-small})";
+$max-mq-medium: "(max-width: #{$bp-medium})";
+$max-mq-large: "(max-width: #{$bp-large})"; // 1200px
+$max-mq-xlarge: "(max-width: #{$bp-xlarge})";
+$max-mq-xxlarge: "(max-width: #{$bp-xxlarge})";
+
+@mixin render-font-size($font-size-list) {
+  @each $value in $font-size-list {
+    .f-size-#{$value} {
+      font-size: pixel($value) !important;
+    }
+    .f-size-w3-#{$value} {
+      font-size: pixel($value) !important;
+    }
+    .f-size-w6-#{$value} {
+      font-size: pixel($value) !important;
+      font-weight: bold !important;
+    }
+  }
+}
+
+@mixin render-width-percent($percent-list) {
+  @each $value in $percent-list {
+    .width-#{$value} {
+      width: percent($value);
+    }
+  }
+}
+
+.ant-custom-checkbox {
+  ::ng-deep span.ant-checkbox {
+    margin-bottom: 1rem;
+    & + span {
+      width: 100%;
+      padding: 0;
+    }
+  }
+}
+
+.ant-custom-radio {
+  ::ng-deep span.ant-radio {
+    margin-bottom: 1rem;
+    & + span {
+      width: 100%;
+      padding: 0;
+    }
+  }
+}
+
+@mixin custom-scrollbar($barWidth) {
+  &::-webkit-scrollbar-track {
+    background-color: $wild-sand;
+    border-radius: $barWidth;
+  }
+
+  &::-webkit-scrollbar {
+    width: $barWidth;
+    background-color: $wild-sand;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: $barWidth;
+    background-color: $dove-gray;
+  }
+}

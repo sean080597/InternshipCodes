@@ -1,0 +1,62 @@
+diff a/src/app/app.module.ts b/src/app/app.module.ts	(rejected hunks)
+@@ -1,8 +1,30 @@
++import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+ import { NgModule } from '@angular/core';
+ import { BrowserModule } from '@angular/platform-browser';
+-
+ import { AppRoutingModule } from './app-routing.module';
++import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
++import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+ import { AppComponent } from './app.component';
++import { SharedModule } from './shared/shared.module';
++import { ErrorInterceptor, JwtInterceptor } from './_helpers';
++import {ModalModule} from "ngx-bootstrap/modal";
++import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
++
++import { registerLocaleData } from '@angular/common';
++import en from '@angular/common/locales/en';
++import ja from '@angular/common/locales/ja';
++/** config ng-zorro-antd i18n **/
++import { NZ_I18N, ja_JP } from 'ng-zorro-antd/i18n';
++import { NotifyModule } from './account/notification';
++import * as moment from "moment-timezone";
++import { COMMON_CONFIGS } from './_constants';
++
++registerLocaleData(ja);
++moment.tz.setDefault(COMMON_CONFIGS.TIME_ZONE)
++// AoT requires an exported function for factories
++export function HttpLoaderFactory(http: HttpClient) {
++  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
++}
+ 
+ @NgModule({
+   declarations: [
+@@ -10,9 +32,25 @@ import { AppComponent } from './app.component';
+   ],
+   imports: [
+     BrowserModule,
+-    AppRoutingModule
++    SharedModule,
++    NotifyModule,
++    BrowserAnimationsModule,
++    TranslateModule.forRoot({
++      loader: {
++        provide: TranslateLoader,
++        useFactory: HttpLoaderFactory,
++        deps: [HttpClient],
++      },
++    }),
++    ModalModule.forRoot(),
++    HttpClientModule,
++    AppRoutingModule,
+   ],
+-  providers: [],
+-  bootstrap: [AppComponent]
++  providers: [
++    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
++    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
++    { provide: NZ_I18N, useValue: ja_JP }
++],
++bootstrap: [AppComponent]
+ })
+ export class AppModule { }

@@ -1,0 +1,155 @@
+<div class="container form-regist-container">
+  <form [formGroup]="registrationForm">
+    <div class="card border-0">
+      <div class="h-auto p-4">
+        <div class="row">
+          <!-- Form inputs -->
+          <div class="col-12 col-md-6 mb-4">
+            <!-- destination type -->
+            <div class="mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <label for="desType" class="f-size-w6-18 col-form-label">{{"IMAGE_REGISTER.LB_DES_TYPE" | translate}}</label>
+              </div>
+              <nz-radio-group formControlName="type" (ngModelChange)="changeDesType($event)">
+                <label nz-radio [nzValue]="destinationTypes.CUSTOMER_DISPLAY" class="f-size-w3-16">{{'IMAGE_REGISTER.DES_TYPE_CUSTOMER' | translate}}</label>
+                <label nz-radio [nzValue]="destinationTypes.RECEIPT_IMAGE" class="f-size-w3-16">{{'IMAGE_REGISTER.DES_TYPE_RECEIPT' | translate}}</label>
+              </nz-radio-group>
+            </div>
+
+            <!-- image label -->
+            <div class="mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <label for="imageLabel" class="f-size-w6-18 col-form-label">{{"LB_IMAGE" | translate}}</label>
+                <span class="badge pull-right bg-danger">{{'LB_MANDATORY' | translate}}</span>
+              </div>
+              <div class="">
+                <input type="text" class="form-control" id="imageLabel" formControlName="imageLabel"
+                  placeholder="{{'COMMON.PLACEHOLDER.PLACEHOLDER_UPTO' | translate : {length: inputConfigs.LABEL_MAXLENGTH} }}" />
+                <div class="text-danger small" *ngIf="f['imageLabel'].touched && f['imageLabel'].invalid">
+                  <div *ngIf="f['imageLabel'].errors['required']">
+                    {{'ERR_MSG_REQUIRED' | translate : {field: 'LB_IMAGE' | translate } }}
+                  </div>
+                </div>
+                <div class="text-danger small"
+                  *ngIf="f['imageLabel'].touched && f['imageLabel'].hasError('maxlength')">
+                  {{'ERR_MSG_EXCEEDED_MAX_LENGTH' | translate : {field: 'LB_IMAGE' | translate, length: inputConfigs.LABEL_MAXLENGTH} }}
+                </div>
+              </div>
+            </div>
+
+            <!-- remarks -->
+            <div class="mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <label for="remarks" class="f-size-w6-18 col-form-label">{{'LB_REMARKS' | translate}}</label>
+              </div>
+              <div class="">
+                <input type="text" class="form-control" id="remarks" formControlName="remarks"
+                  placeholder="{{'COMMON.PLACEHOLDER.PLACEHOLDER_UPTO' | translate : {length: inputConfigs.REMARKS_MAXLENGTH} }}" />
+                <div class="text-danger small" *ngIf="f['remarks'].touched && f['remarks'].invalid">
+                  <div *ngIf="f['remarks'].errors['required']">
+                    {{'ERR_MSG_REQUIRED' | translate : {field: 'LB_REMARKS' | translate } }}
+                  </div>
+                </div>
+                <div class="text-danger small" *ngIf="f['remarks'].touched && f['remarks'].hasError('maxlength')">
+                  {{'ERR_MSG_EXCEEDED_MAX_LENGTH' | translate : {field: 'LB_REMARKS' | translate, length: inputConfigs.REMARKS_MAXLENGTH} }}
+                </div>
+              </div>
+            </div>
+
+            <!-- image file -->
+            <div class="mb-4">
+              <div class="d-flex align-items-center gap-2">
+                <label for="imageFile" class="f-size-w6-18 col-form-label">{{"LB_IMAGE_FILE" | translate}}</label>
+                <span class="badge pull-right bg-danger">{{'LB_MANDATORY' | translate}}</span>
+              </div>
+              <div class="choose-image-input">
+                <input #myImageFile id="imageFile" type="file" class="d-none" [accept]="'image/jpeg,image/png,image/gif'"
+                  (change)="onFileChange($event)" (click)="myImageFile.value = null" />
+                <div class="d-flex justify-content-between align-items-center gap-4 choose-filename">
+                  <p class="text-truncate f-size-w3-16">{{fileName || "TXT_NO_FILE_CHOSEN" | translate}}</p>
+                  <button type="button" class="px-4" nz-button nzType="primary" nzShape="round" nzGhost (click)="myImageFile.click()">
+                    {{'BT_SELECT' | translate}}
+                  </button>
+                </div>
+                <div class="text-danger small" *ngIf="f['imageFile'].touched && !fileName">
+                  {{'ERR_MSG_UPLOAD_IMAGE_REQUIRED' | translate }}
+                </div>
+              </div>
+
+              <!-- chosen image -->
+              <!-- <div class="w-25">
+                <img class="img-fluid" src="{{destinationImage}}" alt="Destination image" />
+              </div> -->
+            </div>
+
+            <!-- alignment -->
+            <div class="mb-2">
+              <!-- <div class="d-flex align-items-center gap-2">
+                <label class="col-form-label">{{"LB_ALIGNMENT" | translate}}</label>
+              </div> -->
+              <nz-radio-group formControlName="alignment" [nzDisabled]="isFreeze" (ngModelChange)="changeAligment()">
+                <label class="f-size-w3-16" nz-radio [nzValue]="item.key" *ngFor="let item of genAlignmentOptions(typeId)">{{item.value}}</label>
+              </nz-radio-group>
+              <div class="text-danger small" *ngIf="f['alignment'].touched && f['alignment'].invalid">
+                <div *ngIf="f['alignment'].errors['required']">
+                  {{'ERR_MSG_SELECT_REQUIRED' | translate : {field: 'LB_ALIGNMENT' | translate } }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- preview -->
+          <div class="col-12 col-md-6 mb-4">
+            <div class="preview-img-container mt-5" [ngClass]="typeId === destinationTypes.CUSTOMER_DISPLAY ? 'max-w-customer' : 'max-w-receipt'">
+              <!-- wrap outside -->
+              <div class="border-redundant" *ngIf="typeId === destinationTypes.CUSTOMER_DISPLAY">
+                <span class="dot"></span>
+              </div>
+
+              <!-- main preview -->
+              <div [ngClass]="genScaleModeClassname(typeId)">
+                <div #thumbnailHorizontal class="preview-img-placeholder overflow-hidden"
+                  [ngClass]="{
+                    'horizontal-img-ratio': typeId === destinationTypes.CUSTOMER_DISPLAY,
+                    'vertical-img-ratio': typeId === destinationTypes.RECEIPT_IMAGE,
+                    'bg-black': typeId === destinationTypes.CUSTOMER_DISPLAY && !!fileName
+                  }"
+                  [style.max-height]="genMaxHeightReceipt(typeId) + 'px'"
+                >
+                  <div #thumbnailVertical class="preview-img-to-capture"
+                    [ngClass]="{'bg-black': typeId === destinationTypes.CUSTOMER_DISPLAY && !!fileName}">
+                    <img [src]="previewImage" alt="Preview image" [style.transform]="'scale(' + genScale2Transform(typeId) + ')'" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 text-danger small mb-2" *ngIf="isFreeze">
+            <p class="mb-0">{{'MSG_CENTER_ALIGNMENT_FIXED' | translate : {limitWidth: limitDimensions.width, limitHeight: limitDimensions.height} }}</p>
+          </div>
+        </div>
+
+        <!-- canvas -->
+        <div class="row mb-2" [hidden]="true">
+          <div class="col-4">
+            <canvas #canvas></canvas>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center" *ngIf="isModal">
+          <button type="button" class="px-5 my-2" nzSize="large" nz-button nzType="primary" nzShape="round" [nzLoading]="isSubmitting" (click)="onSave()">{{'BT_SAVE' | translate}}</button>
+        </div>
+      </div>
+
+      <ng-template #actionsBar>
+        <div class="container" *ngIf="!isModal">
+          <button type="button" class="float-end px-5 my-2" nzSize="large" nz-button nzType="primary" nzShape="round"
+            [disabled]="f['imageLabel'].invalid || !fileName" [nzLoading]="isSubmitting" (click)="onSave()">{{'BT_SAVE' | translate}}</button>
+        </div>
+      </ng-template>
+    </div>
+    <app-progress-indicator [isProgressing]="isProgressing$ | async" [proCount]="progressingCount$ | async"
+      [proStatus]="progressingStatus$ | async"></app-progress-indicator>
+  </form>
+</div>

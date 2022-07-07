@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-light top-menu shadow">
+    <div class="container-fluid px-3 d-flex">
+
+        <div class="col-4">
+            <button class="burger-btn" (click)="toggleNav('left')" *ngIf="!isHideInfoTemp">☰</button>
+        </div>
+        <a class="col-4 text-center align-items-center" [routerLink]="['/managements/top-screen']"
+            (click)="closeBothSidebar()">
+             <img src="assets/images/logo-stera.svg" alt="">
+        </a>
+
+        <div class="col-4">
+            <ng-container *ngIf="!isHideInfoTemp || enableAccountAndNotify">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item noti-item">
+                        <a (click)="notification('id-notify')" class="nav-link">
+                            <i class="fa fa-bell-o color-primary" aria-hidden="true"></i>
+                            <!-- <img class="me-2" src="assets/images-sidebar-old/bell-small.svg" alt=""> -->
+                            <span class="ms-3 badge rounded-pill bg-warning text-dark">
+                                <small class="px-1">{{bellsNumber}}</small>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown user-section">
+                        <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" role="button"
+                            (click)="toggleNav('right')">
+                            <!-- <img src="assets/images-sidebar-old/user-small.svg" alt=""> -->
+                            <i class="fa fa-user-circle-o color-primary" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            </ng-container>
+        </div>
+    </div>
+</nav>
+
+<app-right-sidebar [dataRightSide]="{isOpenRightSide}"></app-right-sidebar>
+<app-left-sidebar-old [dataLeftSide]="{isOpenLeftSide, isHideInfoTemp}" (isOpenLeftSideSync)="isOpenLeftSide = $event"></app-left-sidebar-old>

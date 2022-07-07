@@ -1,0 +1,6 @@
+@function pixel($pxSize) {
+    @return #{$pxSize  + 'px'};
+}
+@function percent($percentSize) {
+    @return #{$percentSize  + '%'};
+}

@@ -1,0 +1,449 @@
+@use "sass:math" as math;
+
+*,
+*:focus,
+*:hover {
+  outline: none !important;
+}
+
+@import "variables/color";
+
+@font-face {
+  font-family: 'MS Gothic';
+  src: url('../../fonts/MSGOTHIC.TTF') format('truetype');
+}
+@font-face {
+  font-family: 'NotoSansJP';
+  src: url('../../fonts/NotoSansJP-Black.otf') format('opentype');
+  font-weight: 900;
+}
+@font-face {
+  font-family: "NotoSansJP";
+  src: url("../../fonts/NotoSansJP-Bold.otf") format('opentype');
+  font-weight: bold;
+}
+@font-face {
+  font-family: "NotoSansJP";
+  src: url("../../fonts/NotoSansJP-Light.otf") format('opentype');
+  font-weight: 300;
+}
+@font-face {
+  font-family: "NotoSansJP";
+  src: url("../../fonts/NotoSansJP-Medium.otf") format('opentype');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'NotoSansJP';
+  src: url('../../fonts/NotoSansJP-Regular.otf') format('opentype');
+}
+@font-face {
+  font-family: 'NotoSansJP';
+  src: url('../../fonts/NotoSansJP-Thin.otf') format('opentype');
+  font-weight: 100;
+}
+
+@include render-font-size($font-size-px-list); // f-size-xxx
+@include render-width-percent($width-percent-list); // width-xxx
+
+.color-primary {
+  color: $primary;
+}
+input,
+textarea,
+select,
+button {
+  &:focus,
+  &:hover {
+    box-shadow: none !important;
+  }
+}
+input {
+  &:not([type="checkbox"]),
+  :not([type="radio"]) {
+    border-radius: 0.5rem !important;
+  }
+
+  &::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: $alto !important;
+  }
+  &:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: $alto !important;
+    opacity: 1;
+  }
+  &::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: $alto !important;
+    opacity: 1;
+  }
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: $alto !important;
+  }
+  &::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: $alto !important;
+  }
+  &::placeholder {
+    /* Most modern browsers support this now. */
+    color: $alto !important;
+  }
+}
+
+body {
+  @include custom-scrollbar(3px);
+  font-family: "NotoSansJP" !important;
+  background-color: $wild-sand !important;
+  overflow-y: scroll;
+}
+.float {
+  &-right {
+    float: right !important;
+  }
+  &-left {
+    float: left !important;
+  }
+}
+
+.container {
+  &-fluid {
+    padding: 0;
+  }
+  .card {
+    &-footer {
+      background-color: white;
+    }
+  }
+  .pl-6 {
+    padding-left: 6.5rem;
+  }
+}
+
+hr.full-w {
+  position: relative;
+  left: -1rem;
+  width: calc(100% + 2rem);
+  background-color: $silver-chalice;
+}
+
+.fa-trash {
+  font-size: 27px;
+  margin-right: 5px;
+}
+
+.trash-button {
+  display: flex;
+  align-items: center;
+  transition: 0.5s;
+  font-size: $font-size-14;
+  :hover {
+    cursor: pointer;
+  }
+  &.disable {
+    color: $ghost;
+    pointer-events: none;
+  }
+  &.enable {
+    color: $primary;
+  }
+}
+
+.title {
+  p {
+    color: $primary;
+  }
+}
+
+.card {
+  border-radius: 1rem !important;
+  &-header {
+    background-color: white;
+    border-top-right-radius: 1rem !important;
+    border-top-left-radius: 1rem !important;
+  }
+  &-body {
+    height: calc(100vh - 250px);
+    overflow-y: auto;
+  }
+  &-footer {
+    background-color: white;
+  }
+}
+
+.modal-dialog {
+  &.mh-90 .modal-content {
+    max-height: 90% !important;
+  }
+  &.mh-95 .modal-content {
+    max-height: 95% !important;
+  }
+  .modal-content {
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+    border-radius: 22px !important;
+    border: none;
+    i.close-icon {
+      opacity: 0.5;
+      font-size: 3rem;
+      cursor: pointer;
+    }
+    .create-card {
+      background-color: $black-squeeze;
+      border: $primary thin dashed;
+      border-radius: 12px;
+      .title {
+        color: $primary;
+      }
+    }
+  }
+}
+
+.modal-backdrop {
+  &.show {
+    background-color: white;
+    opacity: 0.7;
+  }
+  &.fade {
+    background-color: white;
+    opacity: 0.7;
+  }
+}
+
+//modified nz-picker
+.cdk-overlay-container {
+  z-index: 1100;
+}
+// UTILS CLASS HERE
+
+.top-0 {
+  top: 0;
+}
+.bottom-0 {
+  bottom: 0;
+}
+.bg-transparent {
+  background: transparent;
+}
+.border-0 {
+  border: 0;
+}
+.light-border {
+  border: $black;
+}
+.no-background {
+  background: none !important;
+}
+.filter-section {
+  margin: 0 !important;
+  .btn-search {
+    bottom: 0;
+  }
+}
+.item-box {
+  &.limit-height {
+    height: 150px;
+    img {
+      height: 100%;
+      object-fit: contain;
+    }
+    &-200 {
+      @extend .limit-height;
+      height: 200px;
+    }
+  }
+  .right-arrow-icon {
+    top: 35%;
+    right: 0;
+  }
+  .img-selection-box {
+    max-width: 390px;
+  }
+  .img-placeholder {
+    // border: $light-border;
+    text-align: center;
+    background-color: $alto;
+  }
+}
+
+.preview-img-placeholder {
+  &.vertical-img {
+    max-width: $max-width-receipt;
+    max-height: $max-height-receipt;
+    // background-color: #ccc;
+  }
+  &.vertical-img-ratio {
+    width: 100%;
+    // aspect-ratio: 12/25;
+    // background-color: #ccc;
+  }
+  &.horizontal-img {
+    max-width: $max-width-image;
+    max-height: $max-height-image;
+    // background-color: $black;
+  }
+  &.horizontal-img-ratio {
+    width: 100%;
+    aspect-ratio: 5/3;
+    // background-color: $black;
+  }
+}
+
+.preview-img-container {
+  .preview-img-placeholder {
+    display: inline-block;
+    .preview-img-to-capture {
+      background-color: $white;
+    }
+    outline: 1px solid $ghost !important;
+  }
+
+  .alignedVerticalWidth {
+    .preview-img-placeholder {
+      display: flex;
+      justify-content: center;
+      img {
+        height: 100%;
+      }
+    }
+  }
+  .alignedWidth {
+    .preview-img-placeholder {
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .alignedCenter {
+    .preview-img-placeholder {
+      position: relative;
+      .preview-img-to-capture {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+  .alignedWidthReduction {
+    .preview-img-placeholder {
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .alignedUpperLeft {
+    .preview-img-placeholder {
+      img {
+        transform-origin: 0 0;
+      }
+    }
+  }
+  .alignedTopCenter {
+    .preview-img-placeholder {
+      .preview-img-to-capture {
+        display: flex;
+        justify-content: center;
+        img {
+          transform-origin: top;
+        }
+      }
+    }
+  }
+}
+
+.playlist-selection {
+  .card-body {
+    max-height: calc(100vh - 380px);
+    padding: 0 !important;
+  }
+}
+select:invalid {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.loading {
+  position: fixed;
+  display: flex;
+  top: 135px;
+  height: calc(100vh - 287px);
+  left: 0;
+  bottom: 0;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  .ant-spin-dot-item {
+    background-color: $primary;
+  }
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.text-space-wrap {
+  white-space: pre-wrap;
+}
+
+.text-horizontal-line {
+  display: flex;
+  &::before,
+  &::after {
+    content: "";
+    flex: 1 1;
+    margin: auto;
+    height: 0.09em;
+    background-color: $primary;
+  }
+  &::before {
+    margin-right: 1.5rem;
+  }
+  &::after {
+    margin-left: 1.5rem;
+  }
+}
+
+.remarks {
+  width: 25%;
+  font-weight: 400;
+  font-size: 80%;
+}
+
+.lastUpdateDate {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.font-size-1-5 {
+  font-size: 1.5rem;
+}
+
+$scale-from: 50;
+$scale-to: 80;
+@for $i from $scale-from through $scale-to {
+  .scale-#{$i} {
+    transform-origin: 0 0;
+    transform: scale(math.div($i, 100));
+    width: calc(10000% / $i) !important;
+  }
+}
+
+.line-horizontal {
+  border: 3px solid $primary;
+  background-color: $primary;
+}
+
+.line {
+  width: calc(50% - 78px);
+  background-color: $primary;
+  height: 0;
+  border: 1px solid $primary;
+  margin: 3px;
+  display: inline-block;
+}

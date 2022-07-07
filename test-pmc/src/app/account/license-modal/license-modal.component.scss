@@ -1,0 +1,8 @@
+.card {
+  border-radius: 22px !important;
+  border: none;
+  .card-header {
+    border-radius: inherit !important;
+    background-color: inherit !important;
+  }
+}

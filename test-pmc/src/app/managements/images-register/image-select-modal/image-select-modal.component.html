@@ -1,0 +1,51 @@
+<div class="modal-header border-0">
+    <div class="f-size-w3-24">
+        {{'TT_IMAGE_SELECTION' | translate}}
+    </div>
+    <!-- <i nz-icon nzType="close" nzTheme="outline" class="float-right close-icon" (click)="close()" aria-hidden="true"></i> -->
+    <div class="cursor-pointer float-right" (click)="close()">
+        <img src="assets/images/close-modal.svg" />
+    </div>
+</div>
+<div class="modal-body">
+    <div class="px-4">
+        <p class="f-size-w3-22" *ngIf="!showSelection">{{'IMAGE_REGISTER.LB_SELECT_NEW_IMAGE' | translate}}</p>
+        <div class="d-flex flex-column create-card p-5 mb-4" fileDragDrop (filesChangeEmiter)="onFileChange($event)">
+            <div class="f-size-w3-18 d-flex title p-2 justify-content-center">
+                {{fileName || 'TT_DRAG_DROP' | translate}}
+            </div>
+            <div class="d-flex p-2 justify-content-center">
+            <button id="btnConfirm" type="button" class="px-5" nz-button nzSize="large" nzType="primary" (click)="openNewImageModal()">
+              {{'COMMON.BUTTON.BT_SELECT_FILES' | translate}}
+            </button>
+            </div>
+        </div>
+        <div *ngIf="showSelection">
+            <p class="f-size-w3-18">{{'TT_SELECTION_LASTEST' | translate}}</p>
+            <div class="image-selection-container mb-4">
+              <div class="row">
+                <div class="py-2 px-4 d-flex flex-column" *ngIf="imagesList.length < 1">
+                  <p class="f-size-w3-16 my-1 text-danger small">{{'SEARCH_MSG_NOT_FOUND' | translate}}</p>
+                </div>
+                <label [hidden]="imagesList.length < 1" class="col-3 item py-2" *ngFor="let item of imagesList">
+                  <input [hidden]="true" type="radio" name="image" value="{{ item.id }}" (change)="selectImg(item)" />
+                  <div class="inner">
+                    <div class="item-box text-center" [ngClass]="{'limit-height': imageListType === destinationTypes.RECEIPT_IMAGE}">
+                      <img class="img-fluid" src="{{ item.imageFilePath ?? item.thumbnailImageFilePath ?? 'assets/images/175x105.png' }}"
+                        onerror="this.onerror=null;this.src='assets/images/175x105.png';" />
+                    </div>
+                    <p class="f-size-w3-16 mt-3 text-truncate" [title]="item.imageLabel">{{item.imageLabel}}</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button id="btnConfirm" type="button" class="px-5" nz-button nzSize="large" nzType="primary" (click)="openImageSelection()">
+                {{'COMMON.BUTTON.BT_IMAGE_LIST' | translate}}
+              </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #actionsBar></ng-template>

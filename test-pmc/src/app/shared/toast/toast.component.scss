@@ -1,0 +1,29 @@
+:host {
+  $padding: 22em;
+  .toast-container {
+    width: 100%;
+    display: block;
+    position: fixed;
+    animation: move 2s both;
+    z-index: 9999;
+  }
+  .toast {
+    width: fit-content;
+    max-width: 90%;
+    display: block;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+
+  @keyframes move {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(100%);
+    }
+  }
+}

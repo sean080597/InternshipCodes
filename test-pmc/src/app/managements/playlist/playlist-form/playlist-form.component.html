@@ -1,0 +1,761 @@
+<div class="playlist-form">
+  <form [formGroup]="playlistForm">
+    <div class="card border-0 f-size-w3-18">
+      <div class="row p-4 pb-1">
+        <div class="col">
+          <div class="mx-3 mb-3 f-size-w6-24">
+            {{ "TT_AD_SET_SETTING" | translate }}
+          </div>
+          <!-- <p *ngIf="playlistId" class="my-2">{{ 'TT_PLAYLIST_EDIT' | translate }}</p> -->
+          <!-- <div class=" bd-highlight">
+                            <button class="btn btn-secondary me-md-2 btn-submit-xs" (click)="back()" type="button">{{'BT_BACK' | translate}}</button>
+                        </div> -->
+        </div>
+        <div class="col">
+          <p *ngIf="playlistId" class="details-datetime col-form-label mb-4">
+            {{
+              "IMAGE_DETAILS.LB_DATETIME"
+                | translate
+                  : {
+                      registDate: playlistForm.value.registrationDate,
+                      updateDate: playlistForm.value.lastUpdateDate
+                    }
+            }}
+          </p>
+        </div>
+      </div>
+      <div class="row p-4 pt-0">
+        <div class="col">
+          <div class="mx-3">
+            <div class="form-group mb-3">
+              <div class="col-form-label">
+                <label class="col-form-label">{{
+                  "LB_PLAYLIST_NAME" | translate
+                }}</label>
+                <span class="badge f-size-w3-16 bg-danger ms-3">{{
+                  "LB_MANDATORY" | translate
+                }}</span>
+              </div>
+              <div class="">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="playlistLabel"
+                  placeholder="{{
+                    'COMMON.PLACEHOLDER.PLACEHOLDER_UPTO'
+                      | translate: { length: inputConfigs.LABEL_MAXLENGTH }
+                  }}"
+                />
+                <div
+                  class="text-danger small"
+                  *ngIf="
+                    playlistForm.controls['playlistLabel'].touched &&
+                    playlistForm.controls['playlistLabel'].invalid
+                  "
+                >
+                  <div
+                    *ngIf="
+                      playlistForm.controls['playlistLabel'].errors['required']
+                    "
+                  >
+                    {{
+                      "ERR_MSG_REQUIRED"
+                        | translate: { field: "LB_PLAYLIST_NAME" | translate }
+                    }}
+                  </div>
+                </div>
+                <div
+                  class="text-danger small"
+                  *ngIf="
+                    playlistForm.controls['playlistLabel'].touched &&
+                    playlistForm.controls['playlistLabel'].hasError('maxlength')
+                  "
+                >
+                  {{ "COMMON.ERRORS.PLAYLIST_LABEL_ERROR" | translate }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label">{{
+                "LB_REMARKS" | translate
+              }}</label>
+              <div class="">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="remarks"
+                  placeholder="{{
+                    'COMMON.PLACEHOLDER.PLACEHOLDER_UPTO'
+                      | translate: { length: inputConfigs.REMARKS_MAXLENGTH }
+                  }}"
+                />
+                <div
+                  class="text-danger small"
+                  *ngIf="
+                    playlistForm.controls['remarks'].touched &&
+                    playlistForm.controls['remarks'].invalid
+                  "
+                >
+                  <div
+                    *ngIf="playlistForm.controls['remarks'].errors['required']"
+                  >
+                    {{
+                      "ERR_MSG_REQUIRED"
+                        | translate: { field: "LB_REMARKS" | translate }
+                    }}
+                  </div>
+                </div>
+                <div
+                  class="text-danger small"
+                  *ngIf="
+                    playlistForm.controls['remarks'].touched &&
+                    playlistForm.controls['remarks'].hasError('maxlength')
+                  "
+                >
+                  {{ "COMMON.ERRORS.PLAYLIST_REMARKS_ERROR" | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="mx-3">
+            <div class="px-0">
+              <div class="playlist-container">
+                <div class="item p-0 border-0">
+                  <div class="row mx-0">
+                    <div class="col-md-12">
+                      <div class="item-box">
+                        <!-- <div class="my-1 mx-2">
+                                                        <span class="float-start me-3">
+                                                            {{'LB_STANDBY_IMAGE' | translate}} <span class="badge f-size-w3-16 bg-danger">{{'LB_MANDATORY' | translate}}</span>
+                                                        </span>
+                                                        <div class="text-danger small" *ngIf="playlistForm.controls['playlistData'].touched && playlistForm.controls['playlistData'].invalid">
+                                                            <div *ngIf="playlistForm.controls['playlistData'].errors['required']">
+                                                                {{'ERR_MSG_REQUIRED' | translate : {field: ('LB_STANDBY_IMAGE' | translate) + '①' } }}
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                        <div class="col-md-12">
+                          <p class="me-2">
+                            {{ "LB_STANDBY_IMAGE_LIST" | translate }}
+                          </p>
+                          <div class="col-md-4 position-relative">
+                            <div
+                              class="col-11 position-relative d-flex img-selection-box"
+                            >
+                              <div
+                                *ngIf="
+                                  !playlistForm.value.playlistData
+                                    .standbyImages[0]?.imageFilePath
+                                "
+                                class="img-placeholder"
+                                (click)="
+                                  openImageSelectionModal('standbyImages', 0)
+                                "
+                              >
+                                <p>+</p>
+                              </div>
+                              <div
+                                (click)="
+                                  openImageSelectionModal('standbyImages', 0)
+                                "
+                              >
+                                <img
+                                  [class]="
+                                    !playlistForm.value.playlistData
+                                      .standbyImages[0]?.imageFilePath
+                                      ? 'd-none'
+                                      : ''
+                                  "
+                                  [src]="
+                                    playlistForm.value.playlistData
+                                      .standbyImages[0]?.imageFilePath
+                                  "
+                                />
+                              </div>
+                              <span
+                                *ngIf="
+                                  !playlistForm.value.playlistData
+                                    .standbyImages[0]?.imageFilePath
+                                "
+                                class="badge tag f-size-w3-16 bg-danger"
+                                >{{ "LB_MANDATORY" | translate }}</span
+                              >
+                              <!-- <i *ngIf="playlistForm.value.playlistData.standbyImages[0]?.imageFilePath" class=" tag icon-remover" nz-icon nzType="close" nzTheme="outline" (click)="clearImage('standbyImages', 0)"></i> -->
+                              <img
+                                *ngIf="
+                                  playlistForm.value.playlistData
+                                    .standbyImages[0]?.imageFilePath
+                                "
+                                class="tag icon-remover"
+                                src="assets/images/clear-img.svg"
+                                (click)="clearImage('standbyImages', 0)"
+                              />
+                            </div>
+                            <div
+                              class="text-danger small"
+                              *ngIf="
+                                playlistForm.controls['playlistData'].touched &&
+                                playlistForm.controls['playlistData'].invalid
+                              "
+                            >
+                              <div
+                                *ngIf="
+                                  playlistForm.controls['playlistData'].errors[
+                                    'required'
+                                  ]
+                                "
+                              >
+                                {{ "LB_STANDBY_IMAGE" | translate }}
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-md-4 position-relative"
+                            [class]="
+                              !playlistForm.value.playlistData.standbyImages[0]
+                                ?.imageFilePath &&
+                              !playlistForm.value.playlistData.standbyImages[1]
+                                ?.imageFilePath
+                                ? 'optional'
+                                : ''
+                            "
+                          >
+                            <div
+                              class="col-11 d-flex img-selection-box position-relative"
+                            >
+                              <div
+                                *ngIf="
+                                  !playlistForm.value.playlistData
+                                    .standbyImages[1]?.imageFilePath
+                                "
+                                class="img-placeholder"
+                                (click)="
+                                  openImageSelectionModal('standbyImages', 1)
+                                "
+                              >
+                                <p>+</p>
+                              </div>
+                              <div
+                                (click)="
+                                  openImageSelectionModal('standbyImages', 1)
+                                "
+                              >
+                                <img
+                                  [class]="
+                                    !playlistForm.value.playlistData
+                                      .standbyImages[1]?.imageFilePath
+                                      ? 'd-none'
+                                      : ''
+                                  "
+                                  [src]="
+                                    playlistForm.value.playlistData
+                                      .standbyImages[1]?.imageFilePath
+                                  "
+                                />
+                              </div>
+                              <!-- <i *ngIf="playlistForm.value.playlistData.standbyImages[1]?.imageFilePath" class="tag icon-remover" nz-icon nzType="close" nzTheme="outline" (click)="clearImage('standbyImages', 1)"></i> -->
+                              <img
+                                *ngIf="
+                                  playlistForm.value.playlistData
+                                    .standbyImages[1]?.imageFilePath
+                                "
+                                class="tag icon-remover"
+                                src="assets/images/clear-img.svg"
+                                (click)="clearImage('standbyImages', 1)"
+                              />
+                              <span
+                                *ngIf="
+                                  !playlistForm.value.playlistData
+                                    .standbyImages[1]?.imageFilePath
+                                "
+                                class="badge tag f-size-w3-16 bg-secondary"
+                                >{{ "LB_OPTIONAL" | translate }}</span
+                              >
+                            </div>
+                          </div>
+                          <div
+                            class="col-md-4 position-relative"
+                            [class]="
+                              (!playlistForm.value.playlistData.standbyImages[0]
+                                ?.imageFilePath ||
+                                (playlistForm.value.playlistData
+                                  .standbyImages[0]?.imageFilePath &&
+                                  !playlistForm.value.playlistData
+                                    .standbyImages[1]?.imageFilePath)) &&
+                              !playlistForm.value.playlistData.standbyImages[2]
+                                ?.imageFilePath
+                                ? 'optional'
+                                : ''
+                            "
+                          >
+                            <div
+                              class="col-11 d-flex img-selection-box position-relative"
+                            >
+                              <div
+                                *ngIf="
+                                  !playlistForm.value.playlistData
+                                    .standbyImages[2]?.imageFilePath
+                                "
+                                class="img-placeholder"
+                                (click)="
+                                  openImageSelectionModal('standbyImages', 2)
+                                "
+                              >
+                                <p>+</p>
+                              </div>
+                              <div
+                                (click)="
+                                  openImageSelectionModal('standbyImages', 2)
+                                "
+                              >
+                                <img
+                                  [class]="
+                                    !playlistForm.value.playlistData
+                                      .standbyImages[2]?.imageFilePath
+                                      ? 'd-none'
+                                      : ''
+                                  "
+                                  [src]="
+                                    playlistForm.value.playlistData
+                                      .standbyImages[2]?.imageFilePath
+                                  "
+                                />
+                              </div>
+                              <!-- <i *ngIf="playlistForm.value.playlistData.standbyImages[2]?.imageFilePath" class="tag icon-remover" nz-icon nzType="close" nzTheme="outline" (click)="clearImage('standbyImages', 2)"></i> -->
+                              <img
+                                *ngIf="
+                                  playlistForm.value.playlistData
+                                    .standbyImages[2]?.imageFilePath
+                                "
+                                class="tag icon-remover"
+                                src="assets/images/clear-img.svg"
+                                (click)="clearImage('standbyImages', 2)"
+                              />
+                              <span
+                                *ngIf="
+                                  !playlistForm.value.playlistData
+                                    .standbyImages[2]?.imageFilePath
+                                "
+                                class="badge tag f-size-w3-16 bg-secondary"
+                                >{{ "LB_OPTIONAL" | translate }}</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row p-0 m-0">
+                      <div class="col-md-12">
+                        <div class="item-box">
+                          <div class="col-md-12">
+                            <div class="col-md-4 position-relative">
+                              <p class="me-2 mt-3">
+                                {{ "LB_BEFORE_PAYMENT_IMAGE" | translate }}
+                              </p>
+                              <div
+                                class="col-11 d-flex img-selection-box position-relative"
+                              >
+                                <div
+                                  *ngIf="
+                                    !playlistForm.value.playlistData
+                                      .beforePaymentImage?.imageFilePath
+                                  "
+                                  class="img-placeholder"
+                                  (click)="
+                                    openImageSelectionModal(
+                                      'beforePaymentImage'
+                                    )
+                                  "
+                                >
+                                  <p>+</p>
+                                </div>
+                                <div
+                                  (click)="
+                                    openImageSelectionModal(
+                                      'beforePaymentImage'
+                                    )
+                                  "
+                                >
+                                  <img
+                                    [class]="
+                                      !playlistForm.value.playlistData
+                                        .beforePaymentImage?.imageFilePath
+                                        ? 'd-none'
+                                        : ''
+                                    "
+                                    [src]="
+                                      playlistForm.value.playlistData
+                                        .beforePaymentImage?.imageFilePath
+                                    "
+                                  />
+                                </div>
+                                <span
+                                  *ngIf="
+                                    !playlistForm.value.playlistData
+                                      .beforePaymentImage?.imageFilePath
+                                  "
+                                  class="badge tag f-size-w3-16 bg-danger image"
+                                  (click)="
+                                    openImageSelectionModal(
+                                      'beforePaymentImage'
+                                    )
+                                  "
+                                  >{{ "LB_MANDATORY" | translate }}</span
+                                >
+                                <!-- <i *ngIf="playlistForm.value.playlistData.beforePaymentImage?.imageFilePath" class="tag icon-remover" nz-icon nzType="close" nzTheme="outline" (click)="clearImage('beforePaymentImage')"></i> -->
+                                <img
+                                  *ngIf="
+                                    playlistForm.value.playlistData
+                                      .beforePaymentImage?.imageFilePath
+                                  "
+                                  class="tag icon-remover"
+                                  src="assets/images/clear-img.svg"
+                                  (click)="clearImage('beforePaymentImage')"
+                                />
+                              </div>
+                              <div
+                                class="text-danger small"
+                                *ngIf="
+                                  playlistForm.controls['beforePaymentImage']
+                                    .touched &&
+                                  playlistForm.controls['beforePaymentImage']
+                                    .invalid
+                                "
+                              >
+                                <div
+                                  *ngIf="
+                                    playlistForm.controls['beforePaymentImage']
+                                      .errors['required']
+                                  "
+                                >
+                                  {{
+                                    "ERR_MSG_REQUIRED"
+                                      | translate
+                                        : {
+                                            field:
+                                              ("LB_BEFORE_PAYMENT_IMAGE"
+                                              | translate)
+                                          }
+                                  }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 position-relative">
+                              <p class="me-2 mt-3">
+                                {{ "LB_AFTER_PAYMENT_IMAGE" | translate }}
+                              </p>
+                              <div
+                                class="col-11 d-flex img-selection-box position-relative"
+                              >
+                                <div
+                                  *ngIf="
+                                    !playlistForm.value.playlistData
+                                      .afterPaymentImage?.imageFilePath
+                                  "
+                                  class="img-placeholder"
+                                  (click)="
+                                    openImageSelectionModal('afterPaymentImage')
+                                  "
+                                >
+                                  <p>+</p>
+                                </div>
+                                <div
+                                  (click)="
+                                    openImageSelectionModal('afterPaymentImage')
+                                  "
+                                >
+                                  <img
+                                    [class]="
+                                      !playlistForm.value.playlistData
+                                        .afterPaymentImage?.imageFilePath
+                                        ? 'd-none'
+                                        : ''
+                                    "
+                                    [src]="
+                                      playlistForm.value.playlistData
+                                        .afterPaymentImage?.imageFilePath
+                                    "
+                                  />
+                                </div>
+                                <span
+                                  *ngIf="
+                                    !playlistForm.value.playlistData
+                                      .afterPaymentImage?.imageFilePath
+                                  "
+                                  class="badge tag f-size-w3-16 bg-danger image"
+                                  >{{ "LB_MANDATORY" | translate }}</span
+                                >
+                                <!-- <i *ngIf="playlistForm.value.playlistData.afterPaymentImage?.imageFilePath" class="tag icon-remover" nz-icon nzType="close" nzTheme="outline" (click)="clearImage('afterPaymentImage')"></i> -->
+                                <img
+                                  *ngIf="
+                                    playlistForm.value.playlistData
+                                      .afterPaymentImage?.imageFilePath
+                                  "
+                                  class="tag icon-remover"
+                                  src="assets/images/clear-img.svg"
+                                  (click)="clearImage('afterPaymentImage')"
+                                />
+                              </div>
+                              <div
+                                class="text-danger small"
+                                *ngIf="
+                                  playlistForm.controls['afterPaymentImage']
+                                    .touched &&
+                                  playlistForm.controls['afterPaymentImage']
+                                    .invalid
+                                "
+                              >
+                                <div
+                                  *ngIf="
+                                    playlistForm.controls['afterPaymentImage']
+                                      .errors['required']
+                                  "
+                                >
+                                  {{
+                                    "ERR_MSG_REQUIRED"
+                                      | translate
+                                        : {
+                                            field:
+                                              ("LB_AFTER_PAYMENT_IMAGE"
+                                              | translate)
+                                          }
+                                  }}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row p-0 m-0">
+                      <div class="col-md-12">
+                        <div class="item-box">
+                          <div class="col-md-12">
+                            <div class="col-md-4 position-relative">
+                              <p class="me-2 mt-3">
+                                {{ "LB_RECEIPT_IMAGE_PLAYLIST" | translate }}
+                              </p>
+                              <div
+                                class="col-11 d-flex img-selection-box position-relative"
+                              >
+                                <div
+                                  *ngIf="
+                                    !playlistForm.value.playlistData
+                                      .receiptImage?.thumbnailImageFilePath
+                                  "
+                                  class="img-placeholder d-flex align-items-center justify-content-center"
+                                  (click)="
+                                    openImageSelectionModal('receiptImage')
+                                  "
+                                >
+                                  <p>+</p>
+                                </div>
+                                <div
+                                  class="receipt-img"
+                                  (click)="
+                                    openImageSelectionModal('receiptImage')
+                                  "
+                                >
+                                  <img
+                                    [class]="
+                                      !playlistForm.value.playlistData
+                                        .receiptImage?.thumbnailImageFilePath
+                                        ? 'd-none'
+                                        : ''
+                                    "
+                                    [src]="
+                                      playlistForm.value.playlistData
+                                        .receiptImage?.thumbnailImageFilePath
+                                    "
+                                  />
+                                </div>
+                                <span
+                                  *ngIf="
+                                    !playlistForm.value.playlistData
+                                      .receiptImage?.thumbnailImageFilePath
+                                  "
+                                  class="badge tag f-size-w3-16 bg-danger image"
+                                  >{{ "LB_MANDATORY" | translate }}</span
+                                >
+                                <!-- <i *ngIf="playlistForm.value.playlistData.receiptImage?.thumbnailImageFilePath" class="tag icon-remover" nz-icon nzType="close" nzTheme="outline" (click)="clearImage('receiptImage')"></i> -->
+                                <img
+                                  *ngIf="
+                                    playlistForm.value.playlistData.receiptImage
+                                      ?.thumbnailImageFilePath
+                                  "
+                                  class="tag icon-remover"
+                                  src="assets/images/clear-img.svg"
+                                  (click)="clearImage('receiptImage')"
+                                />
+                              </div>
+                              <div
+                                class="text-danger small"
+                                *ngIf="
+                                  playlistForm.controls['receiptImage']
+                                    .touched &&
+                                  playlistForm.controls['receiptImage'].invalid
+                                "
+                              >
+                                <div
+                                  *ngIf="
+                                    playlistForm.controls['receiptImage']
+                                      .errors['required']
+                                  "
+                                >
+                                  {{
+                                    "ERR_MSG_REQUIRED"
+                                      | translate
+                                        : {
+                                            field:
+                                              ("LB_RECEIPT_IMAGE_PLAYLIST"
+                                              | translate)
+                                          }
+                                  }}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template #actionsBar>
+    <div class="container d-flex justify-content-end gap-4 py-2">
+      <ng-container *ngIf="!playlistId">
+        <button
+          [disabled]="
+            !onEditPlaylist || playlistForm.controls['playlistLabel'].invalid
+          "
+          type="button"
+          (click)="handleSubmitAction(2); isDeleting = false"
+          nzSize="large"
+          class="px-5"
+          nz-button
+          nzType="primary"
+          nzShape="round"
+        >
+          {{ "BT_CREATE" | translate }}
+        </button>
+      </ng-container>
+      <ng-container *ngIf="playlistId">
+        <!-- <button [disabled]="!onEditPlaylist || playlistForm.controls['playlistLabel'].invalid" type="button" (click)="playlistAction(3);isDeleting=false" nzSize="large" class="px-5" nz-button nzType="primary" nzShape="round" nzGhost>
+                {{'BT_DELETE' | translate}}
+            </button> -->
+        <div
+          class="px-4 trash-button d-flex flex-row enable"
+          (click)="playlistAction(3); isDeleting = false"
+        >
+          <i
+            class="fa fa-trash pt-0 d-flex align-items-center"
+            aria-hidden="true"
+          ></i>
+          <span class="d-flex align-items-center">
+            {{ "BT_DELETE" | translate }}
+          </span>
+        </div>
+        <button
+          [disabled]="
+            !onEditPlaylist || playlistForm.controls['playlistLabel'].invalid
+          "
+          type="button"
+          (click)="playlistAction(2); isDeleting = false"
+          nzSize="large"
+          class="px-4"
+          nz-button
+          nzType="primary"
+          nzShape="round"
+        >
+          {{ "BT_SAVE_AS" | translate }}
+        </button>
+        <button
+          [disabled]="
+            !onEditPlaylist || playlistForm.controls['playlistLabel'].invalid
+          "
+          type="button"
+          (click)="playlistAction(1); isDeleting = false"
+          nzSize="large"
+          class="px-4"
+          nz-button
+          nzType="primary"
+          nzShape="round"
+        >
+          {{ "BT_OVERWRITE_SAVE" | translate }}
+        </button>
+      </ng-container>
+    </div>
+  </ng-template>
+</div>
+
+<app-modal [modalObject]="confirmModal">
+  <!-- <div class="text-center" *ngIf="!isDeleting && actionType === 0">{{'MSG_UPDATE_PLAYLIST_CONFIRMATION' | translate}}</div>
+    <div class="text-center" *ngIf="isDeleting">{{'MSG_RECEIPT_DELETE_CONFIRMATION' | translate}}</div>
+    <div class="text-center" *ngIf="!isDeleting && actionType === 1 && ( playlistForm.value.playlistData.standbyImages[1]?.imageFilePath || playlistForm.value.playlistData.standbyImages[2]?.imageFilePath )">{{ "MSG_RECEIPT_OVERWRITE_CONFIRMATION" | translate }}</div>
+    <div class="text-center" *ngIf="!isDeleting && actionType === 2 && ( playlistForm.value.playlistData.standbyImages[1]?.imageFilePath || playlistForm.value.playlistData.standbyImages[2]?.imageFilePath )">{{'MSG_RECEIPT_SAVE_CONFIRMATION' | translate}}</div> -->
+  <div
+    class="text-center f-size-w3-28 mb-4"
+    *ngIf="!isDeleting && actionType === 3"
+  >
+    {{ "TXT_DELETE_MODAL" | translate }}
+  </div>
+  <p class="text-center mb-1" *ngIf="!isDeleting && actionType === 3">
+    {{ "TXT_DELETE_MODAL_CONTENT_1" | translate }}
+  </p>
+  <p class="text-center" *ngIf="!isDeleting && actionType === 3">
+    {{ "TXT_DELETE_MODAL_CONTENT_2" | translate }}
+  </p>
+</app-modal>
+
+<app-modal [modalObject]="confirmReplaceModal">
+  <div class="notify-container">
+    <p
+      class="text-center"
+      *ngIf="
+        actionType === 1 &&
+        !playlistForm.value.playlistData.standbyImages[1]?.imageFilePath &&
+        !playlistForm.value.playlistData.standbyImages[2]?.imageFilePath
+      "
+      [innerHTML]="'MSG_PLAYLIST_OVERWRITE_CONFIRMATION' | translate"
+    ></p>
+    <p
+      class="text-center"
+      *ngIf="
+        actionType === 1 &&
+        !playlistForm.value.playlistData.standbyImages[1]?.imageFilePath &&
+        !playlistForm.value.playlistData.standbyImages[2]?.imageFilePath
+      "
+      class="text-center"
+    >
+      <img style="width: 290px" [src]="defaultStandbyImage?.imageFilePath" />
+    </p>
+    <p
+      class="text-center"
+      *ngIf="
+        actionType === 2 &&
+        !playlistForm.value.playlistData.standbyImages[1]?.imageFilePath &&
+        !playlistForm.value.playlistData.standbyImages[2]?.imageFilePath
+      "
+      [innerHTML]="'MSG_PLAYLIST_OVERWRITE_CONFIRMATION' | translate"
+    ></p>
+    <p
+      class="text-center"
+      *ngIf="
+        actionType === 2 &&
+        !playlistForm.value.playlistData.standbyImages[1]?.imageFilePath &&
+        !playlistForm.value.playlistData.standbyImages[2]?.imageFilePath
+      "
+      class="text-center"
+    >
+      <img style="width: 290px" [src]="defaultStandbyImage?.imageFilePath" />
+    </p>
+  </div>
+</app-modal>

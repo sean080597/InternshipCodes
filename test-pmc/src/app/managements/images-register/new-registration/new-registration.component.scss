@@ -1,0 +1,51 @@
+@import "variables/color";
+@import "variables/size";
+
+.form-regist-container {
+  form {
+    position: relative;
+  }
+  .choose-image-input {
+    .choose-filename {
+      p {
+        color: $dove-gray;
+        margin: 0;
+      }
+    }
+  }
+  .preview-img-container {
+    position: relative;
+    margin: 0 auto;
+    &.max-w-customer {
+      max-width: calc($max-width-image / 2.5);
+    }
+    &.max-w-receipt {
+      max-width: calc($max-width-receipt); // subtract border 1px left-right
+    }
+    .border-redundant {
+      background-color: $black;
+      position: absolute;
+      top: -1rem;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      transform: scale(1.125);
+      text-align: center;
+      .dot {
+        width: 0.75rem;
+        height: 0.75rem;
+        display: inline-block;
+        background-color: $dove-gray;
+        border-radius: 50%;
+        border: 1px solid $gray;
+      }
+    }
+  }
+  .radio-btn {
+    display: flex;
+    align-items: center;
+    input {
+      margin: 0 3px 0 0;
+    }
+  }
+}

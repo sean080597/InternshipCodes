@@ -1,0 +1,24 @@
+.card {
+  border-radius: 22px !important;
+  border: none;
+  .card-header {
+    border-radius: inherit !important;
+    background-color: inherit !important;
+    i {
+      &.close-icon {
+        opacity: 0.5;
+        margin-top: -7px;
+        font-size: 43px;
+      }
+    }
+  }
+  .content {
+    max-height: 70vh;
+    overflow: auto;
+  }
+}
+.terms-of-use {
+  .content {
+    white-space: pre-wrap;
+  }
+}

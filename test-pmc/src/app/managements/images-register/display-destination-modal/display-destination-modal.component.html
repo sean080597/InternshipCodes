@@ -1,0 +1,42 @@
+<div class="modal-header border-0">
+  <h4 class="f-size-w3-24">
+    {{ "IMAGE_REGISTER.DISPLAY_DESTINATION_MODAL_TITLE" | translate }}
+  </h4>
+  <!-- <i nz-icon nzType="close" nzTheme="outline" class="float-right close-icon" (click)="close()" aria-hidden="true"></i> -->
+  <div class="cursor-pointer float-right" (click)="close()">
+    <img src="assets/images/close-modal.svg" />
+  </div>
+</div>
+<div class="modal-body">
+  <p class="f-size-w3-22 mb-0">
+    {{ "IMAGE_REGISTER.DISPLAY_DESTINATION_MODAL_CONTENT" | translate }}
+  </p>
+  <div class="row image-destination-container py-4">
+    <div class="col-6">
+      <div
+        class="thumbnail-border text-center p-4"
+        (click)="onSelectDestination(desCustomer.id)"
+      >
+        <p class="f-size-w3-22">{{ desCustomer.title }}</p>
+        <img
+          class="img-fluid"
+          [src]="desCustomer.image"
+          alt="Display Destination Image"
+        />
+      </div>
+    </div>
+    <div class="col-6">
+      <div
+        class="thumbnail-border text-center p-4"
+        (click)="onSelectDestination(desReceipt.id)"
+      >
+        <p class="f-size-w3-22">{{ desReceipt.title }}</p>
+        <img
+          class="img-fluid"
+          [src]="desReceipt.image"
+          alt="Display Destination Image"
+        />
+      </div>
+    </div>
+  </div>
+</div>

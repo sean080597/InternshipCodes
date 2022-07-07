@@ -1,0 +1,104 @@
+@import "variables/color";
+@import "variables/size";
+@import "core/mixin";
+
+$font-size-standard-md: 1 * $font-size-standard;
+$font-size-standard-lg: 1.15 * $font-size-standard;
+$font-size-standard-xl: 1.35 * $font-size-standard;
+
+.receipt-form {
+  .details-datetime {
+    text-align: right;
+  }
+  .col-form-label {
+    font-size: $font-size-18;
+  }
+  .text-green {
+    color: $primary;
+    i {
+      color: $primary;
+    }
+  }
+  .photo-edit {
+    &-container {
+      display: flex;
+      background-color: $alto;
+    }
+    &__preview {
+      flex: 1;
+    }
+    &__actions {
+      background-color: $silver-chalice;
+      i {
+        font-size: 1.2rem;
+      }
+    }
+    &__items {
+      max-width: $max-width-receipt;
+    }
+    &__choose {
+      display: flex;
+      flex-direction: column;
+      background-color: $mine-shaft;
+      button:first-child p {
+        padding: inherit;
+      }
+    }
+  }
+  .preview-img {
+    &-container {
+      background-color: $gallery;
+      max-height: $scroll-height-receipt;
+      overflow-y: auto;
+      @media #{$min-mq-xxlarge} {
+        max-height: calc($scroll-height-receipt + 10vh);
+      }
+    }
+    &-placeholder {
+      img {
+        width: 100%;
+        object-fit: contain;
+      }
+      .border-selected {
+        position: relative;
+        outline: 3px solid $primary !important;
+        outline-offset: -3px;
+      }
+    }
+  }
+  .redirect-hover {
+    cursor: pointer;
+  }
+  .scaleable-wrapper {
+    min-height: $scroll-height-receipt;
+    @media #{$min-mq-xxlarge} {
+      min-height: calc($scroll-height-receipt + 10vh);
+    }
+  }
+}
+
+pre {
+  font-family: "MS Gothic";
+  font-size: $font-size-standard-md;
+  // white-space: pre-wrap;
+  // word-break: break-all;
+  @media #{$min-mq-large} {
+    font-size: $font-size-standard-lg;
+  }
+  @media #{$min-mq-xlarge} {
+    font-size: $font-size-standard-xl;
+  }
+}
+
+textarea,
+pre {
+  &.double-size {
+    font-size: 2 * $font-size-standard-md;
+    @media #{$min-mq-large} {
+      font-size: 2 * $font-size-standard-lg;
+    }
+    @media #{$min-mq-xlarge} {
+      font-size: 2 * $font-size-standard-xl;
+    }
+  }
+}

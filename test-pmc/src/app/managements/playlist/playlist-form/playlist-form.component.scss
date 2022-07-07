@@ -1,0 +1,77 @@
+@import "variables/color";
+@import "core/mixin";
+.playlist-form {
+  .card {
+    .details-datetime {
+      text-align: right;
+      font-size: 13px;
+    }
+  }
+  .playlist-form-top {
+    padding: 0rem 2rem 2rem;
+  }
+  .playlist-container {
+    max-height: calc(100vh);
+    & .item:hover {
+      background-color: transparent;
+    }
+    .item-box {
+      .optional {
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.5;
+      }
+      .tag {
+        position: absolute;
+        right: 0;
+      }
+      .icon-remover {
+        background-color: $white;
+        border-radius: 30px;
+        color: $mine-shaft;
+        width: 23px;
+        // right: 0;
+      }
+      &.vertical-img-box {
+        .form-btn-wrapper {
+          max-height: 110px;
+        }
+        .img-placeholder {
+          height: 150px;
+          width: 90px;
+        }
+      }
+      .img-placeholder {
+        border: 1px solid $primary;
+        background-color: $white;
+        color: $primary;
+        width: 100%;
+        p {
+          font-weight: 100;
+          font-size: 57px;
+          line-height: 1.5;
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+      .receipt-img {
+        overflow: auto;
+        height: 300px;
+      }
+    }
+  }
+}
+
+.card-body.playlist {
+  height: calc(100vh - 377px);
+}
+
+@media only screen and (max-width: 1024px) {
+  /* For mobile phones: */
+  .receipt-img {
+    height: 200px !important;
+  }
+  .img-placeholder {
+    max-height: 200px !important;
+  }
+}

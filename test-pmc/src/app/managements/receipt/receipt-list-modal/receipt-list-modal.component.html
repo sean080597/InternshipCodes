@@ -1,0 +1,19 @@
+<div class="modal-header border-0 gap-4">
+    <div class="f-size-24 me-auto">
+      {{'RECEIPT_LIST.TITLE_MODAL' | translate}}
+      <button class="btn" (click)="onReset()">
+        <img src="assets/images/reset.svg" alt="" />
+      </button>
+    </div>
+    <a (click)="createPlaylist()" class="text-decoration-none d-flex align-content-center gap-2">
+        <div class="f-size-w6-14 text-success">{{'RECEIPT_LIST.RECEIPT_CREATION' | translate}}</div>
+        <img src="assets/images/new-page.svg" alt="" />
+    </a>
+    <!-- <i nz-icon nzType="close" nzTheme="outline" class="float-right close-icon" (click)="close()" aria-hidden="true"></i> -->
+    <div class="cursor-pointer float-right" (click)="close()">
+        <img src="assets/images/close-modal.svg" />
+    </div>
+</div>
+<div class="modal-body">
+    <app-receipt-list [isModal]="true" (onConfirmed)="onConfirmed($event)"></app-receipt-list>
+</div>

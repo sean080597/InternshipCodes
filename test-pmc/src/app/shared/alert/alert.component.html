@@ -1,0 +1,4 @@
+<div *ngFor="let alert of alertsList" class="fade show centered {{cssClass(alert)}}" role="alert">
+    <span [innerHTML]="alert.message"></span>
+    <button type="button" class="btn-close float-right" data-bs-dismiss="alert" aria-label="Close" (click)="removeAlert(alert)"></button>
+</div>

@@ -1,0 +1,285 @@
+<div class="operation-management">
+  <div class="card border-0 f-size-w3-18">
+    <!-- <div class="card-header px-4">
+      <div class="d-flex bd-highlight">
+        <div class="me-auto bd-highlight">
+          <p class="my-2">{{ 'OPERATION.TITLE' | translate }}</p>
+        </div>
+      </div>
+    </div> -->
+    <div class="pt-4 px-0">
+      <div
+        class="filter-section p-4 pt-0 pb-0 row col-12 justify-content-between"
+      >
+        <div class="col px-3 py-1 d-flex align-items-center">
+          {{ "BT_FILTER" | translate }}
+        </div>
+        <div
+          class="row col-11 ps-3 d-flex align-items-center justify-content-between"
+        >
+          <div class="row col-4">
+            <div>
+              <button
+                class="px-4"
+                nz-button
+                nzGhost
+                nzType="primary"
+                nzSize="large"
+                nzShape="round"
+                type="button"
+                (click)="selection(selectedCompany)"
+              >
+                {{ "OPERATION.SELECT_COMPANY" | translate }}
+              </button>
+              <span class="mx-3 text-secondary">{{
+                selectedCompany?.companyName
+              }}</span>
+            </div>
+          </div>
+          <div class="col-2 p-0 d-flex justify-content-end">
+            {{ "OPERATION.PLACEHODER_EMAIL" | translate }}
+          </div>
+          <div class="col-6 p-0">
+            <input
+              name="email"
+              type="text"
+              class="form-control"
+              [(ngModel)]="filterSource.emailAddress"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-section p-4 row col-12 justify-content-between">
+      <div class="col-1"></div>
+      <div class="col-8">
+        <div class="row">
+          <div class="d-flex align-items-center gap-2 row">
+            <p class="m-0 col-2">
+              {{ "OPERATION.TABLE.OPERATION_DATE" | translate }}
+            </p>
+            <div class="form-group flex-fill col-2">
+              <nz-date-picker
+                class="form-control date"
+                [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                [nzFormat]="
+                  commonConfigs.DATETIME_FORMAT_YYYY_MM_DD_s_MON_HH_MM
+                "
+                [nzPlaceHolder]="[]"
+                nzInputReadOnly="true"
+                [(ngModel)]="filterSource.registeredFrom"
+                (ngModelChange)="onRegisteredFromChange($event)"
+                (nzOnOk)="onCreatedDateOK($event)"
+                [nzSuffixIcon]="customIconTemplate"
+              >
+              </nz-date-picker>
+            </div>
+            <p class="m-0 d-flex justify-content-center col-1">
+              <img src="assets/images/from-to.svg" alt="" />
+            </p>
+            <div class="form-group flex-fill col-2">
+              <nz-date-picker
+                class="form-control date"
+                [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                [nzFormat]="
+                  commonConfigs.DATETIME_FORMAT_YYYY_MM_DD_s_MON_HH_MM
+                "
+                [nzPlaceHolder]="[]"
+                nzInputReadOnly="true"
+                [(ngModel)]="filterSource.registeredTo"
+                (ngModelChange)="onRegisteredToChange($event)"
+                (nzOnOk)="onCreatedDateOK($event)"
+                [nzSuffixIcon]="customIconTemplate"
+              >
+              </nz-date-picker>
+            </div>
+            <ng-template #customIconTemplate>
+              <div style="margin: -5px 2px 0px 0px">
+                <img src="assets/images/calendar.svg" />
+              </div>
+            </ng-template>
+          </div>
+          <!-- <div class="d-flex align-items-center gap-2 p-2">
+              <p class="m-0">{{ 'OPERATION.TABLE.OPERATION_DATE' | translate }}</p>
+              <div class="form-group flex-fill">
+                <nz-date-picker class="form-control date" [nzFormat]="commonConfigs.DATETIME_FORMAT_YYYY_MM_DD_s_MON_HH_MM"
+                  [nzShowTime]="{nzFormat: 'HH:mm'}"
+                  [nzPlaceHolder]="[]"
+                  [(ngModel)]="filterSource.registeredFrom" (ngModelChange)="onRegisteredFromChange($event)"
+                  (nzOnOk)="onCreatedDateOK($event)"></nz-date-picker>
+              </div>
+              <p class="m-0">~</p>
+              <div class="form-group flex-fill">
+                <nz-date-picker class="form-control date" [nzFormat]="commonConfigs.DATETIME_FORMAT_YYYY_MM_DD_s_MON_HH_MM"
+                  [nzShowTime]="{nzFormat: 'HH:mm'}"
+                  [nzPlaceHolder]="[]"
+                  [(ngModel)]="filterSource.registeredTo"
+                  (ngModelChange)="onRegisteredToChange($event)" (nzOnOk)="onCreatedDateOK($event)"></nz-date-picker>
+              </div>
+            </div> -->
+        </div>
+      </div>
+      <div class="col-2 d-flex justify-content-end">
+        <button
+          nz-button
+          nzType="primary"
+          nzSize="large"
+          nzShape="round"
+          class="float-end px-5"
+          type="button"
+          (click)="searchOperation()"
+        >
+          {{ "BT_SEARCH" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <!-- paging table -->
+    <div class="filter-section border-top px-4 pt-3 mb-3">
+      <app-paging
+        [totalItems]="pagingConfig.availableElements"
+        [page]="pagingConfig.currentPage"
+        [itemsPerPage]="pagingConfig.itemsPerPage"
+        [availablePages]="pagingConfig.availablePages"
+        (pagingEvent)="receivePaging($event)"
+        [filterSettings]="filterSettings"
+        [filterSource]="filterSource"
+        [sort]="sort"
+        (sortChange)="sortChange($event)"
+      ></app-paging>
+    </div>
+
+    <div
+      class="col-md-5 py-2 px-4 d-flex flex-column"
+      *ngIf="operationTables.length < 1"
+    >
+      <p class="my-1 text-danger small">
+        {{ "SEARCH_MSG_NOT_FOUND" | translate }}
+      </p>
+    </div>
+
+    <div
+      class="playlist-container px-4 f-size-w3-16"
+      [hidden]="operationTables.length < 1"
+    >
+      <table>
+        <thead class="mb-2">
+          <tr class="overflow-hidden mb-2 border-bottom">
+            <th class="p-2 width-15">
+              {{ "OPERATION.TABLE.OPERATION_DATE" | translate }}
+            </th>
+            <th class="p-2 width-15">
+              {{ "OPERATION.TABLE.EMAIL_ADDRESS" | translate }}
+            </th>
+            <th class="p-2 width-10">
+              {{ "OPERATION.TABLE.COMPANY_ID" | translate }}
+            </th>
+            <th class="p-2 width-10">
+              {{ "OPERATION.TABLE.COMPANY_NAME" | translate }}
+            </th>
+            <th class="p-2 width-15">
+              {{ "OPERATION.TABLE.SCREEN_ID" | translate }}
+            </th>
+            <th class="p-2 width-15">
+              {{ "OPERATION.TABLE.SCREEN_NAME" | translate }}
+            </th>
+            <th class="p-2 width-20">
+              {{ "OPERATION.TABLE.OPERATION_DETAIL" | translate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="overflow-hidden item mb-2 border-bottom"
+            *ngFor="
+              let item of operationTables
+                | paginate
+                  : {
+                      itemsPerPage: pagingConfig.itemsPerPage,
+                      currentPage: pagingConfig.currentPage,
+                      totalItems: pagingConfig.availableElements
+                    };
+              let index = index
+            "
+          >
+            <td
+              class="width-15 p-2"
+              data-bs-toggle="tooltip"
+              [title]="
+                item.operationDate
+                  | date
+                    : commonConfigs.DATETIME_FORMAT_YYYY_MM_DD_s_HH_MM_SS_SSS
+                    : commonConfigs.TIME_ZONE_OFFSET
+              "
+            >
+              {{
+                item.operationDate
+                  | date
+                    : commonConfigs.DATETIME_FORMAT_YYYY_MM_DD_s_HH_MM_SS_SSS
+                    : commonConfigs.TIME_ZONE_OFFSET
+              }}
+            </td>
+            <td
+              class="width-15 text-truncate p-2"
+              style="max-width: 20px"
+              data-bs-toggle="tooltip"
+              [title]="item.emailAddress"
+            >
+              {{ item.emailAddress }}
+            </td>
+            <td
+              class="width-5 p-2"
+              data-bs-toggle="tooltip"
+              [title]="item.companyId"
+            >
+              {{ item.companyId }}
+            </td>
+            <td
+              class="width-10 p-2"
+              data-bs-toggle="tooltip"
+              [title]="item.companyName"
+            >
+              {{ item.companyName }}
+            </td>
+            <td class="width-15 p-2">{{ item.screenId }}</td>
+            <td
+              class="width-15 p-2"
+              data-bs-toggle="tooltip"
+              [title]="item.screenName"
+            >
+              {{ item.screenName }}
+            </td>
+            <td
+              class="width-25 p-2 text-truncate"
+              style="max-width: 20px"
+              data-bs-toggle="tooltip"
+              [title]="item.operationDetails"
+            >
+              {{ item.operationDetails }}
+            </td>
+          </tr>
+          <tr *ngIf="!operationTables">
+            <td colspan="4" class="text-center">
+              <span
+                class="spinner-border spinner-border-lg align-center"
+              ></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="filter-section border-top px-4 py-4 mb-3">
+      <app-paging
+        [totalItems]="pagingConfig.availableElements"
+        [page]="pagingConfig.currentPage"
+        [itemsPerPage]="pagingConfig.itemsPerPage"
+        [availablePages]="pagingConfig.availablePages"
+        (pagingEvent)="receivePaging($event)"
+        [filterSource]="filterSource"
+        [sort]="sort"
+        (sortChange)="sortChange($event)"
+      ></app-paging>
+    </div>
+  </div>
+</div>

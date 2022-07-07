@@ -1,0 +1,141 @@
+<div class="receipt-form">
+  <form [formGroup]="receiptForm">
+    <div class="card">
+      <div class="p-4">
+        <div class="row">
+          <div class="col-md-6 px-xl-5 px-4">
+            <!-- receipt name -->
+            <div class="mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <label for="receiptLabel" class="col-form-label">{{"LB_RECEIPT_NAME" | translate}}</label>
+                <span class="badge pull-right bg-danger">{{'LB_MANDATORY' | translate}}</span>
+              </div>
+              <div class="">
+                <input type="text" class="form-control" id="receiptLabel" formControlName="receiptLabel"
+                  placeholder="{{'LB_IMAGE' | translate}}" />
+                <div class="text-danger small" *ngIf="f['receiptLabel'].touched && f['receiptLabel'].invalid">
+                  <div *ngIf="f['receiptLabel'].errors['required']">
+                    {{'ERR_MSG_REQUIRED' | translate : {field: 'LB_RECEIPT_NAME' | translate } }}
+                  </div>
+                </div>
+                <div class="text-danger small" *ngIf="f['receiptLabel'].touched && f['receiptLabel'].hasError('maxlength')">
+                  {{'COMMON.ERRORS.RECEIPT_LABEL_ERROR' | translate}}
+                </div>
+              </div>
+            </div>
+
+            <!-- remarks -->
+            <div class="mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <label for="remarks" class="col-sm-2 col-form-label">{{'LB_REMARKS' | translate}}</label>
+              </div>
+              <div class="">
+                <input type="text" class="form-control" id="remarks" formControlName="remarks"
+                  placeholder="{{'LB_REMARKS_PLACEHOLDER' | translate}}"/>
+                <div class="text-danger small" *ngIf="f['remarks'].touched && f['remarks'].invalid">
+                  <div *ngIf="f['remarks'].errors['required']">
+                    {{'ERR_MSG_REQUIRED' | translate : {field: 'LB_REMARKS' | translate } }}
+                  </div>
+                </div>
+                <div class="text-danger small" *ngIf="f['remarks'].touched && f['remarks'].hasError('maxlength')">
+                  {{'COMMON.ERRORS.RECEIPT_REMARKS_ERROR' | translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- photo-edit -->
+          <div class="col-md-6 px-xl-5 px-4">
+            <p class="text-end col-form-label mb-4">{{'IMAGE_DETAILS.LB_DATETIME' | translate : {registDate: f['registrationDate'].value, updateDate: f['lastUpdateDate'].value} }}</p>
+            <div class="photo-edit-container">
+              <div class="photo-edit__actions px-2 py-4">
+                <button type="button" class="btn btn-outline-light border-0 text-green" [disabled]="!checkEnableAction()" (click)="editItemModal()">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-outline-light border-0 text-green" [disabled]="!checkEnableAction()" (click)="openConfirmDeleteModal()">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+              </div>
+
+              <div class="photo-edit__preview flex-fill py-4">
+                <div class="preview-img-container">
+                  <div #thumbnail class="preview-img-placeholder d-flex flex-column scaleable-wrapper">
+                    <div #thumbnailChildren class="very-specific-design">
+                      <ng-container *ngFor="let item of receiptForm.value.contentData; let idx = index">
+                        <ng-container
+                          [ngTemplateOutlet]="item.contentType === contentTypes.IMAGE ? firstType : (item.contentType === contentTypes.TEXT && item.scale === 1 ? secType : thirdType)">
+                        </ng-container>
+                        <ng-template #firstType>
+                          <img [src]="item.data" [ngClass]="{'border-selected': selectedIndex === idx}" (click)="setClicked(idx)" />
+                        </ng-template>
+                        <ng-template #secType>
+                          <pre class="mb-0" [ngClass]="{'border-selected': selectedIndex === idx}" (click)="setClicked(idx)">{{ !item.data ? '&nbsp;' : item.data }}</pre>
+                        </ng-template>
+                        <ng-template #thirdType>
+                          <pre class="mb-0 double-size" [ngClass]="{'border-selected': selectedIndex === idx}" (click)="setClicked(idx)">{{ !item.data ? '&nbsp;' : item.data }}</pre>
+                        </ng-template>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="photo-edit__moves px-2 py-4">
+                <button type="button" class="btn btn-outline-light border-0 text-green"
+                  [disabled]="!isEnabledArrowUp || !checkEnableAction()" (click)="moveUp()">
+                  <img class="img-fluid" src="assets/images/arrow-up.svg" alt="" />
+                </button>
+                <button type="button" class="btn btn-outline-light border-0 text-green"
+                  [disabled]="!isEnabledArrowDown || !checkEnableAction()" (click)="moveDown()">
+                  <img src="assets/images/arrow-down.svg" alt="" />
+                </button>
+              </div>
+
+              <div class="photo-edit__choose px-2 py-4 gap-3">
+                <button type="button" class="btn btn-light p-1" (click)="addItemModal(receiptInputTypes.STANDARD)"><p class="text-green mb-0 small">A</p></button>
+                <button type="button" class="btn btn-light p-1" (click)="addItemModal(receiptInputTypes.FOUR_TIMES)"><h4 class="text-green mb-0">A</h4></button>
+                <button type="button" class="btn btn-light p-1" (click)="openReceiptImageModal()">
+                  <i class="fa fa-picture-o fa-2x text-green" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #actionsBar>
+          <div class="container d-flex justify-content-end gap-4 py-2">
+            <ng-container *ngIf="!receiptId; else editButtons">
+              <button type="button" class="px-4" nzSize="large" nz-button nzType="primary" nzShape="round" nzGhost (click)="onBack()">{{'BT_BACK' | translate}}</button>
+              <button type="button" class="px-4" nzSize="large" nz-button nzType="primary" nzShape="round" (click)="handleSubmitReceipt()">{{'BT_CREATE' | translate}}</button>
+            </ng-container>
+            <ng-template #editButtons>
+              <div class="px-4 trash-button enable" (click)="onDelete()">
+                <i class="fa fa-trash" aria-hidden="true"></i><span>{{'BT_DELETE' | translate}}</span>
+              </div>
+              <button type="button" class="px-4" nzSize="large" nz-button nzType="primary" nzShape="round" (click)="onOverwrite()">{{'BT_OVERWRITE_SAVE' | translate}}</button>
+              <button type="button" class="px-4" nzSize="large" nz-button nzType="primary" nzShape="round" (click)="onSaveAs()">{{'BT_SAVE_AS' | translate}}</button>
+            </ng-template>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-modal [modalObject]="deleteModal">
+  <div class="notify-container">
+    <p>{{'MSG_RECEIPT_DELETE_CONFIRMATION' | translate}}</p>
+  </div>
+</app-modal>
+
+<app-modal [modalObject]="elementModal">
+  <textarea #textarea rows="3" class="form-control" [ngClass]="{'double-size': characterInputType === receiptInputTypes.FOUR_TIMES}"
+    *ngIf="characterInputType === receiptInputTypes.STANDARD || characterInputType === receiptInputTypes.FOUR_TIMES"
+    [formControl]="characterInputTemp" placeholder="{{ 'PLACEHOLDER_PLEASE_ENTER' | translate }}"></textarea>
+</app-modal>
+
+<app-modal [modalObject]="confirmModal">
+  <div class="notify-container">
+    <p>{{confirmContent}}</p>
+  </div>
+</app-modal>

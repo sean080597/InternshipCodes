@@ -1,0 +1,44 @@
+<div *ngIf="!dataLeftSide.isHideInfoTemp" id="leftSidebar" class="sidebar left" [ngClass]="{'active': isOpenLeftSide}">
+    <!-- <a href="javascript:void(0)" class="close-btn  left width-100" (click)="closeLeftSidebar()">×</a> -->
+    <a class="text-truncate" (click)="managePlaylist()">
+        <img width="46" height="46" src="assets/images-sidebar/playlist.svg" alt="">
+        <span class="ms-4"*ngIf="isOpenLeftSide">{{'LB_PLAYLIST_MANAGEMENT'|translate}}</span>
+    </a>
+    <a class="text-truncate" (click)="manageDistribution()">
+        <img width="46" height="46" src="assets/images-sidebar/delivery.svg" alt="">
+        <span class="ms-4"*ngIf="isOpenLeftSide">{{'LB_DELIVERY_MANAGEMENT'|translate}}</span>
+    </a>
+    <a class="text-truncate" (click)="manageImageRegistered()">
+        <img width="46" height="46" src="assets/images-sidebar/image-register.svg" alt="">
+        <span class="ms-4"*ngIf="isOpenLeftSide">{{'LB_REGISTERED_IMAGE_MANAGEMENT'|translate}}</span>
+    </a>
+    <a class="text-truncate" (click)="manageReceipt()">
+        <img width="46" height="46" src="assets/images-sidebar/receipt.svg" alt="">
+        <span class="ms-4"*ngIf="isOpenLeftSide">{{'LB_RECEIPT_IMAGE_MANAGEMENT'|translate}}</span>
+    </a>
+
+    <a class="text-truncate" (click)="usageRecord()">
+        <img width="46" height="46" src="assets/images-sidebar/usage-record.svg" alt="">
+        <span class="ms-4"*ngIf="isOpenLeftSide">{{'LB_USAGE_RECORD'|translate}}</span>
+    </a>
+    <a class="text-truncate" (click)="manageUsers()">
+        <img width="46" height="46" src="assets/images-sidebar/user.svg" alt="">
+        <span class="ms-4"*ngIf="isOpenLeftSide">{{'LB_USER_MANAGEMENT'|translate}}</span>
+    </a>
+
+
+
+
+    <!-- -----------ROLE_SERVICE_ADMIN------------ -->
+
+    <ng-container *ngIf="getUserRole() === roles.ROLE_SERVICE_ADMIN">
+        <a class="text-truncate" (click)="operation()">
+            <img width="46" height="46" src="assets/images-sidebar/circle.svg" alt="">
+            <span class="ms-4"*ngIf="isOpenLeftSide">{{'LB_OPERATION_HISTORY'|translate}}</span>
+        </a>
+        <a class="text-truncate" (click)="noticaManagement()">
+            <img width="46" height="46" src="assets/images-sidebar/circle.svg" alt="">
+            <span class="ms-4"*ngIf="isOpenLeftSide">{{'LB_NOTIFICATION_MANAGEMENT'|translate}}</span>
+        </a>
+    </ng-container>
+</div>
