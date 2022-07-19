@@ -1,0 +1,83 @@
+<div class="class-management-wrapper">
+    <div class="d-flex p-2 content-header">
+        <div class="title p-2">
+            <h5>{{currentLang === 'zh' ? classData.titleChinese : classData.titleEnglish}}</h5>
+        </div>
+        <div class="ms-auto p-2">
+            <button class="me-3" nz-button nzType="default" [disabled]="selectedStudent.length < 1" (click)="removeStudent()">
+                {{ 'remove' | translate }}
+            </button>
+            <button class="btn-secondary-color border-0" nz-button nzType="primary" (click)="addStudent()">
+                {{ 'add_student' | translate }}
+            </button>
+        </div>
+    </div>
+    <div class="page-content p-3">
+        <div nz-row class="p-2">
+            <div nz-col [nzSpan]="5">
+                <span>
+                    {{'total_no_of_student' | translate}}: {{classData.totalNumberStudent}}
+                </span>
+            </div>
+            <div nz-col [nzSpan]="19">
+                <span>{{'assigned_teachers' | translate}}: </span>
+                <nz-tag *ngFor="let teacher of classData.teachers" [nzColor]="teacher.color">
+                    {{ currentLang === 'zh' ? teacher.fullNameChinese : teacher.fullNameEnglish }}
+                </nz-tag>
+            </div>
+        </div>
+        <div nz-row class="p-2">
+            <div nz-col [nzSpan]="24">
+                <nz-table #studentList [nzPageSizeOptions]="[5, 10, 20, 30, 50]" [nzData]="listOfDisplayData" 
+                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+                    nzShowSizeChanger>
+                    <thead>
+                        <tr>
+                            <th [(nzChecked)]="checked" [nzIndeterminate]="indeterminate"
+                                (nzCheckedChange)="onAllChecked($event)"></th>
+                            <th nzCustomFilter *ngFor="let field of tableFields" [nzSortFn]="field?.compare">
+                                {{field.header | translate}}
+                                <nz-filter-trigger *ngIf="field.isFilter"
+                                    [(nzVisible)]="configSearchCols[field?.fieldName].searchVisible"
+                                    [nzDropdownMenu]="menu">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                    <div class="ant-table-filter-dropdown" *ngIf="field.isFilter">
+                                        <div class="search-box p-2 overflow-hidden">
+                                            <input class="mb-2" type="text" nz-input placeholder="{{field.header}}"
+                                                [(ngModel)]="configSearchCols[field?.fieldName].searchValue" />
+                                            <button nz-button nzSize="small" nzType="primary"
+                                                (click)="search(field?.fieldName)"
+                                                class="search-button float-end mx-1">{{'search' | translate}}</button>
+                                            <button nz-button nzSize="small" (click)="resetSearch(field?.fieldName)"
+                                                class="float-end mx-1">{{'reset'
+                                                | translate}}</button>
+                                        </div>
+                                    </div>
+                                </nz-dropdown-menu>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of studentList.data">
+                            <td [nzChecked]="setOfCheckedId.has(data.userId)"
+                                (nzCheckedChange)="onItemChecked(data.userId, $event)"></td>
+                            <td>{{ data.userId }}</td>
+                            <td>{{ data.fullNameChi }}</td>
+                            <td>{{ data.fullNameEng }}</td>
+                            <td>{{ data.emailAddress }}</td>
+                            <td>{{ data.phoneNumber }}</td>
+                            <td>{{ data.creationTime | date: 'yyyy-MM-dd' }}</td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+        </div>
+    </div>
+    <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modal.title" (nzOnCancel)="handleAction(false)" (nzOnOk)="handleAction(true)">
+        <ng-container *nzModalContent>
+            <p>{{modal.content}}</p>
+        </ng-container>
+    </nz-modal>
+</div>

@@ -1,0 +1,235 @@
+<div class="app-preview">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)"></a>{{'question_bank' | translate}}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{previewData.title}}</li>
+            <!-- <li class="breadcrumb-item active" aria-current="page">DDO Account Generation Request</li> -->
+        </ol>
+    </nav>
+    <div nz-row class="p-2 background-white">
+        <div nz-col nzSpan="24" class="p-2" *ngIf="previewData.taskId !== nullUuid">
+            <div nz-col nzSpan="24">
+                <mat-icon>description</mat-icon>
+                <span class="task-title">{{currentLang === 'en' ? previewData.titleEnglish : previewData.titleChinese }}</span>
+            </div>
+            <div class="p-4 pt-2 description" nz-col nzSpan="24">
+                <!-- <mat-icon></mat-icon> -->
+                <span class="task-title">{{currentLang === 'en' ? previewData.descriptionEnglish : previewData.descriptionChinese }}</span>
+            </div>
+        </div>
+        <div nz-col nzSpan="24" class="p-2">
+            <div nz-row>
+                <div nz-col nzSpan="12">
+                    <mat-icon>content_paste_go</mat-icon>
+                    <span class="title-questions">{{previewData.titleChinese }}</span>
+                </div>
+                <div nz-col nzSpan="12">
+                    <mat-icon>content_paste_go</mat-icon>
+                    <span class="title-questions">{{previewData.titleEnglish}}</span>
+                </div>
+            </div>
+            <div nz-row>
+                <div class="p-4 pt-2 description" nz-col nzSpan="12">
+                    <!-- <mat-icon></mat-icon> -->
+                    <span>{{previewData.descriptionChinese}}</span>
+                </div>
+                <div class="p-4 pt-2 description" nz-col nzSpan="12">
+                    <!-- <mat-icon></mat-icon> -->
+                    <span>{{previewData.descriptionEnglish}}</span>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="previewData.attachments?.length > 0" nz-col nzSpan="24" class="p-2">
+            <div nz-row [nzGutter]="16">
+                <div nz-col [nzSpan]="8" class="gutter-row " *ngFor="let file of previewData.attachments">
+                    <div nz-row class="img-item">
+                        <div nz-col nzSpan="6" class="d-flex">
+                            <img *ngIf="imageAllowedExt.indexOf(file.fileExtension) !== -1" [src]="file.path">
+                            <i class="align-self-center mx-auto font-size-26" nz-icon nzType="file" nzTheme="twotone" *ngIf="imageAllowedExt.indexOf(file.fileExtension) === -1"></i>
+                        </div>
+                        <div nz-col nzSpan="18" class="d-flex">
+                            <span class="align-self-center">{{file.fileName}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  nz-col nzSpan="24" class="p-2">
+            <div nz-col nzSpan="24" class="title-questions">
+                <mat-icon>checklist_rtl</mat-icon>
+                <span>{{'total_score' | translate}}: {{previewData.totalScore}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="question-section mt-3">
+        <div nz-row class="p-2 background-white mb-3" *ngFor="let question of previewData.questions">
+            <ng-container *ngIf="question.type === 'MultipleChoice'">
+                <div nz-col nzSpan="10">
+                    <div nz-row class="mb-2">
+                        <div nz-col nzSpan="24" class="p-2">
+                            <nz-form-item>
+                                <nz-form-control class="title-questions">
+                                        {{question.titleChinese}}
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-list [nzSplit]="false" nzSize="small">
+                                <nz-list-item *ngFor="let ans of question.answers">
+                                    <i class="me-3" nz-icon nzType="{{ans.isCorrect ? 'check-square' : 'border'}}"
+                                        nzTheme="outline"></i> {{ans.answerChinese}}
+                                </nz-list-item>
+                            </nz-list>
+                        </div>
+                    </div>
+                </div>
+                <div nz-col nzSpan="10">
+                    <div nz-row>
+                        <div nz-col nzSpan="24" class="p-2">
+                            <nz-form-item>
+                                <nz-form-control class="title-questions">
+                                        {{question.titleEnglish}}
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-list [nzSplit]="false" nzSize="small">
+                                <nz-list-item *ngFor="let ans of question.answers">
+                                    <i class="me-3" nz-icon nzType="{{ans.isCorrect ? 'check-square' : 'border'}}"
+                                        nzTheme="outline"></i> {{ans.answerEnglish}}
+                                </nz-list-item>
+                            </nz-list>
+                        </div>
+                    </div>
+                </div>
+                <div nz-col nzSpan="4" class="p-2">
+                    <nz-input-group nzAddOnBefore="{{'score' | translate}}" >
+                        <input type="text" nz-input [value]="question.score" disabled class="text-end float-end"/>
+                    </nz-input-group>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="question.type === 'FillIn'">
+                <div class="title-questions p-2" nz-col nzSpan="10">
+                    {{ commonService.convertSymbolToBlank(question.titleChinese) }}e
+                </div>
+                <div class="title-questions p-2" nz-col nzSpan="10">
+                    {{ commonService.convertSymbolToBlank(question.titleEnglish) }}
+                </div>
+                <div nz-col nzSpan="4" class="p-2">
+                    <nz-input-group nzAddOnBefore="{{'score' | translate}}" >
+                        <input type="text" nz-input [value]="question.score" disabled class="text-end float-end"/>
+                    </nz-input-group>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="question.type === 'Essay'">
+                <div class="title-questions p-2" nz-col nzSpan="10">
+                    {{ (question.titleChinese) }}
+                </div>
+                <div class="title-questions p-2" nz-col nzSpan="10">
+                    {{ (question.titleEnglish) }}
+                </div>
+                <div nz-col nzSpan="4" class="p-2">
+                    <nz-input-group nzAddOnBefore="{{'score' | translate}}" >
+                        <input type="text" nz-input [value]="question.score" disabled class="text-end float-end"/>
+                    </nz-input-group>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="question.type === 'WorkPlanTable'">
+                <div class="title-questions p-2" nz-col nzSpan="10">
+                    {{ (question.titleChinese) }}
+                </div>
+                <div class="title-questions p-2" nz-col nzSpan="10">
+                    {{ (question.titleEnglish) }}
+                </div>
+                <div nz-col nzSpan="4" class="p-2">
+                    <nz-input-group nzAddOnBefore="{{'score' | translate}}" >
+                        <input type="text" nz-input [value]="question.score" disabled class="text-end float-end"/>
+                    </nz-input-group>
+                </div>
+                <div nz-col nzSpan="24" class="p-2">
+                    <nz-table nzSize="small" [nzData]="workplanData" [nzShowPagination]="false" [nzBordered]="true">
+                        <thead>
+                            <tr>
+                                <th class="text-center width-5">{{'no.' | translate}}</th>
+                                <th class="text-center width-20">{{'steps' | translate}}</th>
+                                <th class="text-center width-20">{{'preparation_checklist' | translate}}</th>
+                                <th class="text-center width-20">{{'work_safety' | translate}}</th>
+                                <th class="text-center width-15">{{'working_hour' | translate}}</th>
+                                <th class="text-center width-20">{{'notes' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of workplanData">
+                                <td class="text-center">{{ data.order }}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="question.type === 'VisualInspectionTable'">
+                <div nz-col class="title-questions p-2" nzSpan="10">
+                    {{ question.titleChinese }}
+                </div>
+                <div nz-col class="title-questions p-2" nzSpan="10">
+                    {{ question.titleEnglish }}
+                </div>
+                <div nz-col nzSpan="4" class="p-2">
+                    <nz-input-group nzAddOnBefore="{{'score' | translate}}" >
+                        <input type="text" nz-input [value]="question.score" disabled class="text-end float-end"/>
+                    </nz-input-group>
+                </div>
+                <div nz-col nzSpan="24" class="p-2">
+                    <nz-table class="question-table" nzSize="small" [nzData]="question.interpretations" [nzShowPagination]="false" [nzBordered]="true">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="text-center">{{'table_visual_inspection' | translate}}</th>
+                                <th class="text-center"></th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">{{'name' | translate}}:</th>
+                                <th></th>
+                                <th colspan="2" class="text-start">{{'date' | translate}}:</th>
+                                <th rowspan="2" class="text-center width-20">{{'notes' | translate}}</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center width-15">{{'topic' | translate}}:</th>
+                                <th>{{'interpretation' | translate}}</th>
+                                <th colspan="2" class="text-start width-20">{{'acceptable' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of question.interpretations; index as i">
+                                <ng-container [ngSwitch]="i">
+                                    <ng-container *ngSwitchCase="0">
+                                        <td class="text-center" rowspan="14">{{ 'trajectory_movement' | translate }}</td>
+                                        <td>{{ question.interpretations[0] | translate }}</td>
+                                        <td colspan="2" class="text-center ">
+                                            <nz-radio-group  nzDisabled="true" >
+                                                <label nz-radio nzValue="1">{{'yes' | translate}}</label>
+                                                <label nz-radio nzValue="0">{{'no' | translate}}</label>
+                                            </nz-radio-group>
+                                        </td>
+                                        <td></td>
+                                    </ng-container>
+                                    <ng-container *ngSwitchDefault>
+                                        <td>
+                                            <span>{{ data | translate }}</span>
+                                        </td>
+                                        <td colspan="2" class="text-center ">
+                                            <nz-radio-group *ngIf="data !== undefined" nzDisabled="true" >
+                                                <label nz-radio nzValue="1">{{'yes' | translate}}</label>
+                                                <label nz-radio nzValue="0">{{'no' | translate}}</label>
+                                            </nz-radio-group>
+                                        </td>
+                                        <td></td>
+                                    </ng-container>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

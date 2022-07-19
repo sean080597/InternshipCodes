@@ -1,0 +1,43 @@
+@import "variables";
+:host {
+    display: flex;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.ant-layout,
+nz-layout {
+    height: 100vh;
+}
+
+nz-content {
+    margin: 1rem;
+    position: relative;
+    height: calc(100vh - 115px);
+}
+
+.inner-content {
+    // padding: 1rem;
+    // background: #fff;
+    height: 100%;
+    overflow: hidden;
+}
+
+::ng-deep {
+    .ant-pagination-item {
+        a {
+            text-decoration: none;
+        }
+    }
+    .ant-pagination-item-active {
+        background-color: $secondary-color;
+        a {
+            color: $primary-color;
+            text-decoration: none;
+        }
+    }
+    .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+        background-color: $primary-color;
+        color: $secondary-color
+    }
+}

@@ -1,0 +1,314 @@
+<form nz-form [formGroup]="form">
+    <div nz-row class="p-2 background-white">
+        <div nz-col nzSpan="24" class="p-2">
+            <h5>{{LAtitle}}</h5>
+        </div>
+        <div nz-col nzSpan="24" class="p-2">
+            <nz-form-item>
+                <nz-form-label class="inline-label">{{'total_score' | translate}}</nz-form-label>
+                <nz-form-control nz-col nzSpan="3" class="me-3">
+                    <nz-input-group [nzSize]="'large'">
+                        <input nzSize="large" type="number" nz-input formControlName="totalScore"
+                            (change)="onTotalScoreChange()"
+                            (keyup)="onTotalScoreChange()"
+                            placeholder="{{'placeholder_total_score' | translate}}" />
+                    </nz-input-group>
+                </nz-form-control>
+                <nz-form-label class="inline-label">{{'remaining_score' | translate}}</nz-form-label>
+                <div class="remaining-score" [ngClass]="{'remaining-score-err': remainingScore != 0}">
+                    <span>{{remainingScore}}</span>
+                </div>
+                <div class="remaining-score-txt" *ngIf="remainingScore != 0">
+                    <span>{{'remaining_score_hint' | translate}}</span>
+                </div>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col nzSpan="24" class="question-section" formArrayName="questions">
+            <div class="p-2 background-white my-3"
+                *ngFor="let question of questions().controls; let questionIndex=index">
+                <nz-form-item [formGroupName]="questionIndex" nz-row>
+                    <!-- question input -->
+                    <div nz-col nzSpan="19">
+                        <div nz-row>
+                            <div nz-col nzSpan="2" class="p-2">
+                                <p class="question-order">{{questionIndex+1}}</p>
+                            </div>
+                            <div nz-col nzSpan="11" class="p-2">
+                                <nz-form-control>
+                                    <input (change)="filterBlank($event, questionIndex)" [nzSize]="'large'" nz-input
+                                        placeholder="问题" formControlName="titleChinese" />
+                                </nz-form-control>
+                            </div>
+                            <div nz-col nzSpan="11" class="p-2">
+                                <nz-form-control>
+                                    <input (change)="filterBlank($event, questionIndex)" [nzSize]="'large'" nz-input
+                                        placeholder="Question" formControlName="titleEnglish" />
+                                </nz-form-control>
+                            </div>
+                        </div>
+                        <!-- render option -->
+                        <div nz-row formArrayName="options"
+                            *ngIf="questions().at(questionIndex).value.type === 'MultipleChoice'">
+                            <div nz-col nzSpan="2" class="p-2 text-center d-flex align-items-center">
+                            </div>
+                            <div nz-col nzSpan="11" class="px-2 text-center d-flex align-items-center">
+                                <p class="blank-hint m-0">
+                                    {{'option_hint'|translate}}
+                                </p>
+                            </div>
+                            <ng-container	
+                                *ngFor="let opt of questionOption(questionIndex).controls; let optionIndex=index">	
+                                <div nz-row [formGroupName]="optionIndex" class="width-100">	
+                                    <div nz-col nzSpan="2" class="p-2 text-center d-flex align-items-center">	
+                                        <label class="mx-auto"	
+                                            (click)="removeQuestionOption(questionIndex,optionIndex)">	
+                                            <i nz-icon nzType="close" nzTheme="outline"></i>	
+                                        </label>	
+                                    </div>	
+                                    <div nz-col nzSpan="11" class="p-2">	
+                                        <nz-form-control>	
+                                            <label nz-checkbox formControlName="isCorrect"></label>	
+                                            <input formControlName="answerChinese" class="input-border-bottom"	
+                                                [nzSize]="'large'" nz-input placeholder="选项" />	
+                                        </nz-form-control>	
+                                    </div>	
+                                    <div nz-col nzSpan="11" class="p-2">	
+                                        <nz-form-control>	
+                                            <input formControlName="answerEnglish" class="input-border-bottom"	
+                                                [nzSize]="'large'" nz-input placeholder="Options" />
+                                        </nz-form-control>
+                                    </div>	
+                                </div>	
+                            </ng-container>
+                            <div nz-col nzSpan="19">
+                                <div nz-col nzSpan="11" class="p-2 px-4" nzOffset="2">
+                                    <a class="p-0" nz-button type="button" (click)="addQuestionOption(questionIndex)" nzType="link">
+                                        <span *ngIf="questions().at(questionIndex).value.options.length > 0">{{
+                                            'add_other_option' | translate }}</span>
+                                        <span *ngIf="questions().at(questionIndex).value.options.length < 1">{{
+                                            'add_option' | translate }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- render blank -->
+                        <div nz-row formArrayName="blanks"
+                            *ngIf="questions().at(questionIndex).value.type === 'FillIn'">
+                            <div nz-col nzSpan="2" class="p-2 text-center d-flex align-items-center">
+                            </div>
+                            <div nz-col nzSpan="11" class="px-2 text-center d-flex align-items-center">
+                                <p class="blank-hint m-0">
+                                    {{'blank_hint'|translate}}
+                                </p>
+                            </div>
+                            <ng-container
+                                *ngFor="let blank of questionBlank(questionIndex).controls; let blankIndex=index">
+                                <ng-container>
+                                    <div nz-row [formGroupName]="blankIndex" class="width-100">
+                                        <div nz-col nzSpan="2" class="p-2 text-center">
+                                            <nz-form-label class="inline-label">[#] {{blankIndex + 1}}</nz-form-label>
+                                        </div>
+                                        <div nz-col nzSpan="11" class="p-2">
+                                            <nz-form-control class="tag-control">
+                                                <nz-tag
+                                                    *ngFor="let tag of questionBlank(questionIndex).controls[blankIndex].get('answerChinese')?.value; let i = index"
+                                                    [nzMode]="'closeable'"
+                                                    (nzOnClose)="handleClose(tag, questionIndex, blankIndex, true)">
+                                                    {{ sliceTagName(tag) }}
+                                                </nz-tag>
+                                                <input #inputElement nz-input nzSize="small"
+                                                    [ngModelOptions]="{standalone: true}" type="text"
+                                                    [(ngModel)]="inputChineseValue[blankIndex]"
+                                                    (blur)="handleInputConfirm(questionIndex, blankIndex, true)" 
+                                                    (keydown.enter)="handleInputConfirm(questionIndex, blankIndex, true)" />
+                                            </nz-form-control>
+                                        </div>
+                                        <div nz-col nzSpan="11" class="p-2">
+                                            <nz-form-control class="tag-control">
+                                                <nz-tag
+                                                    *ngFor="let tag of questionBlank(questionIndex).controls[blankIndex].get('answerEnglish')?.value; let i = index"
+                                                    [nzMode]="'closeable'"
+                                                    (nzOnClose)="handleClose(tag, questionIndex, blankIndex, false)">
+                                                    {{ sliceTagName(tag) }}
+                                                </nz-tag>
+                                                <input #inputElement nz-input nzSize="small"
+                                                    [ngModelOptions]="{standalone: true}" type="text"
+                                                    [(ngModel)]="inputEnglishValue[blankIndex]"
+                                                    (keydown.enter)="handleInputConfirm(questionIndex, blankIndex, false)" />
+                                            </nz-form-control>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                        <!-- render work plan table -->
+                        <div nz-row class="width-100" *ngIf="questions().at(questionIndex).value.type === 'WorkPlanTable'">
+                            <div nz-col nzSpan="24" class="p-2">
+                                <nz-table nzSize="small" [nzData]="workplanData" [nzShowPagination]="false" [nzBordered]="true">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center width-5">{{'no.' | translate}}</th>
+                                            <th class="text-center width-20">{{'steps' | translate}}</th>
+                                            <th class="text-center width-20">{{'preparation_checklist' | translate}}</th>
+                                            <th class="text-center width-20">{{'work_safety' | translate}}</th>
+                                            <th class="text-center width-15">{{'working_hour' | translate}}</th>
+                                            <th class="text-center width-20">{{'notes' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of workplanData">
+                                            <td class="text-center">{{ data.order }}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </nz-table>
+                            </div>
+                        </div>
+                        <!-- render visual inspection table -->
+                        <div nz-row class="width-100" *ngIf="questions().at(questionIndex).value.type === 'VisualInspectionTable'">
+                            <div nz-col nzSpan="24" class="p-2">
+                                <nz-table class="question-table" nzSize="small" [nzData]="visualInspectionData" [nzShowPagination]="false" [nzBordered]="true">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="4" class="text-center">{{'table_visual_inspection' | translate}}</th>
+                                            <th class="text-center"></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">{{'name' | translate}}:</th>
+                                            <th></th>
+                                            <th colspan="2" class="text-start">{{'date' | translate}}:</th>
+                                            <th rowspan="2" class="text-center width-20">{{'notes' | translate}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center width-15">{{'topic' | translate}}:</th>
+                                            <th>{{'interpretation' | translate}}</th>
+                                            <th colspan="2" class="text-start width-20">{{'acceptable' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of visualInspectionData; index as i">
+                                            <ng-container [ngSwitch]="i">
+                                                <ng-container *ngSwitchCase="0">
+                                                    <td class="text-center" rowspan="14">{{ 'trajectory_movement' | translate }}</td>
+                                                    <td>{{ interpretation[0] | translate }}</td>
+                                                    <td colspan="2" class="text-center ">
+                                                        <nz-radio-group  nzDisabled="true" >
+                                                            <label nz-radio nzValue="1">{{'yes' | translate}}</label>
+                                                            <label nz-radio nzValue="0">{{'no' | translate}}</label>
+                                                        </nz-radio-group>
+                                                    </td>
+                                                    <td></td>
+                                                </ng-container>
+                                                <ng-container *ngSwitchDefault>
+                                                    <td>
+                                                        <span *ngIf="i < 6">{{ interpretation[i] | translate }}</span>
+                                                        <input class="not-validate" *ngIf="i > 5" value="{{interpretation[i]}}" [disabled]="interpretation[i-1] === undefined" nz-input (change)="addRecord($event, i)" />
+                                                    </td>
+                                                    <td colspan="2" class="text-center ">
+                                                        <nz-radio-group *ngIf="interpretation[i] !== undefined" nzDisabled="true" >
+                                                            <label nz-radio nzValue="1">{{'yes' | translate}}</label>
+                                                            <label nz-radio nzValue="0">{{'no' | translate}}</label>
+                                                        </nz-radio-group>
+                                                    </td>
+                                                    <td></td>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tr>
+                                    </tbody>
+                                </nz-table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- select question type -->
+                    <div nz-col nzSpan="5" class="p-2">
+                        <nz-form-item class="pb-2">
+                            <nz-form-control>
+                                <nz-select [nzSize]="'large'" (ngModelChange)="typeChange($event, questionIndex)"
+                                    nzShowSearch nzPlaceHolder="Select question type"
+                                    formControlName="type">
+                                    <nz-option nzLabel="{{'multiple_choice' | translate}}" nzValue="MultipleChoice">
+                                    </nz-option>
+                                    <nz-option nzLabel="{{'essay' | translate}}" nzValue="Essay"></nz-option>
+                                    <nz-option nzLabel="{{'fill_in_the_blank' | translate}}" nzValue="FillIn">
+                                    </nz-option>
+                                    <nz-option nzLabel="{{'work_plan_table' | translate}}" nzValue="WorkPlanTable">
+                                    </nz-option>
+                                    <nz-option nzLabel="{{'visual_inspection_table' | translate}}"
+                                        nzValue="VisualInspectionTable"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item class="pt-2">
+                            <nz-form-label class="inline-label">{{'score' | translate}}</nz-form-label>
+                            <nz-form-control [nzErrorTip]="errorTpl">
+                                <nz-input-group class="float-end width-50" [nzSize]="'large'">
+                                    <input nzSize="large" type="number" nz-input formControlName="score" 
+                                    (keyup)="validateScore(questionIndex)"
+                                    (change)="validateScore(questionIndex)"/>
+                                </nz-input-group>
+                            </nz-form-control>
+                            <ng-template #errorTpl let-control class="text-right">
+                              <ng-container *ngIf="control.hasError('remaining')">{{'invalid_score' | translate}}</ng-container>
+                              <ng-container *ngIf="control.hasError('min') || control.hasError('required')">{{'score_cant_be_blank' |translate}}</ng-container>
+                            </ng-template>
+                        </nz-form-item>
+                    </div>
+                    <div nz-col nzSpan="24" class="p-2 question-footer">
+                        <div class="p-2 action-btn-row">
+                            <div class="question-btn-group">
+                                <div class="question-btn-section float-start">
+                                    <button nz-button type="button" nzType="text" class="px-1 mx-1"
+                                        (click)="duplicateQuestion(questionIndex)">
+                                        <span class="material-icons">content_copy</span>
+                                    </button>
+                                    <button nz-button type="button" nzType="text" class="px-1 mx-1"
+                                        (click)="removeQuestion(questionIndex)">
+                                        <span class="material-icons">delete</span>
+                                    </button>
+                                </div>
+                                <div class="question-btn-section float-start mb-0 m-2">
+                                    <label class="px-1 mx-1" nz-checkbox formControlName="needReview">{{'need_review'
+                                        | translate}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div nz-col nzSpan="24" class="p-2 pt-0 position-relative question-upload">
+                            <nz-upload
+                                class="upload-list-inline"
+                                [nzMultiple]="true"
+                                [nzAction]="uploadAttachmentUrl"
+                                nzListType="picture"
+                                (nzChange)="handleFileChange($event, questionIndex)"
+                                [nzBeforeUpload]="beforeUpload"
+                                [(nzFileList)]="fileList['question'+questionIndex]"
+                                >
+                                    <button nz-button type="button" nzType="text" class="px-1 mx-1 position-absolute question-upload-btn">
+                                        <span class="material-icons">attach_file</span>
+                                    </button>
+                            </nz-upload>
+                        </div>
+                </nz-form-item>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="24" class="p-3 text-right">
+                    <button nz-button type="button" nzType="default" class="add-button me-2" (click)="addFromQuestionBank()">
+                        <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+                        {{'from_question_bank' | translate}}
+                    </button>
+                    <button nz-button type="button" nzType="primary" class="add-button btn-secondary-color border-0"
+                        (click)="addQuestion()">
+                        <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+                        {{'new' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

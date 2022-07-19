@@ -1,0 +1,54 @@
+<div class="d-flex p-2 content-header">
+  <div class="title">
+    {{ gradeOverview?.studentName }}
+  </div>
+  <div class="content">
+    <div class="row-container">
+      <div class="column-container">
+        <div class="item">
+          <div class="label">{{ 'grade.task' | translate }}:</div>
+          <div class="content">
+            <label>{{ gradeOverview?.task }}</label>
+          </div>
+        </div>
+        <div class="item">
+          <div class="label">{{ 'grade.learningActivity' | translate }}:</div>
+          <div class="content">
+            <label>{{ gradeOverview?.learningActivity }}</label>
+          </div>
+        </div>
+        <div class="item">
+          <div class="label">{{ 'grade.task' | translate }}:</div>
+          <div class="content">
+            <label>{{ gradeOverview?.class }}</label>
+          </div>
+        </div>
+        <div class="item">
+          <div class="label">{{ 'grade.group' | translate }}:</div>
+          <div class="content">
+            <label>{{ gradeOverview?.group }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="column-container">
+        <div class="item">
+          <div class="label">
+            {{ 'grade.score' | translate }}:
+          </div>
+          <div class="content">
+            <div class="box score">{{ gradeOverview?.studentScore }}</div>
+            <span> / {{ 'grade.setScore' | translate }}: {{ gradeOverview?.assignmentScore }}</span>
+          </div>
+        </div>
+        <div class="item">
+          <div class="label">
+            {{ 'grade.result' | translate }}:
+          </div>
+          <div class="content">
+            <div class="box result" [ngClass]="{'fail': !gradeOverview?.isPassed}">{{ gradeOverview?.isPassed ? 'Pass' : 'Fail' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,175 @@
+@import "variables";
+#tms-sidebar {
+    &.menu-sidebar {
+        position: relative;
+        z-index: 10;
+        height: 100vh;
+        box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+        background: $primary-color;
+        min-width: 310px;
+        max-width: 310px;
+        -webkit-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s;
+        color:#fff;
+        .sidebar-item-title {
+            color: $sidebar-item-title;
+            text-transform: uppercase;
+        }
+        .logo {
+            display: block;
+            color: #fff;
+            font-weight: 900;
+            padding: 10px 30px;
+            -webkit-transition: 0.3s;
+            -o-transition: 0.3s;
+            transition: 0.3s;
+        }
+        .sidebar-logo {
+            position: relative;
+            height: 90px;
+            overflow: hidden;
+            line-height: 85px;
+            text-align: center;
+            background: $primary-color;
+            transition: all .3s;
+            img {
+                display: inline-block;
+                height: 65px;
+                vertical-align: middle;
+            }
+            h1 {
+                display: inline-block;
+                margin: 0;
+                color: $white-color;
+                font-weight: 600;
+                font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+                vertical-align: middle;
+        
+                .short {
+                    font-size: 28px;
+                }
+                .text {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+    &.active {
+        min-width: 105px;
+        max-width: 105px;
+        text-align: center;
+        ul.components li {
+            font-size: 14px;
+            padding: 10px;
+            &.sidebar-title {
+                display: none;
+            }
+            a {
+                padding: 10px 0;
+                span {
+                    margin-right: 0;
+                    display: block;
+                    font-size: 2rem;
+                    &.title {
+                        display: none;
+                    }
+                }
+            }
+        }
+        .logo {
+            padding: 10px 0;
+        }
+    }
+
+    ul {
+        &.components {
+            padding: 0;
+            -webkit-transition: 0.3s;
+            -o-transition: 0.3s;
+            transition: 0.3s;
+        }
+        li {
+            font-size: 15px;
+            border-left: 2px solid $primary-color;
+            &>ul {
+                margin-left: 10px;
+                li {
+                    font-size: 14px;
+                }
+            }
+            &.sidebar-item:hover {
+                background: $sidebar-item-active-color;
+            }
+            &.active {
+                background: $sidebar-item-active-color;
+                border-left-color: $secondary-color;
+                color: $secondary-color;
+                a {
+                    color: $secondary-color;
+                    background: transparent;
+                }
+            }
+            h5 {
+                margin: 10px 25px 
+            }
+            a {
+                padding: 10px 30px;
+                display: inline-block;
+                color: white;
+                text-decoration: none;
+                &:hover {
+                    color: #fff;
+                    background: $sidebar-item-active-color;
+                }
+                span{
+                    margin-right: 15px;
+                    line-height: 30px;
+                    &.icon {
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #tms-sidebar .logo {
+        -webkit-transition: none;
+        -o-transition: none;
+        transition: none;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    #tms-sidebar ul.components {
+        -webkit-transition: none;
+        -o-transition: none;
+        transition: none;
+    }
+}
+@media (max-width: 991.98px) {
+    #tms-sidebar ul li a span {
+        display: block;
+    }
+}
+@media (max-width: 991.98px) {
+    #tms-sidebar {
+        min-width: 100px;
+        max-width: 100px;
+        text-align: center;
+        margin-left: -100px !important;
+    }
+
+    #tms-sidebar.active {
+        margin-left: 0 !important;
+    }
+}
+
+
+@media (max-width: 991.98px) {
+    #tms-sidebarCollapse span {
+        display: none;
+    }
+}
+

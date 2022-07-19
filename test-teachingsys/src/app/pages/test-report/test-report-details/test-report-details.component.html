@@ -1,0 +1,32 @@
+<div class="user-management-wrapper h-100 d-flex flex-column gap-3">
+  <div class="d-flex p-2 content-header">
+    <div class="title p-2">
+      <h5>{{'testrp' | translate}}</h5>
+    </div>
+  </div>
+  <div class="page-content flex-fill overflow-auto p-3">
+    <div class="row">
+      <div class="col-12 mb-4">
+        <h6 class="text-secondary">{{activityData?.taskName}}</h6>
+        <p class="small text-black-50">{{activityData?.taskDescription}}</p>
+
+        <h6 class="fw-bold">{{activityData?.learningActivityTitle}}</h6>
+        <p class="small">{{activityData?.learningActivityDescription}}</p>
+      </div>
+      <div class="col-12 col-md-8 mb-4">
+        <div class="row">
+          <h5>Overall</h5>
+          <div class="col-12 mb-4">
+            <app-best-students-chart></app-best-students-chart>
+          </div>
+          <div class="col-12 mb-4" *ngFor="let quest of questionReports | async; let idx = index">
+            <app-question-chart [questionReport]="quest" [noQuestion]="idx + 1"></app-question-chart>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 mb-4">
+        <app-status-student-tabs></app-status-student-tabs>
+      </div>
+    </div>
+  </div>
+</div>

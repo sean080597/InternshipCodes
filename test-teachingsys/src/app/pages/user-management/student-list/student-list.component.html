@@ -1,0 +1,50 @@
+<div #tableContainer class="h-100">
+  <nz-table #basicTable [nzScroll]="{ y: (tableHeight || 0) + 'px' }" [nzData]="listOfDisplayData" [nzLoading]="loading"
+    [nzTotal]="filterStudent.totalCount" [(nzPageIndex)]="filterStudent.pageIndex" [(nzPageSize)]="filterStudent.pageSize"
+    [nzFrontPagination]="false" nzShowSizeChanger (nzPageIndexChange)="searchData()" (nzPageSizeChange)="searchData(true)">
+    <thead>
+      <tr>
+        <th nzCustomFilter *ngFor="let field of tableFields">
+          {{field.header | translate}}
+          <nz-filter-trigger *ngIf="field?.fieldName !== 'group'" [(nzVisible)]="configSearchCols[field?.fieldName].searchVisible"
+          [nzDropdownMenu]="menu">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown" *ngIf="field?.fieldName !== 'group'">
+            <div class="search-box p-2 overflow-hidden">
+              <input class="mb-2" type="text" nz-input placeholder="{{field.header}}"
+                [(ngModel)]="configSearchCols[field?.fieldName].searchValue" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search(field?.fieldName)"
+                class="search-button float-end mx-1">{{'search' | translate}}</button>
+              <button nz-button nzSize="small" (click)="resetSearch(field?.fieldName)" class="float-end mx-1">{{'reset'
+                | translate}}</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+        </th>
+        <th [nzWidth]="'50px'"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{data.number}}</td>
+        <td>{{data.userNameChi}}</td>
+        <td>{{data.userNameEng}}</td>
+        <td>{{data.email}}</td>
+        <td>{{data.phoneNumber}}</td>
+        <td>
+          <a class="text-black" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+            <span class="material-symbols-rounded icon">more_horiz</span>
+          </a>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="onEdit(data)">{{'edit' | translate}}</li>
+              <li nz-menu-item (click)="onDelete(data.id)">{{'delete' | translate}}</li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

@@ -1,0 +1,29 @@
+.dialog-container {
+  position: relative;
+  min-width: 500px;
+  min-height: 400px;
+
+  .header, .footer {
+    position: relative;
+    height: 88px;
+    width: 100%;
+  }
+
+  .body {
+    position: relative;
+    width: 100%;
+    min-height: 224px;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .submit-btn {
+    display: flex;
+    align-items: center;
+    margin-left: 6px;
+  }
+}

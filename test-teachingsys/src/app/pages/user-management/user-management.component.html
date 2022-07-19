@@ -1,0 +1,29 @@
+<div class="user-management-wrapper h-100 d-flex flex-column gap-3">
+  <div class="d-flex p-2 content-header">
+    <div class="title p-2">
+      <h5>{{'user_management' | translate}}</h5>
+    </div>
+    <div class="ms-auto p-2">
+      <button class="btn-secondary-color border-0" nz-button nzType="primary" (click)="onCreate()">
+        {{ 'add_user' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="page-content flex-fill px-3">
+    <nz-tabset class="h-100" (nzSelectedIndexChange)="onChangeSelectedTabIdx($event)" [(nzSelectedIndex)]="selectedIdx">
+      <nz-tab [nzTitle]="'user_tabs.student' | translate">
+        <app-student-list></app-student-list>
+      </nz-tab>
+      <nz-tab [nzTitle]="'user_tabs.teacher' | translate">
+        <ng-container *ngIf="selectedTabIdxLs.includes(1)">
+          <app-teacher-list></app-teacher-list>
+        </ng-container>
+      </nz-tab>
+      <nz-tab [nzTitle]="'user_tabs.admin' | translate">
+        <ng-container *ngIf="selectedTabIdxLs.includes(2)">
+          <app-admin-list></app-admin-list>
+        </ng-container>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>

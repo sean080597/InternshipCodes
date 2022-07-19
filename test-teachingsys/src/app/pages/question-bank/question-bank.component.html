@@ -1,0 +1,15 @@
+<div class="question-bank-wrapper">
+    <div class="d-flex p-2 content-header">
+        <div class="title flex-grow-1 p-2">
+            <h5>{{'question_bank' | translate}}</h5>
+        </div>
+    </div>
+    <div class="page-content px-3 mt-3">
+        <app-tree-table [actionButtons]="actionButtons" [tableFields]="tableFields" [listOfMapData]="listOfMapData" (triggerActionButton)="action($event)" (onChosenActivity)="viewDetail($event)"></app-tree-table>
+    </div>
+    <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modal.title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+            <p>{{modal.content}}</p>
+        </ng-container>
+    </nz-modal>
+</div>

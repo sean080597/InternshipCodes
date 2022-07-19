@@ -1,0 +1,43 @@
+<div class="learning-activity-form-wrapper">
+    <div class="d-flex p-2 content-header background-white">
+        <div class="flex-grow-1 p-2 pe-5 me-5">
+            <nz-steps id="la-stepper" [nzCurrent]="index" (nzIndexChange)="onIndexChange($event)">
+                <nz-step nzTitle="{{'general_information' | translate}}"></nz-step>
+                <nz-step nzTitle="{{'questions' | translate}}"></nz-step>
+                <nz-step nzTitle="{{'preview' | translate}}"></nz-step>
+            </nz-steps>
+        </div>
+        <div class="ms-auto p-2">
+            <button class="ms-2" nz-button nzType="default" (click)="cancel()">
+                {{ 'cancel' | translate }}
+            </button>
+            <button class="ms-2" nz-button nzType="default"  [disabled]="disabledSave"
+            (click)="onSave()">
+                {{ 'save' | translate }}
+            </button>
+            <button [disabled]="index===0" class="btn-secondary-color border-0 ms-2" nz-button nzType="primary" (click)="onBack(index-1)">
+                <i nz-icon nzType="left"></i>
+                {{'previous' | translate}}
+            </button>
+            <button [disabled]="disabledSave" class="btn-secondary-color border-0 ms-2" nz-button nzType="primary" (click)="triggerSubmit(index+1)">
+                <span *ngIf="index < 2">{{'next' | translate}}</span>
+                <span *ngIf="index == 2">{{'finish' | translate}}</span>
+                <i nz-icon nzType="right"></i>
+            </button>
+        </div>
+    </div>
+    <div class="page-content mt-3">
+        <ng-container *ngIf="index==0">
+            <app-general-information [dataInitial]="learningActivitySubmittedData.generalInformation" [triggerSubmit]="triggerSubmitFlag.generalInfo" (onChangeTitle)="checkTitleChange($event)" (onSubmit)="submitGeneralInfo($event)"></app-general-information>
+        </ng-container>
+        <ng-container *ngIf="index==1">
+            <app-add-questions [dataInitial]="learningActivitySubmittedData.questions" [triggerSubmit]="triggerSubmitFlag.questions" (onSubmit)="submitQuestion($event)" (onChange)="onQuestionFormChange($event)"></app-add-questions>
+        </ng-container>
+        <ng-container *ngIf="index==2">
+            <app-preview [learningActivitySubmittedData]="learningActivitySubmittedData" [learningActivityId]="learningActivityId"></app-preview>
+        </ng-container>
+        <ng-container *ngIf="index==3">
+            {{'select_task_to_save' | translate}}
+        </ng-container>
+    </div>
+</div>

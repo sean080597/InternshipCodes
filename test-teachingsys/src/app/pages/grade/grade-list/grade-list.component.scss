@@ -1,0 +1,33 @@
+.content-header {
+  background-color: transparent;
+}
+
+.navgation-container {
+  padding: 0 16px;
+
+  span {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #9A9EA5;
+
+    &.title {
+      color: #020C1D;
+    }
+  }
+}
+
+td {
+  cursor: pointer;
+}
+
+.row-container {
+  display: flex;
+  align-items: center;
+
+  .mat-icon {
+    margin-right: 12px;
+  }
+}

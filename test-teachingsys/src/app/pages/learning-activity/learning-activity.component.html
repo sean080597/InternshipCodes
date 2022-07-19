@@ -1,0 +1,20 @@
+<div class="learning-activity-wrapper">
+    <div class="d-flex p-2 content-header">
+        <div class="title p-2">
+            <h5>{{'my_learning_activity' | translate}}</h5>
+        </div>
+        <div class="ms-auto p-2">
+            <button class="btn-secondary-color border-0" nz-button nzType="primary" (click)="create()"> 
+                {{ 'add_learning_activity' | translate }}
+            </button>
+        </div>
+    </div>
+    <div class="page-content px-3 mt-3">
+        <app-tree-table [isLearningActivity]="true" [actionButtons]="actionButtons" [tableFields]="tableFields" [listOfMapData]="listOfMapData" (triggerActionButton)="action($event)" (onChosenActivity)="viewDetail($event)"></app-tree-table>
+    </div>
+    <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modal.title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+            <p>{{modal.content}}</p>
+        </ng-container>
+    </nz-modal>
+</div>

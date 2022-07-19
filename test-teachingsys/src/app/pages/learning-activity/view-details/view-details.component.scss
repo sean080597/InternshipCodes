@@ -1,0 +1,54 @@
+@import "variables";
+.description{
+    font-size: 12px;
+    font-weight: 400;
+}
+.task-title{
+    opacity: 0.6;
+}
+.title-questions{
+    font-size: 14px;
+    font-weight: 600;
+}
+::ng-deep{
+    .app-preview {
+        .ant-btn-primary:not(:disabled) {
+            border-color: $secondary-color;
+            background-color: $secondary-color;
+            color: $primary-color
+        }
+        .ant-list-item {
+            justify-content: unset;
+            padding: 8px !important;
+        }
+        .ant-checkbox-wrapper {
+            width:100%
+        }
+        .ant-transfer-list-header {
+            .ant-checkbox-wrapper {
+                width: auto;
+            }
+        }
+    }
+}
+.question-section {
+    height: calc(100vh - 345px);
+    overflow-y: auto;
+}
+.app-preview {
+    mat-icon {
+        font-size: 20px;
+        vertical-align: middle;
+    }
+}
+
+.img-item {
+    border: 1px solid;
+    height: 70px;
+    img {
+        display: block;
+        width: 52px;
+        height: 52px;
+        overflow: hidden;
+    }
+}

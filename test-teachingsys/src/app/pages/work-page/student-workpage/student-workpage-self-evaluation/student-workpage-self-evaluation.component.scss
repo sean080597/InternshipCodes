@@ -1,0 +1,18 @@
+@import "variables";
+
+.workpage-self-evaluation {
+  ::ng-deep nz-checkbox-group {
+    .ant-checkbox-group-item {
+      display: flex;
+    }
+  }
+  .border-bottom-only {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .text-answer {
+    border-radius: 1rem;
+    background-color: $card-header-bg-color;
+  }
+}

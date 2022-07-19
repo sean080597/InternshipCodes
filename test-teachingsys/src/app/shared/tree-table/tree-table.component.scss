@@ -1,0 +1,67 @@
+@import "variables";
+
+.title {
+  cursor: pointer;
+}
+
+::ng-deep {
+    // .ant-table-tbody > tr > td {
+    //     border-top: 1px solid #f0f0f0;
+    // }
+    .ant-table-row-expand-icon {
+        border:  0;
+        margin-top: 0 !important;
+        width: 25px;
+        height: 25px;
+        &:hover {
+            background: $background-color;
+        }
+    }
+    .ant-table-cell-with-append {
+        .ant-table-row-expand-icon::after {
+            width: 0;
+            // bottom: 0;
+            left: 0px;
+        }
+        .ant-table-row-expand-icon::before {
+            height: 0;
+        }
+        .ant-table-row-expand-icon-collapsed:after {
+            content: "\f078";
+            font-family: 'FontAwesome' !important;
+            font-style: normal;
+            vertical-align: baseline;
+            text-align: center;
+            text-transform: none;
+            text-rendering: auto;
+            top: 1px;
+            left: 3.5px;
+            bottom: 0;
+            display: inline-block;
+            transform: scale(0.66666667) rotate(0deg);
+            transition: none;
+            zoom: 1.6;
+        }
+
+        .ant-table-row-expand-icon-expanded:after {
+            content: "\f078";
+            font-family: 'FontAwesome' !important;
+            font-style: normal;
+            vertical-align: baseline;
+            text-align: center;
+            text-transform: none;
+            text-rendering: auto;
+            top: 2px;
+            left: 12.5px;
+            display: inline-block;
+            transform: rotate(180deg) scale(0.66666667);
+            transition: none;
+            zoom: 1.6;
+        }
+    }
+    i.in-question-bank {
+        margin-top: 2px;
+        float: right;
+        color: $secondary-color
+    }
+}

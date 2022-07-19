@@ -1,0 +1,174 @@
+<div class="workpage-self-evaluation h-100 overflow-auto">
+  <div class="page-content p-3">
+    <h4 class="mb-4">{{studentData?.studentName}}</h4>
+    <div class="row">
+      <div class="col-12 col-sm-6 mb-4">
+        <div class="d-flex">
+          <h6 class="flex-basis-30 fw-bold">{{'task' | translate}}:</h6>
+          <p class="flex-basis-70">{{studentData?.task}}</p>
+        </div>
+        <div class="d-flex">
+          <h6 class="flex-basis-30 fw-bold">{{'learning_activity' | translate}}:</h6>
+          <p class="flex-basis-70">{{studentData?.learningActivity}}</p>
+        </div>
+        <div class="d-flex">
+          <h6 class="flex-basis-30 fw-bold">{{'class' | translate}}:</h6>
+          <p class="flex-basis-70">{{studentData?.class}}</p>
+        </div>
+        <div class="d-flex">
+          <h6 class="flex-basis-30 fw-bold">{{'tbl.group' | translate}}:</h6>
+          <p class="flex-basis-70">{{studentData?.group}}</p>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 mb-4">
+        <div class="d-flex">
+          <h6 class="flex-basis-30 fw-bold">{{'student_score' | translate}}:</h6>
+          <div class="flex-basis-70 d-flex gap-4">
+            <h6>{{studentData?.studentScore}}</h6>
+            <p class="text-secondary">/{{'set_score' | translate}}: {{studentData?.assignmentScore}}</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <h6 class="flex-basis-30 fw-bold">{{'result' | translate}}:</h6>
+          <div class="flex-basis-70">
+            <nz-tag class="px-4 py-2" [nzColor]="studentData?.isPassed ? 'green' : 'red'">{{(studentData?.isPassed ? 'passed' : 'failed') | translate}}</nz-tag>
+            <button class="btn-secondary-color border-0" nz-button nzType="primary" (click)="done()">
+              <span>{{'continue_learning_activity' | translate}}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="row px-2 py-4 mb-4" *ngFor="let quest of questions; index as idx">
+          <div class="col-12 col-md-8 mb-4">
+            <h5>{{idx + 1}}. {{ quest.title }}</h5>
+            <ng-container [ngSwitch]="quest.type">
+              <ng-container *ngSwitchCase="'MultipleChoice'">
+                <nz-checkbox-group class="mb-2" [ngModel]="quest.answers" disabled></nz-checkbox-group>
+                <div class="d-flex gap-2">
+                  <h6>{{'student_answers' | translate}}:</h6>
+                  <h6>{{quest.studentAnswers.join(', ')}}</h6>
+                </div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'Essay'">
+                <textarea rows="8" nz-input [ngModel]="quest.answers[0].answer" disabled></textarea>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'FillIn'">
+                <h6>{{'possible_answers' | translate}}:</h6>
+                <div class="d-flex align-items-end gap-2 mb-3" *ngFor="let blank of quest.answers; let i = index">
+                  <p class="text-secondary mb-0">#[{{i + 1}}]</p>
+                  <div class="flex-fill border-bottom">
+                    <ng-container *ngFor="let ans of blank.answer.split(',')">
+                      <p class="d-inline text-answer px-2 mb-0 ms-1">{{ans}}</p>
+                    </ng-container>
+                  </div>
+                </div>
+                <h6>{{'student_answers' | translate}}:</h6>
+                <div class="d-flex align-items-end gap-2 mb-3" *ngFor="let stuAnswer of quest.studentAnswers; let i = index">
+                  <p class="text-secondary mb-0">#[{{i + 1}}]</p>
+                  <div class="flex-fill border-bottom">
+                    <p class="d-inline text-answer px-2 mb-0" *ngIf="stuAnswer">{{stuAnswer}}</p>
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'WorkPlanTable'">
+                <nz-table nzSize="small" [nzData]="quest.answers" [nzShowPagination]="false" [nzBordered]="true">
+                  <thead>
+                    <tr>
+                      <th class="text-center" [nzWidth]="'5%'">{{'no.' | translate}}</th>
+                      <th class="text-center" [nzWidth]="'20%'">{{'steps' | translate}}</th>
+                      <th class="text-center" [nzWidth]="'20%'">{{'preparation_checklist' | translate}}</th>
+                      <th class="text-center" [nzWidth]="'20%'">{{'work_safety' | translate}}</th>
+                      <th class="text-center" [nzWidth]="'15%'">{{'working_hour' | translate}}</th>
+                      <th class="text-center" [nzWidth]="'20%'">{{'notes' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let stepData of quest.answers; let idx = index">
+                      <td class="text-center">{{idx + 1}}</td>
+                      <td><input class="border-0" type="text" nz-input [ngModel]="stepData.step" disabled></td>
+                      <td><input class="border-0" type="text" nz-input [ngModel]="stepData.tool" disabled></td>
+                      <td><input class="border-0" type="text" nz-input [ngModel]="stepData.safetyEnv" disabled></td>
+                      <td><input class="border-0" type="number" nz-input [ngModel]="stepData.workingHours" disabled></td>
+                      <td><input class="border-0" type="text" nz-input [ngModel]="stepData.note" disabled></td>
+                    </tr>
+                  </tbody>
+                </nz-table>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'VisualInspectionTable'">
+                <nz-table nzSize="small" [nzData]="quest.answers" [nzShowPagination]="false" [nzBordered]="true">
+                  <thead>
+                    <tr>
+                      <th colspan="4" class="text-center">{{'table_visual_inspection' | translate}}</th>
+                      <th class="text-center"></th>
+                    </tr>
+                    <tr>
+                      <th class="text-center">{{'name' | translate}}:</th>
+                      <th></th>
+                      <th colspan="2" class="text-start">{{'date' | translate}}:</th>
+                      <th rowspan="2" class="text-center width-20">{{'notes' | translate}}</th>
+                    </tr>
+                    <tr>
+                      <th class="text-center width-15">{{'topic' | translate}}:</th>
+                      <th>{{'interpretation' | translate}}</th>
+                      <th colspan="2" class="text-start width-20">{{'acceptable' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let trajec of quest.answers; index as idx">
+                      <ng-container [ngSwitch]="idx">
+                        <ng-container *ngSwitchCase="0">
+                          <td class="text-center" rowspan="14">{{ 'trajectory_movement' | translate }}</td>
+                          <td>{{ trajec.interpretation }}</td>
+                          <td colspan="2" class="text-center">
+                            <nz-radio-group [ngModel]="trajec.isAcceptable" disabled>
+                              <label nz-radio [nzValue]="true">{{'yes' | translate}}</label>
+                              <label nz-radio [nzValue]="false">{{'no' | translate}}</label>
+                            </nz-radio-group>
+                          </td>
+                          <td></td>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                          <td>
+                            <span *ngIf="idx < 6">{{ trajec.interpretation }}</span>
+                            <input class="not-validate" *ngIf="idx > 5" value="{{trajec.interpretation}}" nz-input />
+                          </td>
+                          <td colspan="2" class="text-center">
+                            <nz-radio-group [ngModel]="trajec.isAcceptable" disabled>
+                              <label nz-radio [nzValue]="true">{{'yes' | translate}}</label>
+                              <label nz-radio [nzValue]="false">{{'no' | translate}}</label>
+                            </nz-radio-group>
+                          </td>
+                          <td></td>
+                        </ng-container>
+                      </ng-container>
+                    </tr>
+                  </tbody>
+                </nz-table>
+              </ng-container>
+            </ng-container>
+          </div>
+          <div class="col-12 col-md-4 mb-4">
+            <div class="d-flex justify-content-between mb-4">
+              <h5>{{'score' | translate}}</h5>
+              <div class="d-flex align-items-center gap-2">
+                <input type="number" nz-input nzSize="large" [value]="quest.studentScore" disabled />
+                <p class="mb-0">/</p>
+                <h6 class="mb-0">{{quest.score}}</h6>
+              </div>
+            </div>
+            <textarea rows="4" nz-input [ngModel]="quest.feedback" disabled></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

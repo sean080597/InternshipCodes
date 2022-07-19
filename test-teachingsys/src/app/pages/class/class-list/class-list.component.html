@@ -1,0 +1,22 @@
+<div class="class-management-wrapper">
+  <div class="d-flex p-2 content-header">
+    <div class="title p-2">
+        <h5>{{'class' | translate}}</h5>
+    </div>
+  </div>
+  <div class="page-content mt-3">
+      <app-tree-table-serverside
+      [tableFields]="tableFields"
+      [listOfMapData]="listOfData"
+      [isParentFullDetail]="true"
+      [actionButtons]="actionButtons"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      [total]="total"
+      [loading]="loading"
+      (triggerActionButton)="onHandleAction($event)"
+      (onChosenActivity)="onHandleChosenActivity($event)"
+      (onQueryParams)="onQueryParams($event)"
+      ></app-tree-table-serverside>
+  </div>
+</div>

@@ -1,0 +1,176 @@
+
+    <div class="select-question-wrapper">
+        <div nz-row>
+            <div nz-col [nzSpan]="3" class="p-2">
+                <nz-form-label>{{'task' | translate}}</nz-form-label>
+            </div>
+            <div nz-col [nzSpan]="8" class="p-2">
+                <nz-select class="w-100" [(ngModel)]="selectedTask" (ngModelChange)="taskChange()" nzShowSearch nzAllowClear nzPlaceHolder="{{'select_task' | translate}}">
+                    <nz-option *ngFor="let task of taskList$ | async" [nzLabel]="task.title" [nzValue]="task.uniqId"></nz-option>
+                </nz-select>
+            </div>
+        </div>
+        <div nz-row>
+            <div nz-col [nzSpan]="3" class="p-2">
+                <nz-form-label>{{'learning_activity' | translate}}</nz-form-label>
+            </div>
+            <div nz-col [nzSpan]="8" class="p-2">
+                <nz-select class="w-100" nzShowSearch
+                    [(ngModel)]="selectedLA" (ngModelChange)="LAChange()"
+                    [nzDisabled]="!selectedTask"
+                    nzPlaceHolder="{{'selection_learning_activity' | translate}}">
+                    <nz-option *ngFor="let la of learningActivityList$ | async" [nzLabel]="la.title" [nzValue]="la.uniqId"></nz-option>
+                </nz-select>
+            </div>
+        </div>
+        <div nz-row>
+            <div nz-col nzSpan="24" class="p-2">
+                <nz-transfer id="transfer-list" nzShowSearch [nzFilterOption]="filterOption"
+                    [nzTitles]="['select_question' | translate, 'questions_was_chosen' | translate]" [nzDataSource]="list"
+                    [nzListStyle]="{ 'width.%': 50, 'height.vh': 60 }" [nzRender]="render" (nzSelectChange)="select($event)"
+                    (nzChange)="change($event)">
+                    <ng-template #render let-item>
+                        <!-- multiple choice type -->
+                        <div nz-row class="w-100 question-wrap px-3" *ngIf="item.type==='MultipleChoice'">
+                            <div nz-col nzSpan="12">
+                                {{ item.titleChinese }}
+                            </div>
+                            <div nz-col nzSpan="12">
+                                {{ item.titleEnglish }}
+                            </div>
+                            <div nz-col nzSpan="12">
+                                <nz-list [nzSplit]="false" nzSize="small">
+                                    <nz-list-item *ngFor="let ans of item.answers">
+                                        <i class="me-3" nz-icon nzType="{{ans.isCorrect ? 'check-square' : 'border'}}"
+                                            nzTheme="outline"></i> {{ans.answerChinese}}
+                                    </nz-list-item>
+                                </nz-list>
+                            </div>
+                            <div nz-col nzSpan="12">
+                                <nz-list [nzSplit]="false" nzSize="small">
+                                    <nz-list-item *ngFor="let ans of item.answers">
+                                        <i class="me-3" nz-icon nzType="{{ans.isCorrect ? 'check-square' : 'border'}}"
+                                            nzTheme="outline"></i> {{ans.answerEnglish}}
+                                    </nz-list-item>
+                                </nz-list>
+                            </div>
+                        </div>
+                        <!-- essay type -->
+                        <div nz-row class="question-wrap px-3" *ngIf="item.type==='Essay'">
+                            <div nz-col nzSpan="12">
+                                {{ item.titleChinese }}
+                            </div>
+                            <div nz-col nzSpan="12">
+                                {{ item.titleEnglish }}
+                            </div>
+                        </div>
+                        <!-- Fill in the blank type -->
+                        <div nz-row class="question-wrap px-3" *ngIf="item.type==='FillIn'">
+                            <div nz-col nzSpan="12">
+                                {{ convertSymbolToBlank(item.titleChinese) }}
+                            </div>
+                            <div nz-col nzSpan="12">
+                                {{ convertSymbolToBlank(item.titleEnglish) }}
+                            </div>
+                        </div>
+                        <!-- workplan tbl type -->
+                        <div nz-row class="question-wrap px-3" *ngIf="item.type==='WorkPlanTable'">
+                            <div nz-col nzSpan="12">
+                                {{ item.titleChinese }}
+                            </div>
+                            <div nz-col nzSpan="12">
+                                {{ item.titleEnglish }}
+                            </div>
+                            <div nz-col nzSpan="24">
+                                <nz-table nzSize="small" [nzData]="workplanData" [nzShowPagination]="false" [nzBordered]="true">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center width-5">{{'no.' | translate}}</th>
+                                            <th class="text-center width-20">{{'steps' | translate}}</th>
+                                            <th class="text-center width-20">{{'preparation_checklist' | translate}}</th>
+                                            <th class="text-center width-20">{{'work_safety' | translate}}</th>
+                                            <th class="text-center width-15">{{'working_hour' | translate}}</th>
+                                            <th class="text-center width-20">{{'notes' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of workplanData">
+                                            <td class="text-center">{{ data.order }}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </nz-table>
+                            </div>
+                        </div>
+                        <!-- visual inspection tbl type -->
+                        <div nz-row class="question-wrap px-3" *ngIf="item.type==='VisualInspectionTable'">
+                            <div nz-col nzSpan="12">
+                                {{ item.titleChinese }}
+                            </div>
+                            <div nz-col nzSpan="12">
+                                {{ item.titleEnglish }}
+                            </div>
+                            <div nz-col nzSpan="24">
+                                <nz-table class="question-table" nzSize="small" [nzData]="item.interpretations" [nzShowPagination]="false" [nzBordered]="true">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="4" class="text-center">{{'table_visual_inspection' | translate}}</th>
+                                            <th class="text-center"></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">{{'name' | translate}}:</th>
+                                            <th></th>
+                                            <th colspan="2" class="text-start">{{'date' | translate}}:</th>
+                                            <th rowspan="2" class="text-center width-20">{{'notes' | translate}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center width-15">{{'topic' | translate}}:</th>
+                                            <th>{{'interpretation' | translate}}</th>
+                                            <th colspan="2" class="text-start width-20">{{'acceptable' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of item.interpretations; index as i">
+                                            <ng-container [ngSwitch]="i">
+                                                <ng-container *ngSwitchCase="0">
+                                                    <td class="text-center" rowspan="14">{{ 'trajectory_movement' | translate }}</td>
+                                                    <td>{{ item.interpretations[0] | translate }}</td>
+                                                    <td colspan="2" class="text-center ">
+                                                        <nz-radio-group  nzDisabled="true" >
+                                                            <label nz-radio nzValue="1">{{'yes' | translate}}</label>
+                                                            <label nz-radio nzValue="0">{{'no' | translate}}</label>
+                                                        </nz-radio-group>
+                                                    </td>
+                                                    <td></td>
+                                                </ng-container>
+                                                <ng-container *ngSwitchDefault>
+                                                    <td>
+                                                        <span>{{ data | translate }}</span>
+                                                    </td>
+                                                    <td colspan="2" class="text-center ">
+                                                        <nz-radio-group *ngIf="data !== undefined" nzDisabled="true" >
+                                                            <label nz-radio nzValue="1">{{'yes' | translate}}</label>
+                                                            <label nz-radio nzValue="0">{{'no' | translate}}</label>
+                                                        </nz-radio-group>
+                                                    </td>
+                                                    <td></td>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tr>
+                                    </tbody>
+                                </nz-table>
+                            </div>
+                        </div>
+                    </ng-template>
+                </nz-transfer>
+            </div>
+        </div>
+        <div *nzModalFooter>
+            <button nz-button nzType="default" (click)="destroyModal(false)">{{'cancel' | translate}}</button>
+            <button nz-button nzType="primary" [disabled]="selectedQuestions.length < 1" (click)="destroyModal(true)">{{'ok' | translate}}</button>
+        </div>
+    </div>

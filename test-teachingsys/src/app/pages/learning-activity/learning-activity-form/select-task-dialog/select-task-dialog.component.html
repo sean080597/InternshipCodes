@@ -1,0 +1,41 @@
+<div class="select-task-wrap">
+    <div nz-row>
+        <div nz-col [nzSpan]="4" class="p-2 label-div">
+            <label>{{'select_task'|translate}}</label>
+        </div>
+        <div nz-col [nzSpan]="20" class="p-2">
+            <nz-select class="w-100" [(ngModel)]="selectedTask"  [nzDisabled]="inputtedTaskChinese || inputtedTaskEnglish || disabled" nzShowSearch nzAllowClear nzPlaceHolder="{{'select_task' | translate}}">
+                <nz-option *ngFor="let task of taskList$ | async" [nzLabel]="task.title" [nzValue]="task.uniqId"></nz-option>
+            </nz-select>
+        </div>  
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="24" class="p-2">{{'or' | translate}}</div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="4" class="p-2">{{'add_new_task' | translate}}</div>
+        <div nz-col [nzSpan]="10" class="p-2">
+            <input [disabled]="selectedTask" nz-input placeholder="任务标题" [(ngModel)]="inputtedTaskChinese" />
+        </div>
+        <div nz-col [nzSpan]="10" class="p-2">
+            <input [disabled]="selectedTask" nz-input placeholder="Task title" [(ngModel)]="inputtedTaskEnglish" />
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="10" nzOffset="4" class="p-2">
+            <textarea [disabled]="selectedTask" rows="3" nz-input placeholder="任务描述" [(ngModel)]="inputtedDescriptionChinese"></textarea>
+        </div>
+        <div nz-col [nzSpan]="10" class="p-2">
+            <textarea [disabled]="selectedTask" rows="3" nz-input placeholder="Task description" [(ngModel)]="inputtedDescriptionEnglish"></textarea>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="24" class="p-2">
+            <label nz-checkbox [disabled]="type === 'QB'" [(ngModel)]="isAgreed">{{'confirmation_add_question_to_task'|translate}}</label>
+        </div>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="destroyModal(false)">{{'cancel' | translate}}</button>
+        <button nz-button nzType="primary" [disabled]="(!selectedTask && !inputtedTaskChinese && !inputtedTaskEnglish && type === 'LA')" (click)="destroyModal(true)">{{'ok' | translate}}</button>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="pending-wrapper">
+    <div class="d-flex p-2 content-header">
+        <div class="title p-2">
+            <h5>{{'pending-submission' | translate}}</h5>
+        </div>
+    </div>
+    <div class="page-content mt-3 p-3">
+        <nz-table
+            #nzTable
+            nzShowSizeChanger
+            [nzData]="listOfDisplayData"
+            [nzFrontPagination]="false"
+            [nzLoading]="loading"
+            [nzTotal]="total"
+            [nzPageSize]="pageSize"
+            [nzPageIndex]="pageIndex"
+            nzTableLayout="fixed"
+            >
+            <thead>
+                <tr>
+                    <th nzCustomFilter>
+                        Task
+                        <nz-filter-trigger [(nzVisible)]="visibleTask" [nzActive]="searchTaskValue.length > 0" [nzDropdownMenu]="menuTask">
+                          <i nz-icon nzType="search"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th nzCustomFilter>
+                        Learning Activity
+                        <nz-filter-trigger [(nzVisible)]="visibleAct" [nzActive]="searchActValue.length > 0" [nzDropdownMenu]="menuAct">
+                          <i nz-icon nzType="search"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th nzCustomFilter>
+                        English Name
+                        <nz-filter-trigger [(nzVisible)]="visibleEngName" [nzActive]="searchEngNameValue.length > 0" [nzDropdownMenu]="menuEngName">
+                          <i nz-icon nzType="search"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th nzColumnKey="submitDate" [nzSortFn]="submitDate.compare">Submitted Date</th>
+                    <th nzColumnKey="class" [nzFilters]="class.listOfFilter" [nzFilterFn]="class.filterFn">Class</th>
+                    <th nzColumnKey="group" [nzFilters]="group.listOfFilter" [nzFilterFn]="group.filterFn">Group</th>
+                    <th nzColumnKey="action">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of nzTable.data">
+                <td>{{ data.task }}</td>
+                <td>{{ data.learningActivity }}</td>
+                <td>{{ data.studentEng }}</td>
+                <td>{{ data.submittedDate | date: "dd/MM/yyyy" }}</td>
+                <td>{{ data.class }}</td>
+                <td>{{ data.group }}</td>
+                <td>
+                    <button type="submit" nz-button="" class="ant-btn login-form-button" (click)="reviewPage(data.assignmentId)">Review</button>
+                </td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <nz-dropdown-menu #menuTask="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+              <div class="search-box p-2 overflow-hidden">
+                <input class="mb-2" type="text" nz-input placeholder="Search task" [(ngModel)]="searchTaskValue" />
+                <button nz-button nzSize="small" nzType="primary" (click)="search('task')" class="search-button float-end mx-1">{{'search' | translate}}</button>
+                <button nz-button nzSize="small" (click)="reset('task')" class="float-end mx-1">{{'reset' | translate}}</button>
+              </div>
+            </div>
+        </nz-dropdown-menu>
+        <nz-dropdown-menu #menuAct="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+              <div class="search-box p-2 overflow-hidden">
+                <input class="mb-2" type="text" nz-input placeholder="Search learning activity" [(ngModel)]="searchActValue" />
+                <button nz-button nzSize="small" nzType="primary" (click)="search('act')" class="search-button float-end mx-1">{{'search' | translate}}</button>
+                <button nz-button nzSize="small" (click)="reset('act')" class="float-end mx-1">{{'reset' | translate}}</button>
+              </div>
+            </div>
+        </nz-dropdown-menu>
+        <nz-dropdown-menu #menuEngName="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+              <div class="search-box p-2 overflow-hidden">
+                <input class="mb-2" type="text" nz-input placeholder="Search English name" [(ngModel)]="searchEngNameValue" />
+                <button nz-button nzSize="small" nzType="primary" (click)="search('eng-name')" class="search-button float-end mx-1">{{'search' | translate}}</button>
+                <button nz-button nzSize="small" (click)="reset('eng-name')" class="float-end mx-1">{{'reset' | translate}}</button>
+              </div>
+            </div>
+        </nz-dropdown-menu>
+    </div>
+</div>

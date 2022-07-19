@@ -1,0 +1,60 @@
+<form [formGroup]="form">
+    <div class="add-student-wrapper">
+        <div nz-row>
+            <div nz-col [nzSpan]="3" class="mb-2">
+                <label>{{'class_name' | translate}}</label>
+            </div>
+            <div nz-col [nzSpan]="9" class="pe-3 mb-2">
+                <input nz-input id="group" formControlName="titleChinese" [readonly]="!isAddClass" placeholder="班级名称"/>
+            </div>
+            <div nz-col [nzSpan]="10" class="ps-3 mb-2">
+                <input nz-input id="group" formControlName="titleEnglish" [readonly]="!isAddClass" placeholder="Class name"/>
+            </div>
+        </div>
+        <div nz-row>
+            <div nz-col [nzSpan]="3" class="mb-2">
+                <label>{{'assign_to_teacher' | translate}}</label>
+            </div>
+            <div nz-col [nzSpan]="9" class="pe-3 mb-2">
+                <nz-form-control>
+                    <nz-select class="w-100" formControlName="assignedTeacher" nzMode="multiple" nzAllowClear nzPlaceHolder="{{'select_by_teacher_name' | translate}}" [(ngModel)]="listOfSelectedValue">
+                        <nz-option *ngFor="let option of defaultOption" [nzLabel]="currentLang === 'zh' ? option.fullNameChinese : option.fullNameEnglish" [nzValue]="option"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </div>
+            <div nz-col [nzSpan]="10" class="ps-3 mb-2">
+            </div>
+        </div>
+    </div>
+    <nz-transfer [nzDataSource]="studentList" [nzDisabled]="disabled" [nzShowSearch]="true" [nzShowSelectAll]="false"
+        [nzFilterOption]="filterOption" [nzRenderList]="[renderList, renderList]" (nzSelectChange)="select($event)"
+        (nzChange)="change($event)" [nzTitles]="['all_student' | translate, 'students_was_chosen' | translate]">
+        <ng-template #renderList let-items let-direction="direction" let-stat="stat" let-disabled="disabled"
+            let-onItemSelectAll="onItemSelectAll" let-onItemSelect="onItemSelect">
+            <nz-table #t [nzData]="$asTransferItems(items)" nzSize="small" class="p-2 transfer-table"
+                [nzShowPagination]="true" [nzPageSize]="10">
+                <thead>
+                    <tr>
+                        <th [nzDisabled]="disabled" [nzChecked]="stat.checkAll" [nzIndeterminate]="stat.checkHalf"
+                            (nzCheckedChange)="onItemSelectAll($event)"></th>
+                        <th *ngFor="let head of tableFields">
+                            {{head.header}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of t.data" (click)="onItemSelect(data)">
+                        <td [nzChecked]="!!data.checked" (nzCheckedChange)="onItemSelect(data)"></td>
+                        <td *ngFor="let td of tableFields">{{ data[td.fieldName] }}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </ng-template>
+    </nz-transfer>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="destroyModal(false)">{{'cancel' | translate}}</button>
+        <button nz-button nzType="primary" [disabled]="form.invalid"
+            (click)="destroyModal(true)">{{'ok' |
+            translate}}</button>
+    </div>
+</form>

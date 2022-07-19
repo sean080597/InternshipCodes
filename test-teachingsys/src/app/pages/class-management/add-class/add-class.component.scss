@@ -1,0 +1,14 @@
+::ng-deep {
+    .add-student-wrapper {
+        .ant-form-item-label > label {
+            float: left
+        }
+    }
+    .transfer-table  {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+    .round {
+        border-radius: 50%;
+    }
+}

@@ -1,0 +1,109 @@
+.assessment-container {
+  position: relative;
+  width: 100%;
+  background-color: white;
+  border: 0.5px solid #858BB0;
+}
+
+.field-container {
+  position: relative;
+  width: 100%;
+  border: 0.5px solid #858BB0;
+
+  .header {
+    min-height: 80px !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    color: #020C1D;
+  }
+
+  &:last-child {
+    .field-content {
+      border-bottom: unset;
+    }
+  }
+
+  .field-header {
+    position: relative;
+    width: 100%;
+    background: #F9F9FA;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 0.5px solid #858BB0;
+  }
+
+  .field-content {
+    position: relative;
+    width: 100%;
+    border-bottom: 0.5px solid #858BB0;
+
+    .row-container {
+      position: relative;
+      width: 100%;
+      border-bottom: 0.5px solid #858BB0;
+      display: flex;
+      flex-direction: row;
+
+      &:last-child {
+        border-bottom: unset;
+      }
+
+      .cell-container {
+        position: relative;
+        min-height: 40px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex: 1 1 0px;
+        padding: 10px 16px;
+        border-right: 0.5px solid #858BB0;
+        word-break: break-word;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 20px;
+        color: #020C1D;
+
+        &:last-child {
+          border-right: unset;
+        }
+
+        &.id-container {
+          width: 132px;
+          justify-content: center;
+          flex: unset;
+        }
+
+        &.check-score-id {
+          width: 240px;
+        }
+
+        &.stack-container {
+          flex-direction: column;
+          align-items: unset;
+          padding: unset;
+        }
+
+        &.grade {
+          font-weight: 600;
+          border-right: unset;
+          justify-content: unset;
+        }
+
+        .sub-row-container {
+          display: flex;
+          flex-direction: row;
+          flex: 1 1 0px;
+          border-bottom: 0.5px solid #858BB0;
+
+          &:last-child {
+            border-bottom: unset;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+<div id="login-page" class="container-fluid h-100">
+  <div class="row h-100">
+    <div class="col-5 col-left">
+      <div class="p-5 mt-15vh">
+        <div class="logo d-flex justify-content-center mb-4">
+          <img src="assets/images/logos/logo-4.png">
+        </div>
+        <h3 class="fw-bold mb-4">{{'login' | translate}}</h3>
+        <form nz-form [formGroup]="validateForm" class="login-form align-self-center" (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="'login.err_required_username' | translate">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="text" nz-input formControlName="userName" placeholder="Username" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="'login.err_required_password' | translate">
+              <nz-input-group nzPrefixIcon="lock">
+                <input type="password" nz-input formControlName="password" placeholder="Password" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <div class="text-danger mb-4" *ngIf="error">
+            {{'login.' + error | translate}}
+          </div>
+
+          <label class="mb-3" nz-checkbox formControlName="rememberMe">
+            <span>{{'remember_me' | translate}}</span>
+          </label>
+          <div nz-row class="d-flex align-items-center justify-content-between">
+            <a class="text-decoration-none">Forgot password</a>
+            <button type="submit" nz-button class="login-form-button" [nzLoading]="loading">{{'signIn' | translate}}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-7 col-right">
+      <div class="p-5 mt-15vh d-flex flex-column align-items-center">
+        <h4 class="fw-bold">{{'login.welcome' | translate}}</h4>
+        <h4 class="fw-bold">{{'login.aboutus' | translate}}</h4>
+        <p class="small text-center">{{'login.welcomeContent' | translate}}</p>
+        <img class="w-20vw mt-4" src="assets/images/login-right.svg" alt="">
+      </div>
+    </div>
+  </div>
+</div>

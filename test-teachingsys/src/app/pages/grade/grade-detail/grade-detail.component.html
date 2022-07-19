@@ -1,0 +1,18 @@
+<div class="grade-detail-wrapper">
+  <div class="navigation-container">
+    <span>{{ 'grade' | translate }} / </span><span class="title">{{ gradeDetail?.learningActivity }}</span>
+  </div>
+  <app-grade-detail-overview [gradeOverview]="gradeOverview"></app-grade-detail-overview>
+  <nz-tabset>
+    <nz-tab nzTitle="Assessment">
+      <ng-template nz-tab>
+        <app-grade-detail-assessment [gradeVisualInspection]="gradeVisualInspection" [gradeFunctionalChecks]="gradeFunctionalChecks" [grade]=""gradeField></app-grade-detail-assessment>
+      </ng-template>
+    </nz-tab>
+    <nz-tab nzTitle="Answer">
+      <ng-template nz-tab>
+        <app-grade-detail-answer [gradeDetail]="gradeDetail"></app-grade-detail-answer>
+      </ng-template>
+    </nz-tab>
+  </nz-tabset>
+</div>

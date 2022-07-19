@@ -1,0 +1,19 @@
+<div class="status-student-container px-3">
+  <nz-tabset (nzSelectedIndexChange)="onChangeSelectedTabIdx($event)">
+    <ng-container *ngFor="let classItem of classReportsDetailsList | async">
+      <nz-tab [nzTitle]="classItem.className">
+        <nz-collapse [nzBordered]="false" [nzExpandIconPosition]="'right'" class="mb-4">
+          <nz-collapse-panel nzHeader="General">
+            <nz-tag [nzColor]="genStatusColor(sttTag.statusName)" *ngFor="let sttTag of classItem.statusReports">{{sttTag.statusName}} {{sttTag.numberOfStatus}}</nz-tag>
+          </nz-collapse-panel>
+        </nz-collapse>
+        <div class="d-flex" *ngFor="let stu of classItem.studentReports">
+          <p class="student-name">{{stu.studentNameChi ?? stu.studentNameEng}}</p>
+          <div class="student-status">
+            <nz-tag [nzColor]="genStatusColor(stu.statusName)">{{stu.statusName}}</nz-tag>
+          </div>
+        </div>
+      </nz-tab>
+    </ng-container>
+  </nz-tabset>
+</div>

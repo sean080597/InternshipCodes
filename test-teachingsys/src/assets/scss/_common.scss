@@ -1,0 +1,260 @@
+@import "variables";
+
+// UTILS CLASS HERE
+.width {
+    &-100 {
+        width: $percent-100
+    }
+
+    &-90 {
+        width: $percent-90
+    }
+
+    &-80 {
+        width: $percent-80
+    }
+
+    &-70 {
+        width: $percent-70
+    }
+
+    &-60 {
+        width: $percent-60
+    }
+
+    &-50 {
+        width: $percent-50
+    }
+
+    &-40 {
+        width: $percent-40
+    }
+
+    &-30 {
+        width: $percent-30
+    }
+
+    &-25 {
+        width: $percent-25
+    }
+
+    &-20 {
+        width: $percent-20
+    }
+
+    &-15 {
+        width: $percent-15
+    }
+
+    &-14 {
+        width: $percent-14
+    }
+
+    &-12 {
+        width: $percent-12
+    }
+
+    &-10 {
+        width: $percent-10
+    }
+
+    &-5 {
+        width: $percent-5
+    }
+}
+
+.font-size {
+    &-12 {
+        font-size: $font-size-12;
+    }
+
+    &-14 {
+        font-size: $font-size-14;
+    }
+
+    &-16 {
+        font-size: $font-size-16;
+    }
+
+    &-18 {
+        font-size: $font-size-18;
+    }
+
+    &-20 {
+        font-size: $font-size-20;
+    }
+
+    &-24 {
+        font-size: $font-size-24;
+    }
+
+    &-26 {
+        font-size: $font-size-26;
+    }
+
+    &-32 {
+        font-size: $font-size-32;
+    }
+}
+
+.flex-basis {
+  &-10 {
+    flex-basis: 10%;
+  }
+  &-20 {
+    flex-basis: 20%;
+  }
+  &-30 {
+    flex-basis: 30%;
+  }
+  &-40 {
+    flex-basis: 40%;
+  }
+  &-50 {
+    flex-basis: 50%;
+  }
+  &-60 {
+    flex-basis: 60%;
+  }
+  &-70 {
+    flex-basis: 70%;
+  }
+  &-80 {
+    flex-basis: 80%;
+  }
+  &-90 {
+    flex-basis: 90%;
+  }
+}
+
+.content-header {
+    // background-color: #fff;
+    min-height: 64px;
+
+    h5 {
+        margin: 0;
+    }
+}
+
+.box-shadow-custom {
+    box-shadow: 0 4px 2px -2px rgba(60, 64, 67, 0.15);
+    // box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.page-header {
+    top: 105px;
+}
+
+.child-row {
+    background-color: #c9cde334;
+}
+
+.btn-secondary-color {
+    background-color: $secondary-color;
+    color: $primary-color;
+}
+
+span.icon {
+    vertical-align: middle;
+}
+
+.page-content {
+    background-color: #fff;
+    padding-bottom: 1rem;
+}
+
+.background-white {
+    background-color: #fff;
+}
+
+.background-light-gray {
+    border-radius: 6px;
+    background-color: #F9F9FA;
+}
+
+.inline-label {
+    padding: .2rem 0;
+    font-weight: bold;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.ng-valid {
+    border-color: #d9d9d9 !important;
+
+    &:hover,
+    &:focus {
+        border-color: #131c4a !important;
+    }
+}
+
+.question-section .ant-form-item-has-error .ant-select.ng-valid .ant-select-selector {
+    border-color: #d9d9d9 !important;
+
+    &:hover,
+    &:focus {
+        border-color: #131c4a !important;
+    }
+}
+
+.question-table {
+    .ant-table-cell {
+        min-height: 39px;
+        height: 39px;
+    }
+}
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+.custom-legend {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+
+    span {
+      margin-right: 0.3rem;
+    }
+
+    .legend-rect {
+      width: 3rem;
+      height: 1rem;
+    }
+
+    .hidden, .show {
+      width: auto;
+      cursor: pointer;
+    }
+
+    .hidden {
+      text-decoration: line-through;
+    }
+  }
+}
+
+::ng-deep {
+    .ant-modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+}

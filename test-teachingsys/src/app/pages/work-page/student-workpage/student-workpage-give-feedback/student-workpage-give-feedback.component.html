@@ -1,0 +1,53 @@
+<div class="workpage-give-feedback h-100 overflow-auto d-flex flex-column gap-3">
+  <div class="d-flex p-2 content-header">
+    <div class="w-100 d-flex align-items-center p-2">
+      <h5>{{studentData?.learningActivity}}</h5>
+      <div class="ms-auto">
+        <button class="btn-secondary-color border-0" nz-button nzType="primary" (click)="done()">
+          <span>{{'give_feedback' | translate}}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="page-content p-3">
+    <div class="d-flex gap-2">
+      <span class="material-symbols-rounded icon">description</span>
+      <div>
+        <h6 class="text-secondary">{{studentData?.task}}</h6>
+        <p class="small text-black-50">{{studentData?.taskDescription}}</p>
+      </div>
+    </div>
+    <div class="d-flex gap-2">
+      <span class="material-symbols-rounded icon">task</span>
+      <div>
+        <h6 class="fw-bold">{{studentData?.learningActivity}}</h6>
+        <p class="small">{{studentData?.learningActivityDescription}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content p-3">
+    <form [formGroup]="questionForm">
+      <div class="mb-4">
+        <h5>1. {{'question_issues' | translate}}:</h5>
+        <textarea rows="8" nz-input formControlName="issues" [placeholder]="'your_answer' | translate"></textarea>
+      </div>
+      <div class="mb-4">
+        <h5>2. {{'question_solution' | translate}}:</h5>
+        <textarea rows="8" nz-input formControlName="solution" [placeholder]="'your_answer' | translate"></textarea>
+      </div>
+      <div class="mb-4">
+        <h5>3. {{'question_effect' | translate}}:</h5>
+        <textarea rows="8" nz-input formControlName="eventEffect" [placeholder]="'your_answer' | translate"></textarea>
+      </div>
+      <div class="mb-4">
+        <h5>4. {{'question_optimization' | translate}}:</h5>
+        <textarea rows="8" nz-input formControlName="optimization" [placeholder]="'your_answer' | translate"></textarea>
+      </div>
+      <div class="mb-4">
+        <h5>5. {{'question_incentives' | translate}}:</h5>
+        <textarea rows="8" nz-input formControlName="incentives" [placeholder]="'your_answer' | translate"></textarea>
+      </div>
+    </form>
+  </div>
+</div>

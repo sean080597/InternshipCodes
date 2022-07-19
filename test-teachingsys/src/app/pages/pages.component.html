@@ -1,0 +1,12 @@
+<nz-layout class="ant-layout-has-sider" *ngIf="currentRoute !== '/login'">
+    <app-side-menu [isCollapsed]="isCollapsed"></app-side-menu>
+    <nz-layout>
+        <app-header [isCollapsed]="isCollapsed" (collapseTrigger)="trigger($event)"></app-header>
+        <nz-content>
+            <app-spinner [isLoading]="isLoading"></app-spinner>
+            <div class="inner-content">
+                <router-outlet></router-outlet>
+            </div>
+        </nz-content>
+    </nz-layout>
+</nz-layout>

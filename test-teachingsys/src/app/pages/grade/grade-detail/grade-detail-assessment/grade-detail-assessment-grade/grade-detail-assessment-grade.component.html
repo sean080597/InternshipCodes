@@ -1,0 +1,92 @@
+<div class="field-container">
+  <div class="field-header header">{{ 'grade' | translate }}</div>
+  <div class="field-content">
+    <!-- header -->
+    <div class="row-container">
+      <div class="cell-container id-container header">
+        {{ 'grade.serialNumber' | translate }}
+      </div>
+      <div class="cell-container header">
+        {{ 'grade.checkStandard' | translate }}
+      </div>
+      <div class="cell-container header stack-container">
+        <div class="sub-row-container">
+          <div class="cell-container">{{ 'grade.selfAssessment' | translate }}</div>
+          <div class="cell-container">{{ 'grade.teacherEvaluation' | translate }}</div>
+          <div class="cell-container">{{ 'grade.selfScoringNumberRating' | translate }}</div>
+        </div>
+      </div>
+    </div>
+    <!-- header -->
+    <!-- content -->
+    <div class="row-container">
+      <div class="cell-container id-container">
+        1
+      </div>
+      <div class="cell-container">
+        {{ 'grade.visualInspection' | translate }}
+      </div>
+      <div class="cell-container stack-container">
+        <div class="sub-row-container">
+          <div class="cell-container">{{ grade?.outcome?.visualInspection }}</div>
+          <div class="cell-container">0.4</div>
+          <div class="cell-container">{{ grade?.fraction?.visualInspection }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-container">
+      <div class="cell-container id-container">
+        2
+      </div>
+      <div class="cell-container">
+        {{ 'grade.visualInspectionSelfScoring' | translate }}
+      </div>
+      <div class="cell-container stack-container">
+        <div class="sub-row-container">
+          <div class="cell-container">{{ grade?.outcome?.visualInspectionSelfScoring }}</div>
+          <div class="cell-container">0.1</div>
+          <div class="cell-container">{{ grade?.fraction?.visualInspectionSelfScoring }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-container">
+      <div class="cell-container id-container">
+        3
+      </div>
+      <div class="cell-container">
+        {{ 'grade.securityCheck' | translate }}
+      </div>
+      <div class="cell-container stack-container">
+        <div class="sub-row-container">
+          <div class="cell-container">{{ grade?.outcome?.securityCheck }}</div>
+          <div class="cell-container">0.4</div>
+          <div class="cell-container">{{ grade?.fraction?.securityCheck }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-container">
+      <div class="cell-container id-container">
+        4
+      </div>
+      <div class="cell-container">
+        {{ 'grade.functionCheckSelfScoring' | translate }}
+      </div>
+      <div class="cell-container stack-container">
+        <div class="sub-row-container">
+          <div class="cell-container">{{ grade?.outcome?.functionCheckSelfScoring }}</div>
+          <div class="cell-container">0.1</div>
+          <div class="cell-container">{{ grade?.fraction?.functionCheckSelfScoring }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-container">
+      <div class="cell-container id-container grade">{{ 'grade' | translate }}</div>
+      <div class="cell-container"></div>
+      <div class="cell-container stack-container">
+        <div class="sub-row-container">
+          <div class="cell-container">{{ grade?.total }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

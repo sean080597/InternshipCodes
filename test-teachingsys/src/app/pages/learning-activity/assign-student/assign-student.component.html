@@ -1,0 +1,60 @@
+<div class="select-task-wrap">
+    <div nz-row>
+        <div nz-col [nzSpan]="14">
+            <div nz-row>
+                <div nz-col [nzSpan]="4" class="p-2">
+                    <label>{{'name'|translate}}</label>
+                </div>
+                <div nz-col [nzSpan]="20" class="p-2">
+                    <input disabled nz-input [value]="activityData?.title" />
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col [nzSpan]="4" class="p-2">
+                    <label>{{'description'|translate}}</label>
+                </div>
+                <div nz-col [nzSpan]="20" class="p-2">
+                    <textarea disabled rows="3" nz-input [(ngModel)]="activityData!.description"></textarea>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col [nzSpan]="4" class="p-2">
+                    <label>{{'class'|translate}}</label>
+                </div>
+                <div nz-col [nzSpan]="20" class="p-2">
+                    <nz-select class="w-100" nzPlaceHolder="{{'select_class' | translate}}"
+                        (ngModelChange)="onSelected($event)"
+                        [nzOptions]="classList" [(ngModel)]="selectedClass">
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col [nzSpan]="4" class="p-2">
+                    <label>{{'students'|translate}}</label>
+                </div>
+                <div nz-col [nzSpan]="20" class="p-2">
+                    <div class="selected-task-student">
+                        <nz-tag nzMode="closeable" *ngFor="let stu of selectedStudent; let i=index" (nzOnClose)="onClose(stu.key)">
+                            {{stu.title}}
+                        </nz-tag>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div nz-col [nzSpan]="10" class="preview-section">
+            <nz-input-group [nzSuffix]="suffixIcon">
+                <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue" />
+            </nz-input-group>
+            <ng-template #suffixIcon>
+                <i nz-icon nzType="search"></i>
+            </ng-template>
+            <nz-tree class="preview-list px-3 p-2" [nzData]="nodes" nzCheckable nzMultiple 
+                (nzExpandChange)="nzEvent($event)" (nzCheckBoxChange)="nzEvent($event)" [nzSearchValue]="searchValue" 
+                (nzExpandChange)="nzEvent($event)" (nzSearchValueChange)="nzEvent($event)"></nz-tree>
+        </div>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="destroyModal(false)">{{'cancel' | translate}}</button>
+        <button nz-button nzType="primary" [disabled]="" (click)="destroyModal(true)">{{'ok' | translate}}</button>
+    </div>
+</div>

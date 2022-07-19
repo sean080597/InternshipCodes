@@ -1,0 +1,44 @@
+@import "variables";
+::ng-deep{
+    .select-question-wrapper {
+        .ant-btn-primary:not(:disabled) {
+            border-color: $secondary-color;
+            background-color: $secondary-color;
+            color: $primary-color
+        }
+        .question-wrap {
+            .ant-list-item {
+                justify-content: unset;
+                padding: 8px !important;
+            }
+        }
+        #transfer-list {
+            .ant-transfer-list-content-item {
+                display: flex;
+                align-items: center;
+                min-height: 32px;
+                margin: 8px;
+                padding: 10px;
+                line-height: 20px;
+                transition: all 0.3s;
+                border: 1px solid $primary-color;
+                border-radius: 10px;
+                overflow: hidden;
+                .ant-checkbox {
+                    width: 16px;
+                }
+                span:not(.ant-checkbox) {
+                    width:  95%;
+                }
+            }
+        }
+        .ant-checkbox-wrapper {
+            width:100%
+        }
+        .ant-transfer-list-header {
+            .ant-checkbox-wrapper {
+                width: auto;
+            }
+        }
+    }
+}

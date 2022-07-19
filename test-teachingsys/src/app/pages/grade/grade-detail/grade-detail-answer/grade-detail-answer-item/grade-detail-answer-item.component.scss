@@ -1,0 +1,159 @@
+@import "variables";
+
+:host {
+  width: 100%;
+}
+
+.possible-answer, .student-answer {
+  label {
+    margin-left: 56px;
+    margin-bottom: 16px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    color: #020C1D;
+  }
+}
+
+.answer-item {
+  display: flex;
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .index {
+    padding: 8px;
+    margin-right: 16px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    text-decoration-line: underline;
+    color: #5B616C;
+  }
+
+  .content {
+    display: flex;
+    border-bottom: 1px solid #E9EAEC;
+    flex: auto 1 1;
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1px 4px;
+      gap: 8px;
+      background: #E9EAEC;
+      border-radius: 100px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 20px;
+      color: #020C1D;
+      margin: 0 4px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.student-answer {
+  padding: 16px;
+  gap: 10px;
+  background: #F9F9FA;
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  color: #020C1D;
+}
+
+.answer-container {
+  display: flex;
+
+  .answer-content {
+    flex: 1 1 0px;
+  }
+
+  .score-container {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+
+    .input-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+
+      .label {
+        flex: auto 1 1;
+      }
+
+      .grade {
+        width: 150px;
+        display: flex;
+        align-items: center;
+
+        .student-grade {
+          width: 70px;
+        }
+
+        .answer-grade {
+          margin-left: 5px;
+          width: 75px;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .ant-btn-primary:not(:disabled) {
+    border-color: $secondary-color;
+    background-color: $secondary-color;
+    color: $primary-color
+  }
+  .ant-list-item {
+      justify-content: unset;
+      padding: 8px !important;
+  }
+  .ant-checkbox-wrapper {
+      width:100%
+  }
+  .ant-transfer-list-header {
+      .ant-checkbox-wrapper {
+          width: auto;
+      }
+  }
+}
+.question-section {
+    height: calc(100vh - 345px);
+    overflow-y: auto;
+}
+
+mat-icon {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.img-item {
+    border: 1px solid;
+    height: 70px;
+    img {
+        display: block;
+        width: 52px;
+        height: 52px;
+        overflow: hidden;
+    }
+}

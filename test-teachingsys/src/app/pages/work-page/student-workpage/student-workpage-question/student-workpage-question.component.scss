@@ -1,0 +1,18 @@
+.workpage-question {
+  .question-content {
+    flex: 4;
+  }
+  .question-score {
+    flex: 1;
+  }
+  ::ng-deep nz-checkbox-group {
+    .ant-checkbox-group-item {
+      display: flex;
+    }
+  }
+  .border-bottom-only {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+}

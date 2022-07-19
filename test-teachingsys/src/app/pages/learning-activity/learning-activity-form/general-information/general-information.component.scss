@@ -1,0 +1,11 @@
+.ant-upload-hint {
+    width: 50%;
+    text-align: left;
+    margin: 5px auto;
+    padding: 1rem 0;
+}
+::ng-deep {
+    .ant-upload.ant-upload-disabled {
+        background: #f2f2f2
+    }
+}

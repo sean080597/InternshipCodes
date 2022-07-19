@@ -1,0 +1,54 @@
+<div class="field-container">
+  <div class="field-header header">{{ 'grade.functionalCheck' | translate }}</div>
+  <div class="field-content">
+    <!-- header -->
+    <div class="row-container">
+      <div class="cell-container id-container header">
+        {{ 'grade.serialNumber' | translate }}
+      </div>
+      <div class="cell-container header">
+        {{ 'grade.checkStandard' | translate }}
+      </div>
+      <div class="cell-container header stack-container">
+        <div class="sub-row-container">
+          <div class="cell-container">
+            {{ 'grade.score10or0' | translate }}
+          </div>
+        </div>
+        <div class="sub-row-container">
+          <div class="cell-container">{{ 'grade.selfAssessment' | translate }}</div>
+          <div class="cell-container">{{ 'grade.teacherEvaluation' | translate }}</div>
+          <div class="cell-container">{{ 'grade.selfScoringNumberRating' | translate }}</div>
+        </div>
+      </div>
+    </div>
+    <!-- header -->
+    <!-- content -->
+    <div class="row-container" *ngFor="let evaluation of gradeFunctionalChecks; let i = index;">
+      <div class="cell-container id-container">
+        {{ i + 1 }}
+      </div>
+      <div class="cell-container">
+        {{ evaluation.title }}
+      </div>
+      <div class="cell-container stack-container">
+        <div class="sub-row-container">
+          <div class="cell-container">{{ evaluation.studentScore }}</div>
+          <div class="cell-container">{{ evaluation.teacherScore }}</div>
+          <div class="cell-container">{{ evaluation.fraction }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-container">
+      <div class="cell-container id-container grade">{{ 'grade' | translate }}</div>
+      <div class="cell-container"></div>
+      <div class="cell-container stack-container">
+        <div class="sub-row-container">
+          <div class="cell-container">{{ studentSum }}</div>
+          <div class="cell-container">{{ teacherSum }}</div>
+          <div class="cell-container">{{ fractionSum }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<nz-header>
+    <div id="tms-header" class="app-header">
+        <span id="sidebarCollapse" class="header-trigger material-symbols-rounded" (click)="trigger()">
+            {{isCollapsed ? 'format_indent_increase' : 'format_indent_decrease'}}
+        </span>
+        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fa fa-bars"></i>
+        </button>
+        <span class="ps-3 ms-5">
+            <img class="logo-text" src="assets/images/logos/logo-3.png">
+            <!-- <strong>{{'luuteaching_management_system' | translate}}</strong> -->
+        </span>
+        <div class="float-end px-3">
+            <ul class="language-selection border-0" nz-menu [nzMode]="'vertical'">
+                <li class="float-start px-2">
+                    <button class="border-0 noti-bell" [nzTrigger]="'click'" nz-button nz-dropdown [nzDropdownMenu]="noti" nzPlacement="bottomRight">
+                        <nz-badge [nzCount]="4">
+                            <i nz-icon nzType="bell" nzTheme="fill"></i>
+                        </nz-badge>
+                    </button>
+                    <nz-dropdown-menu #noti="nzDropdownMenu">
+                        <ul nz-menu>
+                            <li nz-menu-item>menu4 1st menu item</li>
+                            <li nz-menu-item>menu4 2nd menu item</li>
+                            <li nz-menu-item>menu4 3rd menu item</li>
+                        </ul>
+                    </nz-dropdown-menu>
+                </li>
+                <li class="float-start px-2">
+                    <nz-avatar [nzGap]="5" [nzText]="currentUser.userName" style="vertical-align: middle;" nz-dropdown [nzDropdownMenu]="userProfile"></nz-avatar>
+                    <nz-dropdown-menu #userProfile="nzDropdownMenu">
+                        <ul nz-menu>
+                            <li nz-menu-item>{{currentUser.userName}}</li>
+                            <hr class="my-1">
+                            <li nz-menu-item>Change password</li>
+                            <li nz-menu-item (click)="logout()">Logout</li>
+                        </ul>
+                    </nz-dropdown-menu>
+                </li>
+                <li class="float-start px-2">
+                    <button nz-button nzType="default" (click)="triggerLanguage()">
+                        {{selectedLang === 'en' ? ('english' | translate) : ('chinese' | translate)}}
+                    </button>
+                    <!-- <nz-dropdown-menu #lang="nzDropdownMenu">
+                        <ul nz-menu>
+                            <li nz-menu-item (click)="englishClick()">
+                                <i class="w-25" *ngIf="translate.store.currentLang=='zh'" nz-icon nzType="" nzTheme="outline"></i>
+                                <i class="w-25" *ngIf="translate.store.currentLang=='en'" nz-icon nzType="check" nzTheme="outline"></i>
+                                <span class="p-2">
+                                    {{'english' | translate}}
+                                </span>
+                            </li>
+                            <li nz-menu-item (click)="chineseClick()">
+                                <i class="w-25" *ngIf="translate.store.currentLang=='en'" nz-icon nzType="" nzTheme="outline"></i>
+                                <i class="w-25" *ngIf="translate.store.currentLang=='zh'" nz-icon nzType="check" nzTheme="outline"></i>
+                                <span class="p-2">
+                                    {{'chinese' | translate}}
+                                </span>
+                            </li>
+                        </ul>
+                    </nz-dropdown-menu> -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</nz-header>

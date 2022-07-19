@@ -1,0 +1,122 @@
+@import "variables";
+
+.description {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.title-answers {
+    opacity: 0.8;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.title-questions {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.score {
+    max-height: 184px;
+}
+
+.login-form-button {
+    border: none;
+    background-color: $secondary-color;
+
+    &:hover {
+        color: $white-color;
+        background-color: $primary-color;
+    }
+}
+
+.score-area {
+    padding-top: 6px;
+    text-align: center;
+    border-radius: 6px !important;
+}
+
+.not-valid {
+    border: red solid 1px !important;
+}
+
+::ng-deep {
+    .ant-select-selector {
+        border-radius: 6px !important;
+    }
+}
+
+::ng-deep {
+    .app-preview {
+        .ant-btn-primary:not(:disabled) {
+            border-color: $secondary-color;
+            background-color: $secondary-color;
+            color: $primary-color
+        }
+
+        .ant-list-item {
+            justify-content: unset;
+            padding: 8px !important;
+        }
+
+        .ant-checkbox-wrapper {
+            width: 100%
+        }
+
+        .ant-transfer-list-header {
+            .ant-checkbox-wrapper {
+                width: auto;
+            }
+        }
+    }
+}
+
+.tag-control {
+    border-bottom: 1px solid #d9d9d9;
+    margin-bottom: 0.3rem;
+
+    input {
+        width: 100px;
+        height: 30px;
+    }
+
+    .ant-tag {
+        border-radius: 10px;
+        font-size: inherit;
+        height: 30px;
+        padding: 5px 10px;
+        line-height: 18px;
+
+        .ant-tag-close-icon {
+            padding: 3px;
+            background-color: $primary-color;
+            color: #fff;
+            border-radius: 50%;
+        }
+    }
+}
+
+.question-section {
+    height: calc(100vh - 345px);
+    padding-bottom: 2rem;
+    overflow-y: auto;
+}
+
+.app-preview {
+    mat-icon {
+        font-size: 20px;
+        vertical-align: middle;
+    }
+}
+
+.img-item {
+    border: 1px solid;
+    height: 70px;
+
+    img {
+        display: block;
+        width: 52px;
+        height: 52px;
+        overflow: hidden;
+    }
+}

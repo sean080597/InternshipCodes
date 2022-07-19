@@ -1,0 +1,208 @@
+<div class="workpage-question h-100 d-flex flex-column gap-3">
+  <div class="d-flex p-2 content-header">
+    <div class="w-100 d-flex align-items-center p-2">
+      <h5>{{feedbackData?.learningActivity}}</h5>
+      <div class="ms-auto">
+        <button class="btn-secondary-color border-0 me-2" nz-button nzType="default" (click)="backToList()">
+          <span>{{'close' | translate}}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="page-content p-3">
+    <div class="d-flex gap-2">
+      <span class="material-symbols-rounded icon">description</span>
+      <div>
+        <h6 class="text-secondary">{{feedbackData?.task}}</h6>
+        <p class="small text-black-50">{{feedbackData?.taskDescription}}</p>
+      </div>
+    </div>
+    <div class="d-flex gap-2">
+      <span class="material-symbols-rounded icon">task</span>
+      <div>
+        <h6 class="fw-bold">{{feedbackData?.learningActivity}}</h6>
+        <p class="small">{{feedbackData?.learningActivityDescription}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-content overflow-auto p-3">
+    <div class="question-section mt-3">
+      <div nz-row class="p-2 background-white mb-3 pe-4" *ngFor="let question of feedbackData?.questions; let i=index">
+        <ng-container *ngIf="question.type === 'Essay'">
+          <div nz-col nzSpan="24" class="mb-2 p-4">
+            <div class="title-questions p-2 ps-0">
+              {{i+1}}. {{question?.title}}
+            </div>
+            <div class="title-answers p-2 ps-0">
+              {{'student-answer' | translate}}
+            </div>
+            <textarea style="pointer-events: none;" rows="4" nz-input class="w-100 p-4"
+              [(ngModel)]="question?.studentAnswers[0]?.answer ? question?.studentAnswers[0].answer : question?.studentAnswers[0]"></textarea>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="question.type === 'MultipleChoice'">
+          <div nz-col nzSpan="24" class="mb-2 p-4">
+            <div class="title-questions p-2 ps-0">
+              {{i+1}}. {{question?.title}}
+            </div>
+            <div class="title-answers p-2 ps-0" *ngFor="let answer of question.questionAnswers">
+              <div>
+                <label nz-checkbox style="pointer-events: none;"
+                  [(ngModel)]="answer.isCorrect">{{answer.answer}}</label>
+              </div>
+            </div>
+            <div class="title-answers p-3 background-light-gray">
+              {{'student-answer' | translate}}: {{question?.studentAnswers[0]?.answer}}
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="question.type === 'FillIn'">
+          <div nz-col nzSpan="24" class="mb-2 p-4">
+            <div class="title-questions p-2 ps-0">
+              {{i+1}}. {{ commonService.convertSymbolToBlank(question?.title) }}
+            </div>
+            <div class="p-3">
+              <div class="title-answers" style="font-weight: 600; opacity: 1;" nz-row>
+                <div nz-col nzSpan="2">
+
+                </div>
+                <div nz-col nzSpan="22">
+                  {{'possible-answer' | translate}}
+                </div>
+              </div>
+              <div class="title-answers" nz-row *ngFor="let questionAnswer of question.questionAnswers; let i=index">
+                <div nz-col nzSpan="2">
+                  [#{{i+1}}]
+                </div>
+                <div nz-col nzSpan="22" class="tag-control">
+                  <nz-tag *ngFor="let answer of questionAnswer.answer">{{answer}}</nz-tag>
+                </div>
+              </div>
+            </div>
+            <div class="p-3 title-answers background-light-gray">
+              <div class="" nz-row>
+                <div nz-col nzSpan="2">
+
+                </div>
+                <div nz-col nzSpan="22">
+                  {{'student-answer' | translate}}
+                </div>
+              </div>
+              <div class="" nz-row *ngFor="let studentAnswer of question.studentAnswers; let i=index">
+                <div nz-col nzSpan="2">
+                  [#{{i+1}}]
+                </div>
+                <div nz-col nzSpan="22" class="tag-control">
+                  <nz-tag *ngFor="let answer of studentAnswer.answer">{{answer}}</nz-tag>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="question.type === 'WorkPlanTable'">
+          <div nz-col nzSpan="24" class="mb-2 p-4">
+            <div class="title-questions p-2 ps-0">
+              {{i+1}}. {{question?.title}}
+            </div>
+            <div class="title-answers p-2 ps-0">
+              {{'student-answer' | translate}}
+            </div>
+            <nz-table nzSize="small" [nzData]="workplanData" [nzShowPagination]="false" [nzBordered]="true">
+              <thead>
+                <tr>
+                  <th class="text-center width-5">{{'no.' | translate}}</th>
+                  <th class="text-center width-20">{{'steps' | translate}}</th>
+                  <th class="text-center width-20">{{'preparation_checklist' | translate}}</th>
+                  <th class="text-center width-20">{{'work_safety' | translate}}</th>
+                  <th class="text-center width-15">{{'working_hour' | translate}}</th>
+                  <th class="text-center width-20">{{'notes' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of workplanData">
+                  <td class="text-center">{{ data.order }}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </nz-table>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="question.type === 'VisualInspectionTable'">
+          <div nz-col nzSpan="24" class="mb-2 p-4">
+            <div class="title-questions p-2 ps-0">
+              {{i+1}}. {{question?.title}}
+            </div>
+            <div class="title-answers p-2 ps-0">
+              {{'student-answer' | translate}}
+            </div>
+            <nz-table class="question-table" nzSize="small" [nzData]="question.interpretations"
+              [nzShowPagination]="false" [nzBordered]="true">
+              <thead>
+                <tr>
+                  <th colspan="4" class="text-center">{{'table_visual_inspection' | translate}}</th>
+                  <th class="text-center"></th>
+                </tr>
+                <tr>
+                  <th class="text-center">{{'name' | translate}}:</th>
+                  <th></th>
+                  <th colspan="2" class="text-start">{{'date' | translate}}:</th>
+                  <th rowspan="2" class="text-center width-20">{{'notes' | translate}}</th>
+                </tr>
+                <tr>
+                  <th class="text-center width-15">{{'topic' | translate}}:</th>
+                  <th>{{'interpretation' | translate}}</th>
+                  <th colspan="2" class="text-start width-20">{{'acceptable' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of question.interpretations; index as i">
+                  <ng-container [ngSwitch]="i">
+                    <ng-container *ngSwitchCase="0">
+                      <td class="text-center" rowspan="14">{{ 'trajectory_movement' | translate }}</td>
+                      <td>{{ question.interpretations[0] | translate }}</td>
+                      <td colspan="2" class="text-center ">
+                        <nz-radio-group nzDisabled="true">
+                          <label nz-radio nzValue="1">{{'yes' | translate}}</label>
+                          <label nz-radio nzValue="0">{{'no' | translate}}</label>
+                        </nz-radio-group>
+                      </td>
+                      <td></td>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                      <td>
+                        <span>{{ data | translate }}</span>
+                      </td>
+                      <td colspan="2" class="text-center ">
+                        <nz-radio-group *ngIf="data !== undefined" nzDisabled="true">
+                          <label nz-radio nzValue="1">{{'yes' | translate}}</label>
+                          <label nz-radio nzValue="0">{{'no' | translate}}</label>
+                        </nz-radio-group>
+                      </td>
+                      <td></td>
+                    </ng-container>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </nz-table>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- <div class="d-flex gap-4">
+        <div class="feedback-content">
+          <div class="" *ngFor="let feedback of feedbackData?.questions">
+            <div class="title">
+                {{feedback.title}}
+            </div>
+            <div class="content">
+                {{feedback.content}}
+            </div>
+          </div>
+        </div>
+      </div> -->
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="answer-container">
+  <div class="overview-container">
+    <div class="task-container">
+      <mat-icon>description</mat-icon>
+      <div class="content-container">
+        <div class="title">
+          {{ gradeDetail.task }}
+        </div>
+        <div class="description">
+          {{ gradeDetail.taskDescription }}
+        </div>
+      </div>
+    </div>
+    <div class="learning-activity-container">
+      <mat-icon>draw</mat-icon>
+      <div class="content-container">
+        <div class="title">
+          {{ gradeDetail.learningActivity }}
+        </div>
+        <div class="description">
+          {{ gradeDetail.learningActivityDescription }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="question-section mt-3">
+    <div nz-row class="p-2 background-white mb-3" *ngFor="let question of questions; let i = index">
+      <app-grade-detail-answer-item [question]="question" [index]="i"></app-grade-detail-answer-item>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<!-- <div class="dialog-container">
+  <div class="header">
+    <div class="tite">Add students to group</div>
+  </div>
+  <div class="body">
+    <form nz-form [formGroup]="formGroup">
+      <nz-form-item>
+        <nz-form-label nzFor="selectGroup">Select group</nz-form-label>
+        <nz-form-control>
+          <nz-select
+            id="selectGroup"
+            formControlName="selectGroup"
+            nzAllowClear
+            nzPlaceHolder="Select group"
+          >
+            <nz-option *ngFor="let group of groups" [nzValue]="group" [nzLabel]="group.title"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <div>Or</div>
+      <nz-form-item>
+        <nz-form-label nzFor="addGroup">Add new group</nz-form-label>
+        <nz-form-control>
+          <input
+            formControlName="addGroup"
+            nz-input
+            nzPlaceHolder="New group"
+            id="addGroup"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  <div class="footer">
+    <button nz-button nzType="default" mat-dialog-close>
+      Cancel
+    </button>
+    <button [disabled]="disableSubmit" class="btn-secondary-color border-0 submit-btn" nz-button nzType="primary" (click)="submit()">
+      <i nz-icon nzType="check" nzTheme="outline"></i>
+      Ok
+    </button>
+  </div>
+</div> -->
+
+
+<div class="select-task-wrap">
+  <div nz-row>
+      <div nz-col [nzSpan]="4" class="p-2 label-div">
+          <label>{{'select_group'|translate}}</label>
+      </div>
+      <div nz-col [nzSpan]="20" class="p-2">
+          <nz-select class="w-100" [(ngModel)]="selectedGroup"  [nzDisabled]="inputtedGroupChinese || inputtedGroupEnglish || disabled" nzShowSearch nzAllowClear nzPlaceHolder="{{'select_group' | translate}}">
+              <nz-option *ngFor="let group of group" [nzLabel]="group.title" [nzValue]="group.groupUniqId"></nz-option>
+          </nz-select>
+      </div>  
+  </div>
+  <div nz-row>
+      <div nz-col [nzSpan]="24" class="p-2">{{'or' | translate}}</div>
+  </div>
+  <div nz-row>
+      <div nz-col [nzSpan]="4" class="p-2">{{'add_new_group' | translate}}</div>
+      <div nz-col [nzSpan]="10" class="p-2">
+          <input [disabled]="selectedGroup" nz-input placeholder="组标题" [(ngModel)]="inputtedGroupChinese" />
+      </div>
+      <div nz-col [nzSpan]="10" class="p-2">
+          <input [disabled]="selectedGroup" nz-input placeholder="Group title" [(ngModel)]="inputtedGroupEnglish" />
+      </div>
+  </div>
+
+  <div *nzModalFooter>
+      <button nz-button nzType="default" (click)="destroyModal(false)">{{'cancel' | translate}}</button>
+      <button nz-button nzType="primary" [disabled]="(!selectedGroup && !inputtedGroupChinese && !inputtedGroupEnglish)" (click)="destroyModal(true)">{{'ok' | translate}}</button>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+@import "variables";
+
+.login-form-button {
+    border: none;
+    background-color: $secondary-color;
+
+    &:hover {
+      color: $white-color;
+      background-color: $primary-color;
+    }
+  }
+

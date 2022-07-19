@@ -1,0 +1,179 @@
+<div class="workpage-question h-100 d-flex flex-column gap-3">
+  <div class="d-flex p-2 content-header">
+    <div class="w-100 d-flex align-items-center p-2">
+      <h5>{{studentData?.learningActivity}}</h5>
+      <div class="ms-auto">
+        <button class="btn-secondary-color border-0 me-2" nz-button nzType="default" (click)="pre()" [disabled]="currentIdx < 1">
+          <span>{{'previous' | translate}}</span>
+        </button>
+        <button class="btn-secondary-color border-0" nz-button nzType="primary" (click)="next()" [hidden]="checkHiddenNextBtn()">
+          <span>{{'next' | translate}}</span>
+        </button>
+        <button class="btn-secondary-color border-0" nz-button nzType="primary" (click)="done()" [hidden]="!checkHiddenNextBtn()">
+          <span>{{'submit' | translate}}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="page-content p-3" [hidden]="currentIdx !== 0">
+    <div class="d-flex gap-2">
+      <span class="material-symbols-rounded icon">description</span>
+      <div>
+        <h6 class="text-secondary">{{studentData?.task}}</h6>
+        <p class="small text-black-50">{{studentData?.taskDescription}}</p>
+      </div>
+    </div>
+    <div class="d-flex gap-2">
+      <span class="material-symbols-rounded icon">task</span>
+      <div>
+        <h6 class="fw-bold">{{studentData?.learningActivity}}</h6>
+        <p class="small">{{studentData?.learningActivityDescription}}</p>
+      </div>
+    </div>
+    <div class="d-flex gap-2">
+      <span class="material-symbols-rounded icon">score</span>
+      <div>
+        <h6 class="fw-bold">{{'total_score' | translate}}: {{studentData?.assignmentScore}}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="page-content overflow-auto p-3">
+    <div class="d-flex gap-4">
+      <div class="question-content">
+        <h5>{{currentIdx + 1}}. {{ questions[currentIdx]?.title }}</h5>
+        <ng-container [ngTemplateOutlet]="questionTemplate"></ng-container>
+        <ng-template #MultipleChoice>
+          <nz-checkbox-group [(ngModel)]="questionAnswers[currentIdx]"></nz-checkbox-group>
+        </ng-template>
+        <ng-template #Essay>
+          <textarea rows="8" nz-input [(ngModel)]="questionAnswers[currentIdx][0].answer"></textarea>
+        </ng-template>
+        <ng-template #FillIn>
+          <div class="d-flex align-items-end gap-2 mb-3" *ngFor="let blank of questionAnswers[currentIdx]; let idx = index">
+            <p class="text-secondary mb-0">[{{idx + 1}}]</p>
+            <input class="border-bottom-only" type="text" nz-input [(ngModel)]="blank.answer">
+          </div>
+        </ng-template>
+        <ng-template #WorkPlanTable>
+          <div class="w-100">
+            <nz-table class="mb-4" nzSize="small" [nzData]="questionAnswers[currentIdx]" [nzShowPagination]="false" [nzBordered]="true">
+              <thead>
+                <tr>
+                  <th class="text-center" [nzWidth]="'5%'">{{'no.' | translate}}</th>
+                  <th class="text-center" [nzWidth]="'20%'">{{'steps' | translate}}</th>
+                  <th class="text-center" [nzWidth]="'20%'">{{'preparation_checklist' | translate}}</th>
+                  <th class="text-center" [nzWidth]="'20%'">{{'work_safety' | translate}}</th>
+                  <th class="text-center" [nzWidth]="'15%'">{{'working_hour' | translate}}</th>
+                  <th class="text-center" [nzWidth]="'20%'">{{'notes' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let stepData of questionAnswers[currentIdx]; let idx = index">
+                  <td class="text-center">{{idx + 1}}</td>
+                  <td>
+                    <nz-select class="w-100" [(ngModel)]="stepData.step" nzShowSearch nzAllowClear [nzDropdownRender]="customStepTemplate">
+                      <nz-option *ngFor="let stepOpt of dropdownSteps" [nzValue]="stepOpt" [nzLabel]="stepOpt | translate"></nz-option>
+                    </nz-select>
+                    <ng-template #customStepTemplate>
+                      <div class="container d-flex gap-2">
+                        <input type="text" nz-input #inputToolElement />
+                        <a class="d-block" (click)="addSelectItem(inputToolElement, 'step')">{{'add' | translate}}</a>
+                      </div>
+                    </ng-template>
+                  </td>
+                  <td>
+                    <nz-select class="w-100" [(ngModel)]="stepData.tool" nzShowSearch nzAllowClear [nzDropdownRender]="customToolTemplate">
+                      <nz-option *ngFor="let toolOpt of dropdownTools" [nzValue]="toolOpt" [nzLabel]="toolOpt | translate"></nz-option>
+                    </nz-select>
+                    <ng-template #customToolTemplate>
+                      <div class="container d-flex gap-2">
+                        <input type="text" nz-input #inputToolElement />
+                        <a class="d-block" (click)="addSelectItem(inputToolElement, 'tool')">{{'add' | translate}}</a>
+                      </div>
+                    </ng-template>
+                  </td>
+                  <td><input class="border-0" type="text" nz-input [(ngModel)]="stepData.safetyEnv"></td>
+                  <td><input class="border-0" type="number" nz-input [(ngModel)]="stepData.workingHours"></td>
+                  <td><input class="border-0" type="text" nz-input [(ngModel)]="stepData.note"></td>
+                </tr>
+              </tbody>
+            </nz-table>
+
+            <div class="d-flex justify-content-between align-content-end gap-2">
+              <div class="d-flex gap-2">
+                <p class="mb-0">{{'date' | translate}}:</p>
+                <nz-date-picker [(ngModel)]="f['questions'].value[this.currentIdx].date"></nz-date-picker>
+              </div>
+              <p class="mb-0">{{'training_teacher' | translate}}: {{studentData?.teacherName}}</p>
+              <p class="mb-0">{{'trainee' | translate}}: {{studentData?.studentName}}</p>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #VisualInspectionTable>
+          <div class="w-100">
+            <nz-table nzSize="small" [nzData]="questionAnswers[currentIdx]" [nzShowPagination]="false" [nzBordered]="true">
+              <thead>
+                <tr>
+                  <th colspan="4" class="text-center">{{'table_visual_inspection' | translate}}</th>
+                  <th class="text-center"></th>
+                </tr>
+                <tr>
+                  <th class="text-center">{{'name' | translate}}:</th>
+                  <th></th>
+                  <th colspan="2" class="text-start">{{'date' | translate}}:</th>
+                  <th rowspan="2" class="text-center width-20">{{'notes' | translate}}</th>
+                </tr>
+                <tr>
+                  <th class="text-center width-15">{{'topic' | translate}}:</th>
+                  <th>{{'interpretation' | translate}}</th>
+                  <th colspan="2" class="text-start width-20">{{'acceptable' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let trajec of questionAnswers[currentIdx]; index as idx">
+                  <ng-container [ngSwitch]="idx">
+                    <ng-container *ngSwitchCase="0">
+                      <td class="text-center" rowspan="14">{{ 'trajectory_movement' | translate }}</td>
+                      <td>{{ trajec.interpretation }}</td>
+                      <td colspan="2" class="text-center">
+                        <nz-radio-group [(ngModel)]="trajec.isAcceptable">
+                          <label nz-radio [nzValue]="true">{{'yes' | translate}}</label>
+                          <label nz-radio [nzValue]="false">{{'no' | translate}}</label>
+                        </nz-radio-group>
+                      </td>
+                      <td></td>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                      <td>
+                        <span *ngIf="idx < 6">{{ trajec.interpretation }}</span>
+                        <input class="not-validate" *ngIf="idx > 5" value="{{trajec.interpretation}}" nz-input />
+                      </td>
+                      <td colspan="2" class="text-center">
+                        <nz-radio-group [(ngModel)]="trajec.isAcceptable">
+                          <label nz-radio [nzValue]="true">{{'yes' | translate}}</label>
+                          <label nz-radio [nzValue]="false">{{'no' | translate}}</label>
+                        </nz-radio-group>
+                      </td>
+                      <td></td>
+                    </ng-container>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </nz-table>
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="question-score">
+        <div class="d-flex justify-content-between gap-5">
+          <h5>{{'order' | translate}}</h5>
+          <h5 class="text-secondary">{{currentIdx + 1}}/{{questions.length}}</h5>
+        </div>
+        <div class="d-flex align-items-center gap-5">
+          <h5>{{'score' | translate}}</h5>
+          <input type="number" nz-input nzSize="large" [value]="questions[currentIdx]?.score" disabled />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

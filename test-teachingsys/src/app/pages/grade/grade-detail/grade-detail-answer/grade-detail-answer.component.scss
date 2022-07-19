@@ -1,0 +1,45 @@
+.overview-container {
+  position: relative;
+  width: 100%;
+  padding: 24px;
+  gap: 16px;
+  background: #FFFFFF;
+
+  .task-container, .learning-activity-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    .content-container {
+      flex: auto 1 1;
+
+      .title {
+        position: relative;
+        width: 100%;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 20px;
+      }
+
+      .description {
+        position: relative;
+        width: 100%;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 24px;
+      }
+    }
+  }
+
+  .task-container {
+    color: #5B616C;
+    margin-bottom: 6px;
+  }
+
+  .learning-activity-container {
+    color: #020C1D;
+  }
+}

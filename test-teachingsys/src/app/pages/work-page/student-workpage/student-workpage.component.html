@@ -1,0 +1,36 @@
+<div class="user-management-wrapper h-100 d-flex flex-column gap-3">
+  <div class="d-flex p-2 content-header">
+    <div class="title p-2">
+      <h5>{{'workpage' | translate}}</h5>
+    </div>
+  </div>
+  <div class="page-content flex-fill px-3">
+    <div #tableContainer class="h-100">
+      <nz-table #basicTable [nzScroll]="{ y: (tableHeight || 0) + 'px' }" [nzData]="dataSet" [nzLoading]="loading"
+        [nzTotal]="filterStudent.totalCount" [(nzPageIndex)]="filterStudent.pageIndex"
+        [(nzPageSize)]="filterStudent.pageSize" [nzFrontPagination]="false" nzShowSizeChanger
+        (nzPageIndexChange)="searchData()" (nzPageSizeChange)="searchData(true)">
+        <thead>
+          <tr>
+            <th>{{'task' | translate}}</th>
+            <th>{{'learning_activity' | translate}}</th>
+            <th>{{'tbl.due_date' | translate}}</th>
+            <th>{{'tbl.action' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td><span class="material-symbols-rounded icon">description</span>{{data.task}}</td>
+            <td><span class="material-symbols-rounded icon">task</span>{{data.learningActivity}}</td>
+            <td>{{data.dueDate | date: datetimeFormats.DATETIME_FORMAT_YYYY_MM_DD_d}}</td>
+            <td>
+              <button class="btn-secondary-color border-0" nz-button nzType="primary" (click)="onAction(data)" [disabled]="data.disabled" *ngIf="data.btnText">
+                {{ data.btnText | translate }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+@import "variables";
+.error {
+    &-wrapper {
+        background-color: $primary-color;
+        height: 100vh;
+        color: $secondary-color;
+        h1 {
+            color: $secondary-color;
+            &.code {
+                font-size: 10rem;
+                margin: 4rem 0 2rem 0;
+            }
+        }
+    }
+    &-content {
+        width: 100vw;
+        text-align: center;
+    }
+}

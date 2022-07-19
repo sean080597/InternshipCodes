@@ -1,0 +1,51 @@
+@import "variables";
+nz-header {
+    padding: 0;
+    width: 100%;
+    z-index: 2;
+}
+::ng-deep {
+    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+        background-color: $white-color;
+    }
+    .ant-layout-header {
+        height: 90px;
+        line-height: 85px;
+    }
+}
+#tms-header.app-header {
+    height: 90px;
+    position: relative;
+    padding: 0;
+    background:  $white-color;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    .trigger {
+        position: absolute;
+        top: 1.5rem;
+    }
+    .logo-text {
+        margin-left: 2rem;
+        height: 25px;
+    }
+    .noti-bell {
+        height: 100%;
+        vertical-align: middle;
+        i {
+            font-size: 2rem;
+        }
+    }
+}
+
+.trigger:hover {
+    color: #1890ff;
+}
+
+.header-trigger {
+    height: 100%;
+    padding: 30px;
+    position: absolute;
+    top: 0;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 0.3s, padding 0s;
+}

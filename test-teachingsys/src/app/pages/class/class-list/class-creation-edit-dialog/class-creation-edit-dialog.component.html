@@ -1,0 +1,52 @@
+<div class="dialog-container">
+  <div class="header">
+    <div class="tite">Add new class</div>
+  </div>
+  <div class="body">
+    <form nz-form [formGroup]="formGroup">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="class">Class</nz-form-label>
+        <nz-form-control nzErrorTip="Required class name">
+          <input nz-input id="class" formControlName="class"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzFor="teacher">Teacher</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            id="teacher"
+            formControlName="teacher"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <div class="table-container">
+      <div class="table-wrapper">
+        <label>All students</label>
+        <app-student-list #unChosen [isServerSide]="true" [yScrollSize]="'500px'" [loading]="loading" [listOfMapData]="unchosenStudents" [isGroupDetail]="true" (itemChecked$)="unchosenStudentCheckHandle($event)"></app-student-list>
+      </div>
+      <div class="table-divisor">
+        <button [disabled]="isDisabledUnChosenToChosen" class="btn-secondary-color border-0" nz-button nzType="primary" (click)="handleMoveSelectedUnChosenToChosen()">
+          <i nz-icon nzType="right" nzTheme="outline"></i>
+        </button>
+        <button [disabled]="isDisabledChosenToUnChosen" class="btn-secondary-color border-0" nz-button nzType="primary" (click)="handleMoveSelectedChosenToUnChosen()">
+          <i nz-icon nzType="left" nzTheme="outline"></i>
+        </button>
+      </div>
+      <div class="table-wrapper">
+        <label>Students were chosen</label>
+        <app-student-list #chosen [isServerSide]="true" [yScrollSize]="'500px'" [loading]="loading" [listOfMapData]="chosenStudents" [isGroupDetail]="true" (itemChecked$)="chosenStudentCheckHandle($event)"></app-student-list>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <button nz-button nzType="default" mat-dialog-close>
+      Cancel
+    </button>
+    <button [disabled]="isDisabledSubmit" class="btn-secondary-color border-0 submit-btn" nz-button nzType="primary" (click)="submit()">
+      <i nz-icon nzType="check" nzTheme="outline"></i>
+      Ok
+    </button>
+  </div>
+</div>

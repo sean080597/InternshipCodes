@@ -1,0 +1,58 @@
+<div class="class-management-wrapper">
+  <div class="d-flex p-2 content-header">
+    <div class="title flex-grow-1 p-2">
+      <h5>Grade</h5>
+    </div>
+  </div>
+  <div class="page-content mt-3">
+    <nz-table
+    #gradeList
+    [nzPageSizeOptions]="[5, 10, 20, 30, 50]"
+    [nzData]="displayData"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex"
+    (nzQueryParams)="onQueryParamsChange($event)" nzShowSizeChanger
+    [nzScroll]="{ y: 'calc(100vh - 340px)' }">
+    <thead>
+      <tr>
+        <th *ngFor="let field of tableConfig" nzCustomFilter [nzWidth]="field.width">
+          {{ field.header }}
+          <nz-filter-trigger [(nzVisible)]="field.filter.searchVisible" *ngIf="field.filter.filterVisible" [nzDropdownMenu]="menu">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+              <div class="search-box p-2 overflow-hidden">
+                <input class="mb-2" type="text" nz-input placeholder="{{field.header}}"
+                  [(ngModel)]="field.filter.searchValue" />
+                <button nz-button nzSize="small" nzType="primary" (click)="search(field)"
+                  class="search-button float-end mx-1">{{'search' | translate}}</button>
+                <button nz-button nzSize="small" (click)="resetSearch(field)" class="float-end mx-1">{{'reset'
+                  | translate}}</button>
+              </div>
+            </div>
+          </nz-dropdown-menu>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of gradeList.data" (click)="showDetail(data)">
+        <td>
+          <div class="row-container">
+            <mat-icon>description</mat-icon> {{ data.task }}
+          </div>
+        </td>
+        <td>
+          <div class="row-container">
+            <mat-icon>draw</mat-icon> {{ data.learningActivity }}
+          </div>
+        </td>
+        <td>{{ data.finalGrade }}</td>
+      </tr>
+    </tbody>
+    </nz-table>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+.dialog-container {
+  position: relative;
+  min-width: 800px;
+  min-height: 700px;
+
+  .header, .footer {
+    position: relative;
+    height: 88px;
+    width: 100%;
+  }
+
+  .body {
+    position: relative;
+    width: 100%;
+    min-height: 524px;
+
+    .table-container {
+      position: relative;
+      display: flex;
+
+      .table-wrapper {
+        position: relative;
+        width: calc(50% - 28px);
+      }
+
+      .table-divisor {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0px 12px;
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .submit-btn {
+    display: flex;
+    align-items: center;
+    margin-left: 6px;
+  }
+}

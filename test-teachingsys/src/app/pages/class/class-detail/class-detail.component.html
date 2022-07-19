@@ -1,0 +1,27 @@
+<div class="class-management-wrapper">
+  <div class="navgation-container">
+    <span>Class / </span><span class="title">{{ classItem?.title }}</span>
+  </div>
+  <div class="d-flex p-2 content-header">
+    <div class="title flex-grow-1 p-2">
+      <h5>{{ classItem?.title }}</h5>
+    </div>
+    <div class="ms-auto p-2">
+      <button [disabled]="selectedStudents.length === 0" class="btn-secondary-color border-0" nz-button nzType="primary" (click)="openAddStudentToGroup()">
+        Add to group
+      </button>
+    </div>
+  </div>
+  <div class="page-content mt-3">
+    <app-student-list
+    [listOfMapData]="listOfData"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [total]="total"
+    [loading]="loading"
+    [isServerSide]="true"
+    (itemChecked$)="onHandleItemCheck($event)"
+    (onQueryParams)="onQueryParams($event)"
+    ></app-student-list>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+.grade-detail-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  .navigation-container {
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+
+    span {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #9A9EA5;
+
+      &.title {
+        color: #020C1D;
+      }
+    }
+  }
+}

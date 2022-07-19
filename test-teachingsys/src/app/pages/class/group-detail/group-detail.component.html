@@ -1,0 +1,34 @@
+<div class="class-management-wrapper">
+  <div class="navgation-container">
+    <span>Group / </span><span class="title">{{ groupItem?.title }}</span>
+  </div>
+  <div class="d-flex p-2 content-header">
+    <div class="title flex-grow-1 p-2">
+      <h5>{{ groupItem?.title }}</h5>
+    </div>
+    <div class="ms-auto p-2">
+      <button [disabled]="selectedStudents.length === 0" nz-button nzType="default" (click)="openMoveStudentToGroup()">
+        {{'move_to_other_group' | translate}}
+      </button>
+      <button [disabled]="selectedStudents.length === 0" nz-button nzType="default" (click)="openRemoveStudentFromGroup()">
+        {{'remove_student' | translate}}
+      </button>
+      <button class="btn-secondary-color border-0" nz-button nzType="primary" (click)="openAddStudentToGroup()">
+        {{'add_student' | translate}}
+      </button>
+    </div>
+  </div>
+  <div class="page-content mt-3">
+    <app-student-list
+    [listOfMapData]="listOfData"
+    [isGroupDetail]="true"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [total]="total"
+    [loading]="loading"
+    [isServerSide]="true"
+    (itemChecked$)="onHandleItemCheck($event)"
+    (onQueryParams)="onQueryParams($event)"
+    ></app-student-list>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="class-management-wrapper">
+    <div class="d-flex p-2 content-header">
+        <div class="title p-2">
+            <h5>{{'class_management' | translate}}</h5>
+        </div>
+        <div class="ms-auto p-2">
+            <button class="btn-secondary-color border-0" nz-button nzType="primary" (click)="onCreate()">
+                {{ 'add_class' | translate }}
+            </button>
+        </div>
+    </div>
+    <div class="page-content p-3">
+        <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+            <thead>
+                <tr>
+                    <th nzCustomFilter *ngFor="let field of tableFields" [nzSortFn]="field?.compare">
+                        {{field.header | translate}}
+                        <nz-filter-trigger *ngIf="field?.isFilter" [(nzVisible)]="visible" [nzDropdownMenu]="menu">
+                            <i nz-icon nzType="search"></i>
+                        </nz-filter-trigger>
+                        <nz-dropdown-menu #menu="nzDropdownMenu">
+                            <div class="ant-table-filter-dropdown" *ngIf="field?.isFilter">
+                                <div class="search-box p-2 overflow-hidden">
+                                    <input class="mb-2" type="text" nz-input placeholder="{{field.header}}"
+                                        [(ngModel)]="searchTitleValue" />
+                                    <button nz-button nzSize="small" nzType="primary" (click)="searchTitle()"
+                                        class="search-button float-end mx-1">{{'search' | translate}}</button>
+                                    <button nz-button nzSize="small" (click)="resetTitleSearch()"
+                                        class="float-end mx-1">{{'reset'
+                                        | translate}}</button>
+                                </div>
+                            </div>
+                        </nz-dropdown-menu>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of nzTable.data">
+                    <td>
+                        <a (click)="goToDetail(data.uniqId)">
+                            {{ data.title }}
+                        </a>
+                    </td>
+                    <td>{{ data.creationTime | date: 'yyyy-MM-dd' }}</td>
+                    <td>{{ data.studentCount }}</td>
+                    <td>{{ renderTeachers(data.teachers) }}</td>
+                    <td>
+                        <button class="border-0" [nzTrigger]="'click'" nz-button nz-dropdown [nzDropdownMenu]="actions">
+                            <i nz-icon nzType="ellipsis"></i>
+                        </button>
+                        <nz-dropdown-menu #actions="nzDropdownMenu">
+                            <ul nz-menu>
+                                <li *ngFor="let btn of actionButtons" nz-menu-item
+                                    (click)="tableActionOnClick(btn.action, data)">
+                                    {{ btn.title }}
+                                </li>
+                            </ul>
+                        </nz-dropdown-menu>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+                <div class="search-box p-2 overflow-hidden">
+                    <input class="mb-2" type="text" nz-input placeholder="Search title"
+                        [(ngModel)]="searchTitleValue" />
+                    <button nz-button nzSize="small" nzType="primary" (click)="searchTitle()"
+                        class="search-button float-end mx-1">{{'search' | translate}}</button>
+                    <button nz-button nzSize="small" (click)="resetTitleSearch()" class="float-end mx-1">{{'reset' |
+                        translate}}</button>
+                </div>
+            </div>
+        </nz-dropdown-menu>
+    </div>
+</div>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modal.title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+        <p>{{modal.content}}</p>
+    </ng-container>
+</nz-modal>

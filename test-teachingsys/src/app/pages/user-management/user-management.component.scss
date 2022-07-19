@@ -1,0 +1,7 @@
+.user-management-wrapper {
+  ::ng-deep{
+    .ant-tabs-content {
+      height: 100%;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<h5>{{'question'|translate}} {{noQuestion}}: {{questionReport.questionTitle}}</h5>
+<h6>{{'number_of_students' | translate}}</h6>
+<div class="chart-container">
+  <div class="d-block overflow-auto">
+    <div class="chart-wrapper pb-4"
+      [style.width]="barChartData.labels.length > 7 ? ((100 * barChartData.labels.length)+'px') : '100%'">
+      <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+        [type]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+      </canvas>
+    </div>
+  </div>
+  <ul>
+    <li class="custom-legend">
+      <span class="legend-item" *ngFor="let legendItem of barChartData.datasets; let i = index" (click)="hideLegend(i)">
+        <!--legend rectangle-->
+        <span class="legend-rect"></span>
+        <!--legend label-->
+        <span [ngClass]="legendItem.hidden ? 'hidden' : 'show'">{{legendItem.label}}</span>
+      </span>
+    </li>
+  </ul>
+</div>

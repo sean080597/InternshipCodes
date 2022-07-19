@@ -1,0 +1,9 @@
+<div class="select-task-wrap">
+  <div nz-row>
+      <div nz-col [nzSpan]="24" class="p-2">{{'delete_confirm_content' | translate}}</div>
+  </div>
+  <div *nzModalFooter>
+      <button nz-button nzType="default" (click)="destroyModal(false)">{{'cancel' | translate}}</button>
+      <button nz-button nzType="primary" (click)="destroyModal(true)">{{'ok' | translate}}</button>
+  </div>
+</div>

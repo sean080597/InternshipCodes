@@ -1,0 +1,10 @@
+<div class="user-management-wrapper h-100 d-flex flex-column gap-3">
+  <div class="d-flex p-2 content-header">
+    <div class="title p-2">
+      <h5>{{'testrp' | translate}}</h5>
+    </div>
+  </div>
+  <div class="page-content flex-fill px-3">
+    <app-tree-table [tableFields]="tableFields" [listOfMapData]="dataSet" (onChosenActivity)="gotoDetails($event)"></app-tree-table>
+  </div>
+</div>

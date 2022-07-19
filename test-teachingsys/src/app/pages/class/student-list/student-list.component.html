@@ -1,0 +1,44 @@
+<nz-table #studentList [nzPageSizeOptions]="[5, 10, 20, 30, 50]" [nzData]="listOfMapData"
+  [nzFrontPagination]="!isServerSide" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" nzShowSizeChanger
+  [nzWidthConfig]="configWidthCols"
+  (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" [nzScroll]="{ y: yScrollSize }">
+  <thead>
+    <tr>
+      <th [(nzChecked)]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+      <th nzCustomFilter *ngFor="let field of tableFields">
+        {{field.header | translate}}
+        <nz-filter-trigger *ngIf="field?.fieldName !== 'group'" [(nzVisible)]="configSearchCols[field?.fieldName].searchVisible"
+          [nzDropdownMenu]="menu">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown" *ngIf="field?.fieldName !== 'group'">
+            <div class="search-box p-2 overflow-hidden">
+              <input class="mb-2" type="text" nz-input placeholder="{{field.header}}"
+                [(ngModel)]="configSearchCols[field?.fieldName].searchValue" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search(field?.fieldName)"
+                class="search-button float-end mx-1">{{'search' | translate}}</button>
+              <button nz-button nzSize="small" (click)="resetSearch(field?.fieldName)" class="float-end mx-1">{{'reset'
+                | translate}}</button>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+      </th>
+      <!-- <th *ngIf="!isGroupDetail">
+        Group
+      </th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of studentList.data">
+      <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+      <td>{{ data.id }}</td>
+      <td>{{ data.fullNameChinese }}</td>
+      <td>{{ data.fullNameEnglish }}</td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.phone }}</td>
+      <td *ngIf="!isGroupDetail">{{ data.group }}</td>
+    </tr>
+  </tbody>
+</nz-table>

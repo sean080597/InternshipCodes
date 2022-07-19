@@ -1,0 +1,73 @@
+<nz-table #expandTable [nzPageSizeOptions]="[5, 10, 20, 30, 50]" nzShowSizeChanger
+    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" [nzData]="listOfDisplayData" nzTableLayout="fixed"
+    [nzWidthConfig]="configWidthCols" [nzScroll]="{y: 'calc(100vh - 340px)' }"
+    (nzPageIndexChange)="onPageIndexChangeEvent($event)" (nzPageSizeChange)="onPageSizeChangeEvent($event)">
+    <thead>
+        <tr>
+            <th nzCustomFilter *ngFor="let field of tableFields">
+                {{field.header | translate}}
+                <nz-filter-trigger *ngIf="field.isFilter" [(nzVisible)]="titleFilterVisible" [nzDropdownMenu]="menu">
+                    <i nz-icon nzType="search"></i>
+                </nz-filter-trigger>
+            </th>
+            <th *ngIf="actionButtons.length > 0"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let data of expandTable.data">
+            <ng-container *ngFor="let item of mapOfExpandedData[data.key]">
+                <tr [ngClass]="{'child-row': item.level != 0}"
+                    *ngIf="((item.parent && item.parent.expand) || !item.parent)">
+                    <ng-container *ngFor="let td of tableFields">
+                        <td *ngIf="td.fieldName==='title'" class="task-learning-activities"
+                            [nzIndentSize]="item.level! * 20" [nzShowExpand]="!!item.children"
+                            [(nzExpand)]="item.expand"
+                            (nzExpandChange)="collapse(mapOfExpandedData[data.key], item, $event)">
+                            <div class="title" (click)="taskView(item)">
+                                {{ item[td.fieldName] }}
+                                <i class="in-question-bank" *ngIf="item.level != 0 && isLearningActivity" nz-icon nzType="file-text" nzTheme="fill"></i>
+                            </div>
+                        </td>
+                        <ng-container *ngIf="td.fieldName!=='title'">
+                            <td>
+                                <ng-container *ngIf="isParentFullDetail; else showLessDetailParent">
+                                    {{ item[td.fieldName] }}
+                                </ng-container>
+                                <ng-template #showLessDetailParent>
+                                    <ng-container>
+                                        {{ item.level != 0 ? item[td.fieldName] : '' }}
+                                    </ng-container>
+                                </ng-template>
+                            </td>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="actionButtons.length > 0">
+                        <td>
+                            <button *ngIf="item.level != 0 && item.author === currentUser.fullname" class="border-0" [nzTrigger]="'click'" nz-button nz-dropdown
+                                [nzDropdownMenu]="actions">
+                                <i nz-icon nzType="ellipsis"></i>
+                            </button>
+                            <nz-dropdown-menu #actions="nzDropdownMenu">
+                                <ul nz-menu>
+                                    <li *ngFor="let btn of actionButtons" nz-menu-item
+                                        (click)="tableActionOnClick(btn.action, item)">
+                                        {{ btn.title }}
+                                    </li>
+                                </ul>
+                            </nz-dropdown-menu>
+                        </td>
+                    </ng-container>
+                </tr>
+            </ng-container>
+        </ng-container>
+    </tbody>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+        <div class="ant-table-filter-dropdown">
+            <div class="search-box p-2 overflow-hidden">
+                <input class="mb-2" type="text" nz-input placeholder="Search title" [(ngModel)]="searchTitleValue" />
+                <button nz-button nzSize="small" nzType="primary" (click)="searchTitle()" class="search-button float-end mx-1">{{'search' | translate}}</button>
+                <button nz-button nzSize="small" (click)="resetTitleSearch()" class="float-end mx-1">{{'reset' | translate}}</button>
+            </div>
+        </div>
+    </nz-dropdown-menu>
+</nz-table>

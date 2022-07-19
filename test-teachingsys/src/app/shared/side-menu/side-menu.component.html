@@ -1,0 +1,102 @@
+<nz-layout>
+    <nav id="tms-sidebar" class="menu-sidebar">
+        <div class="sidebar-logo">
+            <img [hidden]="isCollapsed" class="logo-full" src="assets/images/logos/logo-1.png">
+            <img [hidden]="!isCollapsed" class="logo-half" src="assets/images/logos/logo-2.png">
+        </div>
+
+        <!-- if Teacher -->
+        <ul class="list-unstyled components mb-5" *ngIf="isTeacher">
+            <ng-container>
+                <li class="sidebar-title">
+                    <h5 class="sidebar-item-title">{{ menuConfig.workPage.title | translate}}</h5>
+                </li>
+                <ng-container *ngFor="let item of menuConfig.workPage.items">
+                    <li class="sidebar-item" (click)="navigateTo(item.path)"
+                        class="{{currentRoute === item.path ? 'active': ''}}" nz-tooltip [nzTooltipTitle]="item.title"
+                        nzTooltipPlacement="right" [nzTooltipTrigger]="isCollapsed ? 'hover' : null">
+                        <a [routerLink]="item.path">
+                            <span class="material-symbols-rounded icon">{{ item.icon }}</span>
+                            <span class="title">{{ item.title | translate }}</span>
+                        </a>
+                    </li>
+                </ng-container>
+            </ng-container>
+            <ng-container>
+                <li class="sidebar-title">
+                    <h5 class="sidebar-item-title">{{ menuConfig.submission.title | translate}}</h5>
+                </li>
+                <ng-container *ngFor="let item of menuConfig.submission.items">
+                    <li class="sidebar-item" (click)="navigateTo(item.path)"
+                        class="{{currentRoute === item.path ? 'active': ''}}" nz-tooltip [nzTooltipTitle]="item.title"
+                        nzTooltipPlacement="right" [nzTooltipTrigger]="isCollapsed ? 'hover' : null">
+                        <a [routerLink]="item.path">
+                            <span class="material-symbols-rounded icon">{{ item.icon }}</span>
+                            <span class="title">{{ item.title | translate }}</span>
+                        </a>
+                    </li>
+                </ng-container>
+            </ng-container>
+            <ng-container>
+                <li class="sidebar-title">
+                    <h5 class="sidebar-item-title">{{ menuConfig.management.title | translate}}</h5>
+                </li>
+                <ng-container *ngFor="let item of menuConfig.management.items">
+                    <li class="sidebar-item" nz-tooltip [nzTooltipTitle]="item.title" nzTooltipPlacement="right"
+                        [nzTooltipTrigger]="isCollapsed ? 'hover' : null">
+                        <a [routerLink]="item.path">
+                            <span class="material-symbols-rounded icon">{{ item.icon }}</span>
+                            <span class="title">{{ item.title | translate }}</span>
+                        </a>
+                    </li>
+                </ng-container>
+            </ng-container>
+            <!-- <ng-container>
+              <li class="sidebar-title">
+                  <h5 class="sidebar-item-title">{{ menuConfig.grade.title | translate}}</h5>
+              </li>
+              <ng-container *ngFor="let item of menuConfig.grade.items">
+                  <li class="sidebar-item" (click)="navigateTo(item.path)"
+                      class="{{currentRoute === item.path ? 'active': ''}}" nz-tooltip [nzTooltipTitle]="item.title"
+                      nzTooltipPlacement="right" [nzTooltipTrigger]="isCollapsed ? 'hover' : null">
+                      <a [routerLink]="item.path">
+                          <span class="material-symbols-rounded icon">{{ item.icon }}</span>
+                          <span class="title">{{ item.title | translate }}</span>
+                      </a>
+                  </li>
+              </ng-container>
+          </ng-container> -->
+        </ul>
+
+        <!-- if Admin -->
+        <ul class="list-unstyled components mb-5" *ngIf="isAdmin">
+            <li class="sidebar-title">
+                <h5 class="sidebar-item-title">{{ menuConfig.admin.title | translate}}</h5>
+            </li>
+            <ng-container *ngFor="let item of menuConfig.admin.items">
+                <li class="sidebar-item" (click)="navigateTo(item.path)"
+                    class="{{currentRoute === item.path ? 'active': ''}}" nz-tooltip [nzTooltipTitle]="item.title"
+                    nzTooltipPlacement="right" [nzTooltipTrigger]="isCollapsed ? 'hover' : null">
+                    <a [routerLink]="item.path">
+                        <span class="material-symbols-rounded icon">{{ item.icon }}</span>
+                        <span class="title">{{ item.title | translate }}</span>
+                    </a>
+                </li>
+            </ng-container>
+        </ul>
+
+        <!-- if student -->
+        <ul class="list-unstyled components mb-5" *ngIf="isStudent">
+          <ng-container *ngFor="let item of menuConfig.studentWorkpage">
+              <li class="sidebar-item" (click)="navigateTo(item.path)"
+                  class="{{currentRoute === item.path ? 'active': ''}}" nz-tooltip [nzTooltipTitle]="item.title"
+                  nzTooltipPlacement="right" [nzTooltipTrigger]="isCollapsed ? 'hover' : null">
+                  <a [routerLink]="item.path">
+                      <span class="material-symbols-rounded icon">{{ item.icon }}</span>
+                      <span class="title">{{ item.title | translate }}</span>
+                  </a>
+              </li>
+          </ng-container>
+      </ul>
+    </nav>
+</nz-layout>
