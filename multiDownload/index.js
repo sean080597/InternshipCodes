@@ -23,7 +23,11 @@ var urlList = JSON.parse(data);
 // 	{
 // 		"name": "khong-tan-lofi-teed",
 // 		"url": "https://dt.muvi.vn/mvn/track/song/2022/10/17/0-tandickson-nguyen-lofinam-viet_20221017105135.mp3"
-// 	}
+// 	},
+// {
+//   "name": "Cuu-Van-Kip-Khong-Lofi-Version-Vuong-Anh-Tu",
+//   "url": "https://vnso-zn-15-tf-mp3-320s1-m-zmp3.zmdcdn.me/1a4aeb59e2190b475208/2341647976148343873?authen=exp=1669361389~acl=/1a4aeb59e2190b475208/*~hmac=19898307c027afad9b723eb72e7521de"
+// }
 // ];
 
 var download = function (url, dest, callback) {
@@ -43,7 +47,7 @@ urlList.forEach(function (el) {
     filename = el.split("/").pop();
     url = el;
   } else if (el.hasOwnProperty("name") && el.hasOwnProperty("url")) {
-    filename = el.name + "." + el.url.split(".").pop();
+    filename = el.name + ".mp3";
     url = el.url;
   }
 
