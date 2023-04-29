@@ -11,8 +11,8 @@ You can watch the tutorial on Youtube here - https://www.youtube.com/watch?v=mPP
 
 ## How to run the application without Docker
 
-1. Run `docker run -it -p 27017:27017 -v %cd%/data/db:/data/db mongo:4.4` to start mongoDB Docker.
-2. Start MySQL DB: `shopii-order`, `shopii-inventory` by Xampp or something else.
-3. Run `mvn clean verify -DskipTests` by going inside each folder to build the applications.
-4. After that run `mvn spring-boot:run` by going inside each folder to start the applications.
-5. Run `docker run -p 8181:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:21.1.1 start-dev` to start Keycloak.
+1. Run `docker run -p 8181:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin -v %cd%/data/keycloak:/opt/keycloak/data/h2 quay.io/keycloak/keycloak:21.1.1 start-dev` to start Keycloak.
+2. Run `docker run -it -p 27017:27017 -v %cd%/data/db:/data/db mongo:4.4` to start mongoDB Docker.
+3. Start MySQL DB: `shopii-order`, `shopii-inventory` by Xampp or something else.
+4. Run `mvn clean verify -DskipTests` by going inside each folder to build the applications.
+5. After that run `mvn spring-boot:run` by going inside each folder to start the applications.
