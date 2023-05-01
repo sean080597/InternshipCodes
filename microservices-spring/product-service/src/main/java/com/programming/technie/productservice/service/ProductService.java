@@ -2,8 +2,8 @@ package com.programming.technie.productservice.service;
 
 import com.programming.technie.productservice.dto.ProductRequest;
 import com.programming.technie.productservice.dto.ProductResponse;
-import com.programming.technie.productservice.model.Product;
 import com.programming.technie.productservice.repository.ProductRepository;
+import com.programming.technie.productservice.model.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.programming.technie.productservice;
+package com.programming.technie.notificationservice.productservice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.programming.technie.productservice.dto.ProductRequest;

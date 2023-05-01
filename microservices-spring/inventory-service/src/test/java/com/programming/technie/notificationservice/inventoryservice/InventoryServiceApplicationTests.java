@@ -1,4 +1,4 @@
-package com.programming.technie.inventoryservice;
+package com.programming.technie.notificationservice.inventoryservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
