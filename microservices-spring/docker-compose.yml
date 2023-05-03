@@ -1,19 +1,105 @@
-version: '3'
+version: '3.8'
 services:
+  ## MySQL Docker Compose Config
+  postgres-order:
+    container_name: postgres-order
+    image: postgres:14.7
+    restart: unless-stopped
+    command: -p 5431
+    ports:
+      - "5431:5431"
+    volumes:
+      - ./data/postgres-order:/data/postgres
+    environment:
+      POSTGRES_DB: order-service
+      POSTGRES_USER: ptechnie
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    networks:
+      - spring-app-network
+
+  postgres-inventory:
+    container_name: postgres-inventory
+    image: postgres:14.7
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres-inventory:/data/postgres
+    environment:
+      POSTGRES_DB: inventory-service
+      POSTGRES_USER: ptechnie
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    networks:
+      - spring-app-network
+
+  ## Mongo Docker Compose Config
+  mongo:
+    container_name: mongo
+    image: mongo:4.4
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongo-data:/data/db
+    networks:
+      - spring-app-network
+
+  ## Keycloak Config with Mysql database
+  keycloak-mysql:
+    container_name: keycloak-mysql
+    image: mysql:5.7.32
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data/keycloak-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+    networks:
+      - spring-app-network
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:21.1.1
+    command: [ "start-dev", "--import-realm" ]
+    ports:
+      - "8181:8080"
+    volumes:
+      - ./data/keycloak-realms/:/opt/keycloak/data/import/
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: keycloak-mysql
+      DB_PORT: 3306
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    depends_on:
+      - keycloak-mysql
+    networks:
+      - spring-app-network
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.2
     container_name: zookeeper
+    ports:
+      - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - spring-app-network
 
   broker:
     image: confluentinc/cp-kafka:7.3.2
     container_name: broker
     ports:
       - "9092:9092"
-    depends_on:
-      - zookeeper
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
@@ -22,3 +108,106 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+    networks:
+      - spring-app-network
+
+  ## Zipkin
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - spring-app-network
+
+  ## Eureka Server
+  discovery-server:
+    container_name: discovery-server
+    image: microservices-spring/discovery-server:latest
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - zipkin
+    networks:
+      - spring-app-network
+
+  ## API Gateway
+  api-gateway:
+    container_name: api-gateway
+    image: microservices-spring/api-gateway:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
+    depends_on:
+      - zipkin
+      - discovery-server
+      - keycloak
+    networks:
+      - spring-app-network
+
+  ## Product-Service Docker Compose Config
+  product-service:
+    container_name: product-service
+    image: microservices-spring/product-service:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - mongo
+      - discovery-server
+      - api-gateway
+    networks:
+      - spring-app-network
+
+  ## Order-Service Docker Compose Config
+  order-service:
+    container_name: order-service
+    image: microservices-spring/order-service:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-order:5431/order-service
+    depends_on:
+      - postgres-order
+      - broker
+      - zipkin
+      - discovery-server
+      - api-gateway
+    networks:
+      - spring-app-network
+
+  ## Inventory-Service Docker Compose Config
+  inventory-service:
+    container_name: inventory-service
+    image: microservices-spring/inventory-service:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-inventory:5432/inventory-service
+    depends_on:
+      - postgres-inventory
+      - discovery-server
+      - api-gateway
+    networks:
+      - spring-app-network
+
+  ## Notification-Service Docker Compose Config
+  notification-service:
+    container_name: notification-service
+    image: microservices-spring/notification-service:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - zipkin
+      - broker
+      - discovery-server
+      - api-gateway
+    networks:
+      - spring-app-network
+
+networks:
+  spring-app-network:
+    driver: bridge
