@@ -208,6 +208,37 @@ services:
     networks:
       - spring-app-network
 
+  ## Prometheus
+  prometheus:
+    image: prom/prometheus:v2.37.7
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - product-service
+      - inventory-service
+      - order-service
+      - notification-service
+    networks:
+      - spring-app-network
+
+  grafana:
+    image: grafana/grafana-oss:8.5.24
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=password
+    networks:
+      - spring-app-network
+
 networks:
   spring-app-network:
     driver: bridge
