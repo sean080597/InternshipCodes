@@ -1,0 +1,103 @@
+version: "3.8"
+services:
+  kong-database:
+    image: postgres:11.16
+    container_name: kong-database
+    restart: unless-stopped
+    ports:
+      - "${KONG_DB_PORT}:5432"
+    volumes:
+      - persist_volume:/data/postgres
+    environment:
+      POSTGRES_DB: ${KONG_DB_NAME}
+      POSTGRES_USER: ${KONG_DB_USERNAME}
+      POSTGRES_PASSWORD: ${KONG_DB_PASSWORD}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "kong"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - kong-net
+
+  kong-migrations:
+    image: kong:latest
+    container_name: kong-migrations
+    restart: on-failure
+    entrypoint: sh -c "sleep 10 && kong migrations bootstrap -v"
+    environment:
+      KONG_DATABASE: ${KONG_DATABASE}
+      KONG_PG_HOST: kong-database
+      KONG_PG_DATABASE: ${KONG_DB_NAME}
+      KONG_PG_USER: ${KONG_DB_USERNAME}
+      KONG_PG_PASSWORD: ${KONG_DB_PASSWORD}
+    depends_on:
+      - kong-database
+    networks:
+      - kong-net
+
+  kong:
+    image: kong:latest
+    container_name: kong
+    restart: unless-stopped
+    ports:
+      - ${KONG_PROXY_PORT}:8000
+      # - ${KONG_PROXY_SSL_PORT}:8443
+      - ${KONG_PROXY_ADMIN_API_PORT}:8001
+      # - ${KONG_PROXY_ADMIN_SSL_API_PORT}:8444
+    environment:
+      KONG_DATABASE: ${KONG_DATABASE}
+      KONG_PG_HOST: kong-database
+      KONG_PG_DATABASE: ${KONG_DB_NAME}
+      KONG_PG_USER: ${KONG_DB_USERNAME}
+      KONG_PG_PASSWORD: ${KONG_DB_PASSWORD}
+      KONG_PROXY_ACCESS_LOG: ${KONG_PROXY_ACCESS_LOG}
+      KONG_ADMIN_ACCESS_LOG: ${KONG_ADMIN_ACCESS_LOG}
+      KONG_PROXY_ERROR_LOG: ${KONG_PROXY_ERROR_LOG}
+      KONG_ADMIN_ERROR_LOG: ${KONG_ADMIN_ERROR_LOG}
+      KONG_ADMIN_LISTEN: ${KONG_ADMIN_LISTEN}
+    depends_on:
+      - kong-migrations
+    healthcheck:
+      test: ["CMD", "kong", "health"]
+      interval: 5s
+      timeout: 2s
+      retries: 15
+    networks:
+      - kong-net
+
+  konga-prepare:
+    image: pantsel/konga
+    container_name: konga-prepare
+    restart: on-failure
+    command: "-c prepare -a postgres -u postgresql://${KONG_DB_USERNAME}:${KONG_DB_PASSWORD}@kong-database:5432/${KONGA_DB_NAME}"
+    depends_on:
+      - kong-database
+    networks:
+      - kong-net
+
+  konga:
+    image: pantsel/konga
+    container_name: konga
+    restart: unless-stopped
+    ports:
+      - "${KONGA_PORT}:1337"
+    environment:
+      TOKEN_SECRET: ${KONGA_TOKEN_SECRET}
+      DB_ADAPTER: ${KONG_DATABASE}
+      DB_HOST: kong-database
+      DB_PORT: ${KONGA_DB_PORT}
+      DB_DATABASE: ${KONGA_DB_NAME}
+      DB_USER: ${KONG_DB_USERNAME}
+      DB_PASSWORD: ${KONG_DB_PASSWORD}
+      NODE_ENV: ${KONGA_ENV}
+      KONGA_HOOK_TIMEOUT: 10000
+    depends_on:
+      - konga-prepare
+    networks:
+      - kong-net
+volumes:
+  persist_volume:
+networks:
+  kong-net:
+    driver: bridge
