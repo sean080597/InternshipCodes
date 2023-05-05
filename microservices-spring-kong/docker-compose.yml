@@ -7,7 +7,7 @@ services:
     ports:
       - "${KONG_DB_PORT}:5432"
     volumes:
-      - persist_volume:/data/postgres
+      - ./data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ${KONG_DB_NAME}
       POSTGRES_USER: ${KONG_DB_USERNAME}
@@ -24,7 +24,7 @@ services:
     image: kong:latest
     container_name: kong-migrations
     restart: on-failure
-    entrypoint: sh -c "sleep 10 && kong migrations bootstrap -v"
+    entrypoint: sh -c "sleep 100 && kong migrations bootstrap -v"
     environment:
       KONG_DATABASE: ${KONG_DATABASE}
       KONG_PG_HOST: kong-database
@@ -86,7 +86,7 @@ services:
       TOKEN_SECRET: ${KONGA_TOKEN_SECRET}
       DB_ADAPTER: ${KONG_DATABASE}
       DB_HOST: kong-database
-      DB_PORT: ${KONGA_DB_PORT}
+      DB_PORT: ${KONG_DB_PORT}
       DB_DATABASE: ${KONGA_DB_NAME}
       DB_USER: ${KONG_DB_USERNAME}
       DB_PASSWORD: ${KONG_DB_PASSWORD}
@@ -96,8 +96,6 @@ services:
       - konga-prepare
     networks:
       - kong-net
-volumes:
-  persist_volume:
 networks:
   kong-net:
     driver: bridge
