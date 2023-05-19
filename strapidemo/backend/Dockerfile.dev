@@ -1,0 +1,15 @@
+FROM node:14.21-alpine as strapie-stage
+
+LABEL maintainer="Cuong Luu <cuong.luusean@gmail.com>"
+
+ENV NODE_ENV=development
+
+WORKDIR /app
+
+COPY . .
+
+RUN yarn build
+
+EXPOSE 1337
+
+CMD ["yarn", "develop"]

@@ -1,0 +1,10 @@
+.vscode
+.tmp/
+.cache/
+.git/
+build/
+node_modules/
+.gitignore
+.dockerignore
+Dockerfile*
+README.md
