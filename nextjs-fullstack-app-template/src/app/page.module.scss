@@ -1,0 +1,7 @@
+@import '@styles/variables';
+
+.orange-gradient {
+  background: linear-gradient(180deg, rgba($orange, 0.95), rgba($orange, 0.25));
+  color: transparent;
+  background-clip: text;
+}
