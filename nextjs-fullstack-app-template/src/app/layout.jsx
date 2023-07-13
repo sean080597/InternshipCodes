@@ -1,3 +1,4 @@
+import Header from '@components/Header'
 import '@styles/app.scss'
 
 export const metadata = {
@@ -8,7 +9,13 @@ export const metadata = {
 const RootLayout = ({ children }) => (
   <html lang="en">
     <body>
-      <main className="container">{children}</main>
+      <div className="main">
+        <div className="gradient"></div>
+      </div>
+      <main className="container">
+        <Header />
+        {children}
+      </main>
     </body>
   </html>
 )
