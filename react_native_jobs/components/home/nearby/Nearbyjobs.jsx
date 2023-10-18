@@ -1,18 +1,17 @@
-import React from "react";
-import { useRouter } from "expo-router";
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import styles from './nearbyjobs.style'
+import { useRouter } from 'expo-router'
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 
-import styles from "./nearbyjobs.style";
-import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard";
-import useFetch from "@app/hooks/useFetch";
-import { COLORS } from "@app/constants";
+import useFetch from '@app/hooks/useFetch'
+import NearbyJobCard from '../../common/cards/nearby/NearbyJobCard'
+import { COLORS } from '@app/constants'
 
 const Nearbyjobs = () => {
-  const router = useRouter();
-  const { data, isLoading, error } = useFetch("search", {
-    query: "React Native developer",
-    num_pages: "1",
-  });
+  const router = useRouter()
+  const { data, isLoading, error } = useFetch('tutorials', {
+    query: 'React Native developer',
+    num_pages: '1',
+  })
 
   return (
     <View style={styles.container}>
@@ -25,21 +24,17 @@ const Nearbyjobs = () => {
 
       <View style={styles.cardsContainer}>
         {isLoading ? (
-          <ActivityIndicator size='large' color={COLORS.primary} />
+          <ActivityIndicator size="large" color={COLORS.primary} />
         ) : error ? (
           <Text>Something went wrong</Text>
         ) : (
           data?.map((job) => (
-            <NearbyJobCard
-              job={job}
-              key={`nearby-job-${job.job_id}`}
-              handleNavigate={() => router.push(`/job-details/${job.job_id}`)}
-            />
+            <NearbyJobCard job={job} key={`nearby-job-${job.job_id}`} handleNavigate={() => router.push(`/job-details/${job.job_id}`)} />
           ))
         )}
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default Nearbyjobs;
+export default Nearbyjobs

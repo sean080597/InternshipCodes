@@ -1,6 +1,5 @@
-import { View, Text } from "react-native";
-
-import styles from "./about.style";
+import styles from './about.style'
+import { View, Text } from 'react-native'
 
 const About = ({ info }) => {
   return (
@@ -11,7 +10,7 @@ const About = ({ info }) => {
         <Text style={styles.contextText}>{info}</Text>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default About;
+export default About

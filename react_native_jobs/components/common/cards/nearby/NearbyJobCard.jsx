@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import styles from './nearbyjobcard.style'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 
-import styles from "./nearbyjobcard.style";
-import { checkImageURL } from "@app/utils";
+import { checkImageURL } from '@app/utils'
 
 const NearbyJobCard = ({ job, handleNavigate }) => {
   return (
@@ -11,9 +11,9 @@ const NearbyJobCard = ({ job, handleNavigate }) => {
           source={{
             uri: checkImageURL(job.employer_logo)
               ? job.employer_logo
-              : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
+              : 'https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg',
           }}
-          resizeMode='contain'
+          resizeMode="contain"
           style={styles.logImage}
         />
       </TouchableOpacity>
@@ -26,7 +26,7 @@ const NearbyJobCard = ({ job, handleNavigate }) => {
         <Text style={styles.jobType}>{job?.job_employment_type}</Text>
       </View>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
-export default NearbyJobCard;
+export default NearbyJobCard
