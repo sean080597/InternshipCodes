@@ -7,6 +7,7 @@ import axios from 'axios'
 
 import { ScreenHeaderBtn, NearbyJobCard } from '@app/components'
 import { COLORS, icons, SIZES } from '@app/constants'
+import { API_URL } from '@env'
 
 const JobSearch = () => {
   const params = useGlobalSearchParams()
@@ -24,7 +25,7 @@ const JobSearch = () => {
     try {
       const options = {
         method: 'GET',
-        url: `https://614ad4da07549f001755aa54.mockapi.io/tutorials`,
+        url: `${API_URL}/tutorials`,
         headers: {},
         params: {
           query: params.id,

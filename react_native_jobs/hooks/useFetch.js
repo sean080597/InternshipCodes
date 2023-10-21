@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import { API_URL } from '@env'
+
 const useFetch = (endpoint, query) => {
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -8,7 +10,7 @@ const useFetch = (endpoint, query) => {
 
   const options = {
     method: 'GET',
-    url: `https://614ad4da07549f001755aa54.mockapi.io/${endpoint}`,
+    url: `${API_URL}/${endpoint}`,
     headers: {},
     params: { ...query },
   }
