@@ -1,22 +1,22 @@
 package com.programming.technie.services;
 
-import com.programming.technie.models.User;
+import com.programming.technie.models.UserInfo;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface UserService {
+public interface UserService extends ReactiveUserDetailsService {
 
-    Mono<User> createUser(User user);
+    Mono<UserInfo> createUser(UserInfo user);
 
-    Mono<User> getUserById(Long userId);
+    Mono<UserInfo> getUserById(Long userId);
 
-    Flux<User> findAll();
+    Flux<UserInfo> findAll();
 
-    Mono<User> updateUser(User user);
+    Mono<UserInfo> updateUser(UserInfo user);
 
     Mono<String> deleteUser(Long userId);
 
-    Flux<User> findByFirstNameContaining(String firstName);
+    Flux<UserInfo> findByFirstNameContaining(String firstName);
 }

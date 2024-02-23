@@ -1,6 +1,6 @@
 package com.programming.technie.controllers;
 
-import com.programming.technie.models.User;
+import com.programming.technie.models.UserInfo;
 import com.programming.technie.repositories.UserRepository;
 import com.programming.technie.services.UserServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ class UserControllerTest {
 
     @Test
     void testCreateUser() {
-        User user = new User();
+        UserInfo user = new UserInfo();
         user.setId(1L);
         user.setFirstName("Test");
         user.setLastName("Testababab");
@@ -39,7 +39,7 @@ class UserControllerTest {
         webClient.post()
                 .uri("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(user), User.class)
+                .body(Mono.just(user), UserInfo.class)
                 .exchange()
                 .expectStatus().isCreated();
 

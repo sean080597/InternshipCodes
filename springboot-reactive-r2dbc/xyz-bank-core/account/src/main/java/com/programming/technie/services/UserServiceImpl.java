@@ -1,11 +1,13 @@
 package com.programming.technie.services;
 
-import com.programming.technie.models.User;
+import com.programming.technie.models.UserInfo;
+import com.programming.technie.models.UserInfoDetails;
 import com.programming.technie.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,18 +16,28 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Override
-    public Mono<User> createUser(User user) {
+    public Mono<UserDetails> findByUsername(String username) {
+        Mono<UserInfo> found = userRepository.findByUsername(username);
+        return found.map(UserInfoDetails::new);
+//        return found.flatMap(u -> Mono.justOrEmpty(new UserInfoDetails(u)));
+    }
+
+    @Override
+    public Mono<UserInfo> createUser(UserInfo user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
-    public Mono<User> getUserById(Long userId) {
+    public Mono<UserInfo> getUserById(Long userId) {
         return userRepository.findById(userId);
     }
 
@@ -38,20 +50,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Flux<User> findAll() {
+    public Flux<UserInfo> findAll() {
 //        blockingOperation();
         return userRepository.findAll();
     }
 
     @Override
-    public Mono<User> updateUser(User user) {
+    public Mono<UserInfo> updateUser(UserInfo user) {
         return userRepository.findById(user.getId())
                 .map(Optional::of).defaultIfEmpty(Optional.empty())
                 .flatMap(opt -> {
                     if (opt.isPresent()) {
-                        user.setFirstName(user.getFirstName());
-                        user.setLastName(user.getLastName());
-                        user.setEmail(user.getEmail());
                         return userRepository.save(user);
                     }
                     return Mono.empty();
@@ -66,7 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Flux<User> findByFirstNameContaining(String firstName) {
+    public Flux<UserInfo> findByFirstNameContaining(String firstName) {
         return userRepository.findByFirstNameContaining(firstName);
     }
 }

@@ -1,6 +1,6 @@
 package com.programming.technie.controllers;
 
-import com.programming.technie.models.User;
+import com.programming.technie.models.UserInfo;
 import com.programming.technie.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,28 +16,28 @@ public class UserController {
 
     // build create User REST API
     @PostMapping
-    public Mono<User> createUser(@RequestBody User user) {
+    public Mono<UserInfo> createUser(@RequestBody UserInfo user) {
         return userService.createUser(user);
     }
 
     // build get user by id REST API
     // http://localhost:8080/api/users/1
     @GetMapping("{id}")
-    public Mono<User> getUserById(@PathVariable("id") Long userId) {
+    public Mono<UserInfo> getUserById(@PathVariable("id") Long userId) {
         return userService.getUserById(userId);
     }
 
     // Build Get All Users REST API
     // http://localhost:8080/api/users
     @GetMapping
-    public Flux<User> getAllUsers(@RequestParam(required = false) String name) {
+    public Flux<UserInfo> getAllUsers(@RequestParam(required = false) String name) {
         return name == null ? userService.findAll() : userService.findByFirstNameContaining(name);
     }
 
     // Build Update User REST API
     @PutMapping("{id}")
     // http://localhost:8080/api/users/1
-    public Mono<User> updateUser(@PathVariable("id") Long userId, @RequestBody User user) {
+    public Mono<UserInfo> updateUser(@PathVariable("id") Long userId, @RequestBody UserInfo user) {
         user.setId(userId);
         return userService.updateUser(user);
     }
