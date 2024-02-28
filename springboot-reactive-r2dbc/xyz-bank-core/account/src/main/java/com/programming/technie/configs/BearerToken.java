@@ -1,10 +1,7 @@
 package com.programming.technie.configs;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-
-import java.util.Collection;
 
 public class BearerToken extends AbstractAuthenticationToken {
 
