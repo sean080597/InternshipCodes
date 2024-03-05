@@ -14,7 +14,7 @@ At the root folder, run MySQL in a Docker container with the following configura
 - Port: 3306
 
 ```bash
-docker run -d -it -v %cd%/data:/var/lib/mysql -e MYSQL_DATABASE=springboot-reactive -e DB_USERNAME=root -e DB_PASSWORD=root -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql:8.2.0 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+docker run -d -it -v %cd%/data:/var/lib/mysql -e MYSQL_DATABASE=springboot-reactive -e MYSQL_USER=root -e MYSQL_PASSWORD=root -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql:8.2.0 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ```
 
 ## 2. Install RabbitMQ
