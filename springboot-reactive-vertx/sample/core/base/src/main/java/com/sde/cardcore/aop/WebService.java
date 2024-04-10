@@ -31,13 +31,13 @@ import com.xyz.cardcore.constant.CardErrorCode;
 import com.xyz.cardcore.dto.OBRequestResponse;
 import com.xyz.cardcore.helper.JSONEncryptHelper;
 import com.xyz.cardcore.helper.KafkaHelper;
-import com.xyz.modelsuite.dto.OBBase;
-import com.xyz.modelsuite.exception.SystemException;
-import com.xyz.modelsuite.util.DateUtil;
-import com.xyz.modelsuite.util.PropertyUtil;
-import com.xyz.modelsuite.util.SpringBeanUtil;
-import com.xyz.modelsuite.util.StringUtil;
-import com.xyz.modelsuite.web.security.XyzContext;
+import com.xyz.ms.dto.OBBase;
+import com.xyz.ms.exception.SystemException;
+import com.xyz.ms.util.DateUtil;
+import com.xyz.ms.util.PropertyUtil;
+import com.xyz.ms.util.SpringBeanUtil;
+import com.xyz.ms.util.StringUtil;
+import com.xyz.ms.web.security.XyzContext;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.context.Context;
@@ -52,7 +52,7 @@ public class WebService extends Architecture {
     Environment env;
 
     @SuppressWarnings("unchecked")
-    @Around(value = "inWebServicesLayer() && !(@annotation(com.xyz.modelsuite.aop.WebServiceValidationNotRequired) || @annotation(org.springframework.web.bind.annotation.ExceptionHandler))")
+    @Around(value = "inWebServicesLayer() && !(@annotation(com.xyz.ms.aop.WebServiceValidationNotRequired) || @annotation(org.springframework.web.bind.annotation.ExceptionHandler))")
     public Object validateHeader(ProceedingJoinPoint pjp) throws Throwable {
         OBBase request = (OBBase) pjp.getArgs()[0]; // 1st pass in arguments must be OBRequest extends OBBase
         AtomicReference<OBBase> response = new AtomicReference<>();

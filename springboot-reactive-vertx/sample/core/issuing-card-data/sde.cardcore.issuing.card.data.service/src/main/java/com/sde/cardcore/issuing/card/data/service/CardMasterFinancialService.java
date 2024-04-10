@@ -13,10 +13,10 @@ import com.xyz.cardcore.issuing.card.data.dto.OBCardMasterFinancialRequest;
 import com.xyz.cardcore.issuing.card.data.dto.OBCardMasterFinancialResponse;
 import com.xyz.cardcore.issuing.card.data.entity.CardMasterFinancialEntity;
 import com.xyz.cardcore.issuing.common.data.dto.OBCardMasterFinancialDetail;
-import com.xyz.modelsuite.dto.OBPaging;
-import com.xyz.modelsuite.service.BaseService;
-import com.xyz.modelsuite.util.MappingUtil;
-import com.xyz.modelsuite.util.SpringBeanUtil;
+import com.xyz.ms.dto.OBPaging;
+import com.xyz.ms.service.BaseService;
+import com.xyz.ms.util.MappingUtil;
+import com.xyz.ms.util.SpringBeanUtil;
 import reactor.core.publisher.Mono;
 
 @Service

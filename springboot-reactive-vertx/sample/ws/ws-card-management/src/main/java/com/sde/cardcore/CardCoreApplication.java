@@ -2,7 +2,7 @@ package com.xyz.cardcore;
 
 
 import com.xyz.cardcore.issuing.card.data.service.CardMasterService;
-import com.xyz.modelsuite.setup.context.WebApplicationContextFactory;
+import com.xyz.ms.setup.context.WebApplicationContextFactory;
 import io.vertx.core.Vertx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.FilterType;
 
 import com.xyz.cardcore.base.BaseApplication2;
 import com.xyz.cardcore.setup.config.RabbitMQConfig;
-import com.xyz.modelsuite.setup.initializer.EnvironmentContextInitializer;
+import com.xyz.ms.setup.initializer.EnvironmentContextInitializer;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import reactor.blockhound.BlockHound;
 
@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
     QuartzAutoConfiguration.class,
     RabbitAutoConfiguration.class,
 })
-@ComponentScan(basePackages = {"com.xyz.cardcore", "com.xyz.modelsuite.setup.context"},
+@ComponentScan(basePackages = {"com.xyz.cardcore", "com.xyz.ms.setup.context"},
     excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = RabbitMQConfig.class),
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebApplicationContextFactory.class),

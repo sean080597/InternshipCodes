@@ -5,7 +5,7 @@ import com.xyz.cardcore.helper.ReactiveHelper;
 import com.xyz.cardcore.issuing.card.data.entity.CardMasterEntity;
 import com.xyz.cardcore.issuing.common.data.dto.OBCardMasterDetail;
 import com.xyz.cardcore.service.SequenceIdGeneratorService;
-import com.xyz.modelsuite.util.SpringBeanUtil;
+import com.xyz.ms.util.SpringBeanUtil;
 import io.smallrye.mutiny.Uni;
 import jakarta.persistence.metamodel.EntityType;
 import org.springframework.stereotype.Repository;

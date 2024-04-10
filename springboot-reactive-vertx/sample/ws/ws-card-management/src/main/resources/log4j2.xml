@@ -44,7 +44,7 @@
 		<logger name="net.sf.jasperreports" level="info" />
 		<logger name="org.quartz" level="info" />
 		<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="trace" />
-		<logger name="com.xyz.modelsuite.web.interceptor" level="info"/>
+		<logger name="com.xyz.ms.web.interceptor" level="info"/>
 		<logger name="io.netty.channel.DefaultChannelPipeline" level="off" />
 		<logger name="org.redisson.client.handler.CommandDecoder" level="off" />
 

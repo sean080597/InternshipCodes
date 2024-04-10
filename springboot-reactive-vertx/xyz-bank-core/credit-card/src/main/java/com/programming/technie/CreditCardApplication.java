@@ -1,6 +1,6 @@
 package com.programming.technie;
 
-import com.xyz.modelsuite.util.StringUtil;
+import com.xyz.ms.util.StringUtil;
 import org.redisson.spring.starter.RedissonAutoConfigurationV2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;

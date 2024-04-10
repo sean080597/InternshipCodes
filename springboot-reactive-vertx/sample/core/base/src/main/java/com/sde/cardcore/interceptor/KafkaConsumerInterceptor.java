@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.xyz.modelsuite.dto.OBBase;
-import com.xyz.modelsuite.util.FishTagUtil;
+import com.xyz.ms.dto.OBBase;
+import com.xyz.ms.util.FishTagUtil;
 
 @Service
 public class KafkaConsumerInterceptor implements ConsumerInterceptor<String, OBBase> {

@@ -7,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.xyz.cardcore.dao.SequenceIdGeneratorDao;
-import com.xyz.modelsuite.service.BaseService;
-import com.xyz.modelsuite.util.PadUtil;
-import com.xyz.modelsuite.util.SpringBeanUtil;
+import com.xyz.ms.service.BaseService;
+import com.xyz.ms.util.PadUtil;
+import com.xyz.ms.util.SpringBeanUtil;
 
 @Service
 // @Transactional (propagation = Propagation.REQUIRES_NEW)

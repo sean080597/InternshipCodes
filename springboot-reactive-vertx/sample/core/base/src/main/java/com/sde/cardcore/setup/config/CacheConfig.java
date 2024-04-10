@@ -12,20 +12,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-import com.xyz.modelsuite.cache.BusinessParamCache;
-import com.xyz.modelsuite.cache.CacheReloadingStatusCache;
-import com.xyz.modelsuite.cache.CardCache;
-import com.xyz.modelsuite.cache.CardEncryptedCache;
-import com.xyz.modelsuite.cache.CardNumberCache;
-import com.xyz.modelsuite.cache.ComplianceParamCache;
-import com.xyz.modelsuite.cache.IssuingParamCache;
-import com.xyz.modelsuite.cache.IssuingParamObjectCache;
-import com.xyz.modelsuite.cache.ParamMappingCache;
-import com.xyz.modelsuite.cache.ParamMappingKeyCache;
-import com.xyz.modelsuite.cache.ParamMappingMessageCache;
-import com.xyz.modelsuite.cache.ResourceBundleMessageSourceCache;
-import com.xyz.modelsuite.cache.SystemParameterCache;
-import com.xyz.modelsuite.web.locale.DatabaseResourceBundleMessageSource;
+import com.xyz.ms.cache.BusinessParamCache;
+import com.xyz.ms.cache.CacheReloadingStatusCache;
+import com.xyz.ms.cache.CardCache;
+import com.xyz.ms.cache.CardEncryptedCache;
+import com.xyz.ms.cache.CardNumberCache;
+import com.xyz.ms.cache.ComplianceParamCache;
+import com.xyz.ms.cache.IssuingParamCache;
+import com.xyz.ms.cache.IssuingParamObjectCache;
+import com.xyz.ms.cache.ParamMappingCache;
+import com.xyz.ms.cache.ParamMappingKeyCache;
+import com.xyz.ms.cache.ParamMappingMessageCache;
+import com.xyz.ms.cache.ResourceBundleMessageSourceCache;
+import com.xyz.ms.cache.SystemParameterCache;
+import com.xyz.ms.web.locale.DatabaseResourceBundleMessageSource;
 import com.xyz.productfactory.cache.ProductCatalogueCache;
 
 @Configuration

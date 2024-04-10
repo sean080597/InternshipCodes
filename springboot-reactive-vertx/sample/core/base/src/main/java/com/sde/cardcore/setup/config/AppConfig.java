@@ -1,7 +1,7 @@
 package com.xyz.cardcore.setup.config;
 
-import com.xyz.modelsuite.web.security.XyzContext;
-import com.xyz.modelsuite.web.security.ThreadLocalXyzContextHolderStrategy;
+import com.xyz.ms.web.security.XyzContext;
+import com.xyz.ms.web.security.ThreadLocalXyzContextHolderStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;

@@ -7,13 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
-import com.xyz.modelsuite.dto.OBBase;
-import com.xyz.modelsuite.dto.OBErrorDetail;
-import com.xyz.modelsuite.dto.OBHeader;
-import com.xyz.modelsuite.dto.OBPaging;
-import com.xyz.modelsuite.util.DateUtil;
-import com.xyz.modelsuite.util.NumberUtil;
-import com.xyz.modelsuite.util.StringUtil;
+import com.xyz.ms.dto.OBBase;
+import com.xyz.ms.dto.OBErrorDetail;
+import com.xyz.ms.dto.OBHeader;
+import com.xyz.ms.dto.OBPaging;
+import com.xyz.ms.util.DateUtil;
+import com.xyz.ms.util.NumberUtil;
+import com.xyz.ms.util.StringUtil;
 
 public abstract class BaseService
 {

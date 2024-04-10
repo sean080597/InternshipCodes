@@ -13,7 +13,7 @@ import org.springframework.security.web.server.context.NoOpServerSecurityContext
 
 import com.xyz.cardcore.service.SystemUserDetailsService;
 import com.xyz.cardcore.service.SystemUserService;
-import com.xyz.modelsuite.util.SpringBeanUtil;
+import com.xyz.ms.util.SpringBeanUtil;
 
 @Configuration
 @EnableWebFluxSecurity

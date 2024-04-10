@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xyz.cardcore.proxy.MSServiceProxy;
-import com.xyz.modelsuite.dto.OBSystemUserRequest;
-import com.xyz.modelsuite.dto.OBSystemUserResponse;
-import com.xyz.modelsuite.service.BaseService;
-import com.xyz.modelsuite.util.SpringBeanUtil;
+import com.xyz.ms.dto.OBSystemUserRequest;
+import com.xyz.ms.dto.OBSystemUserResponse;
+import com.xyz.ms.service.BaseService;
+import com.xyz.ms.util.SpringBeanUtil;
 
 @Service
 // @Transactional

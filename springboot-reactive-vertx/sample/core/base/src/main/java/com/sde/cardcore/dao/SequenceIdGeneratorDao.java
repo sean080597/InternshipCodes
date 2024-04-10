@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.xyz.modelsuite.util.SpringBeanUtil;
+import com.xyz.ms.util.SpringBeanUtil;
 
 @Repository
 public class SequenceIdGeneratorDao extends ReactiveBaseDao<Object, String>

@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.xyz.modelsuite.dto.OBGrantedAuthorityDetail;
-import com.xyz.modelsuite.dto.OBSystemUserRequest;
-import com.xyz.modelsuite.dto.OBUserDetail;
+import com.xyz.ms.dto.OBGrantedAuthorityDetail;
+import com.xyz.ms.dto.OBSystemUserRequest;
+import com.xyz.ms.dto.OBUserDetail;
 import reactor.core.publisher.Mono;
 
 public class SystemUserDetailsService implements ReactiveUserDetailsService

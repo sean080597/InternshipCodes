@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.xyz.cardcore.issuing.card.data.entity.CardMasterFinancialEntity;
 import com.xyz.cardcore.service.SequenceIdGeneratorService;
-import com.xyz.modelsuite.util.SpringBeanUtil;
+import com.xyz.ms.util.SpringBeanUtil;
 import reactor.core.publisher.Mono;
 
 

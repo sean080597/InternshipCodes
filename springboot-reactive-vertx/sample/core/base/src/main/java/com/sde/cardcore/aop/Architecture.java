@@ -16,7 +16,7 @@ public abstract class Architecture
     @Pointcut ("within(com.xyz.cardcore.issuing.account.param.dao..*)" + " || " + "within(com.xyz.cardcore.issuing.authorization.param.dao..*)")
     protected void inDAOLayer() {}
 
-    @Pointcut ("within(com.xyz.modelsuite.web.controller..*)")
+    @Pointcut ("within(com.xyz.ms.web.controller..*)")
     protected void inControllerLayer() {}
 
     @Pointcut ("within(com.xyz.cardcore.issuing.validator.handler..*)")

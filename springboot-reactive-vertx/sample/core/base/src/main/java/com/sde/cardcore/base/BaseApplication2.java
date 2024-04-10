@@ -1,6 +1,6 @@
 package com.xyz.cardcore.base;
 
-import com.xyz.modelsuite.util.StringUtil;
+import com.xyz.ms.util.StringUtil;
 
 
 public class BaseApplication2

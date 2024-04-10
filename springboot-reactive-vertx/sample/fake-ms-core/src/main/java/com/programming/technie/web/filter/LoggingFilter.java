@@ -1,7 +1,7 @@
 package com.programming.technie.web.filter;
 
 import com.programming.technie.util.LogUtil;
-import com.xyz.modelsuite.util.LogCensorUtil;
+import com.xyz.ms.util.LogCensorUtil;
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

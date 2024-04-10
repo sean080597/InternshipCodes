@@ -6,7 +6,7 @@ import org.apache.kafka.clients.producer.ProducerInterceptor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
-import com.xyz.modelsuite.util.FishTagUtil;
+import com.xyz.ms.util.FishTagUtil;
 
 public class KafkaProducerInterceptor implements ProducerInterceptor<String, String> {
 

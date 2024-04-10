@@ -5,7 +5,7 @@ import com.programming.technie.util.LogUtil;
 import com.xyz.cardcore.helper.ReactiveHelper;
 import com.xyz.cardcore.issuing.card.data.entity.CardMasterEntity;
 import com.xyz.cardcore.issuing.card.data.entity.CardMasterEntityTest;
-import com.xyz.modelsuite.dto.OBPaging;
+import com.xyz.ms.dto.OBPaging;
 import io.smallrye.mutiny.Uni;
 
 import org.slf4j.Logger;
@@ -22,8 +22,8 @@ import com.xyz.cardcore.issuing.common.data.dto.OBCardMasterFinancialDetail;
 import com.xyz.cardcore.issuing.common.data.dto.OBCardMasterRequest;
 import com.xyz.cardcore.issuing.common.data.dto.OBCardMasterResponse;
 import com.xyz.cardcore.issuing.common.param.helper.IssuingParamHelper;
-import com.xyz.modelsuite.util.MappingUtil;
-import com.xyz.modelsuite.util.SpringBeanUtil;
+import com.xyz.ms.util.MappingUtil;
+import com.xyz.ms.util.SpringBeanUtil;
 import org.springframework.transaction.reactive.TransactionalOperator;
 import reactor.core.publisher.Mono;
 

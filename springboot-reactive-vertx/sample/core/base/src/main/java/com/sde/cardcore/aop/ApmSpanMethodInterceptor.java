@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.xyz.modelsuite.cache.BaseCache;
+import com.xyz.ms.cache.BaseCache;
 
 import co.elastic.apm.api.ElasticApm;
 import co.elastic.apm.api.Span;
@@ -19,7 +19,7 @@ public class ApmSpanMethodInterceptor  {
 
 	private final Logger log = LoggerFactory.getLogger(ApmSpanMethodInterceptor.class);
 
-	@Around("execution(* com.xyz.modelsuite.cache.BaseCache.*(..))")
+	@Around("execution(* com.xyz.ms.cache.BaseCache.*(..))")
 	public Object interceptMethod(ProceedingJoinPoint joinPoint) throws Throwable {
 		Object targetObject = joinPoint.getTarget();
 		if (targetObject instanceof BaseCache) {

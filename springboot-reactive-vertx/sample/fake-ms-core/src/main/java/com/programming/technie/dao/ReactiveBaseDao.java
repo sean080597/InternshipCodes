@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.xyz.modelsuite.util.NumberUtil;
-import com.xyz.modelsuite.util.StringUtil;
-import com.xyz.modelsuite.web.security.ThreadLocalXyzContextHolderStrategy;
+import com.xyz.ms.util.NumberUtil;
+import com.xyz.ms.util.StringUtil;
+import com.xyz.ms.web.security.ThreadLocalXyzContextHolderStrategy;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;

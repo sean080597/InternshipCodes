@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xyz.cardcore.dto.OBBatchProcessItemExecutionDetail;
-import com.xyz.modelsuite.util.StringUtil;
+import com.xyz.ms.util.StringUtil;
 
 @Configuration
 public class RabbitMQConfig {

@@ -19,7 +19,7 @@ import com.xyz.cardcore.issuing.common.data.dto.OBCardMasterRequest;
 import com.xyz.cardcore.issuing.common.data.dto.OBCardMasterResponse;
 import com.xyz.cardcore.issuing.common.data.helper.StatementProcessingGenerator;
 import com.xyz.cardcore.issuing.common.param.helper.IssuingParamHelper;
-import com.xyz.modelsuite.util.SpringBeanUtil;
+import com.xyz.ms.util.SpringBeanUtil;
 import reactor.core.publisher.Mono;
 
 @RestController

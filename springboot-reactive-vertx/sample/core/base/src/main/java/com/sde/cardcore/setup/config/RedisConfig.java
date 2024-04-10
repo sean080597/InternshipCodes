@@ -19,8 +19,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-import com.xyz.modelsuite.util.SpringBeanUtil;
-import com.xyz.modelsuite.util.StringUtil;
+import com.xyz.ms.util.SpringBeanUtil;
+import com.xyz.ms.util.StringUtil;
 
 @Configuration
 public class RedisConfig

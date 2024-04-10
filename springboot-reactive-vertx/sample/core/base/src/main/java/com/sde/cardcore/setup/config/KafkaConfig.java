@@ -34,12 +34,12 @@ import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.util.backoff.FixedBackOff;
 
 import com.xyz.cardcore.interceptor.KafkaProducerInterceptor;
-import com.xyz.modelsuite.dto.OBBase;
-import com.xyz.modelsuite.util.FishTagUtil;
-import com.xyz.modelsuite.util.PropertyUtil;
-import com.xyz.modelsuite.util.StringUtil;
-import com.xyz.modelsuite.web.security.XyzContext;
-import com.xyz.modelsuite.web.security.ThreadLocalXyzContextHolderStrategy;
+import com.xyz.ms.dto.OBBase;
+import com.xyz.ms.util.FishTagUtil;
+import com.xyz.ms.util.PropertyUtil;
+import com.xyz.ms.util.StringUtil;
+import com.xyz.ms.web.security.XyzContext;
+import com.xyz.ms.web.security.ThreadLocalXyzContextHolderStrategy;
 
 import io.netty.util.internal.PlatformDependent;
 
