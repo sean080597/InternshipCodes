@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>xyz.cardcore.ws.card.management</artifactId>
+	<name>xyz.cardcore.ws.card.management</name>
+	<description>xyz.cardcore.ws.card.management</description>
+	<version>2.0.0-SNAPSHOT</version>
+
+	<parent>
+		<groupId>com.xyz.cardcore</groupId>
+		<artifactId>xyz.cardcore.ws</artifactId>
+		<version>2.0.0-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<child.version>2.0.0-0-SNAPSHOT</child.version>
+		<issuing.card.data.service.version>${child.version}</issuing.card.data.service.version>
+	</properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<!-- do not upload to jfrog -->
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.card.data.service</artifactId>
+			<version>${issuing.card.data.service.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

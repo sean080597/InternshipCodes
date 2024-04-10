@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>xyz.cardcore.issuing.card.data.service</artifactId>
+	<name>xyz.cardcore.issuing.card.data.service</name>
+	<description>xyz.cardcore.issuing.card.data.service</description>
+	<version>2.0.0-0-SNAPSHOT</version>
+	
+	<parent>
+		<groupId>com.xyz.cardcore</groupId>
+		<artifactId>xyz.cardcore.issuing.card.data</artifactId>
+		<version>2.0.0-0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+		
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.card.data.interface</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.card.param.interface</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.statement.data.interface</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.common.data.service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.pin.data.interface</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.hsm.data.interface</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.interest.param.interface</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.authorization.data.interface</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.interest.data.interface</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.fee.data.interface</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.xyz.cardcore</groupId>
+			<artifactId>xyz.cardcore.issuing.corporategroup.management.interface</artifactId>
+		</dependency>
+	</dependencies>
+</project>

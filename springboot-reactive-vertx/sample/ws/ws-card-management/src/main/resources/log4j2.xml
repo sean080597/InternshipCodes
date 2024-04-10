@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+
+<configuration>
+
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%t][%p][%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}][tagId:%X{fishTagId}][%c] %m%n" />
+		</Console>
+
+		<RollingRandomAccessFile name="RollingRandomAccessFile" fileName="/data/card-core/log-${env:HOSTNAME:-ws-card-management}.txt" filePattern="/data/card-core/$${date:yyyy-MM}/log-${env:HOSTNAME:-ws-card-management}.txt-%d{yyyy-MM-dd}-%i.gz">
+			<PatternLayout pattern="[%t][%p][%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}][tagId:%X{fishTagId}][%c] %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+		</RollingRandomAccessFile>
+
+		<Async name="Async">
+			<appender-ref ref="Console" />
+			<appender-ref ref="RollingRandomAccessFile" />
+		</Async>
+	</appenders>
+
+	<loggers>
+
+		<logger name="org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl" level="error" />
+		<logger name="org.hibernate.engine.internal.StatisticalLoggingSessionEventListener" level="error" />
+		<logger name="org.hibernate" level="info" />
+<!--		<logger name="org.hibernate.SQL" level="debug" />-->
+		<logger name="org.hibernate.stat.internal.StatisticsImpl" level="debug" />
+
+<!-- 		<logger name="org.hibernate.type" level="trace" /> -->
+
+		<logger name="org.springframework" level="info" />
+		<logger name="org.springframework.transaction" level="info" />
+		<logger name="org.springframework.web.servlet.mvc" level="error" />
+		<logger name="org.springframework.web.servlet.handler" level="error" />
+		<logger name="org.springframework.web.context.support" level="error" />
+		<logger name="org.springframework.security.web.DefaultSecurityFilterChain" level="error" />
+		<logger name="org.springframework.kafka.core.KafkaTemplate" level="trace" />
+		<logger name="org.apache.cxf" level="info" />
+		<logger name="org.apache.commons.digester" level="info" />
+		<logger name="org.apache.commons.beanutils" level="info" />
+		<logger name="net.sf.jasperreports" level="info" />
+		<logger name="org.quartz" level="info" />
+		<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="trace" />
+		<logger name="com.xyz.modelsuite.web.interceptor" level="info"/>
+		<logger name="io.netty.channel.DefaultChannelPipeline" level="off" />
+		<logger name="org.redisson.client.handler.CommandDecoder" level="off" />
+
+ 		<!-- Must put this here, to ignore during startup, before Log4j settings loaded into Server -->
+ 		<logger name="org.hibernate.engine.internal.StatisticalLoggingSessionEventListener" level="error" />
+		<logger name="com.xyz" level="debug" />
+		<logger name="net.bull" level="debug" />
+		<logger name="com.programming.technie" level="debug"/>
+
+		<root level="info">
+			<appender-ref ref="Async"/>
+		</root>
+
+	</loggers>
+
+</configuration>

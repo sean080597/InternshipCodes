@@ -1,0 +1,619 @@
+
+
+openapi: 3.0.1
+info:
+  title: Card Core OpenAPI Specification
+  description: "Card Core OpenAPI specification can then be used by documentation\
+    \ generation tools to display the API, code generation tools to generate servers\
+    \ and clients in various programming languages, testing tools, and many other\
+    \ use cases."
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: 1.0.1-SNAPSHOT
+servers:
+- url: localhost:7711
+  description: localhost
+- url: 172.16.29.28:7711
+  description: DEV Server
+- url: 172.16.29.22:7711
+  description: SIT Server
+security:
+- basicAuth: []
+paths:
+  /cardMaster/retrieveCardMasterDetailByCardNumber:
+    post:
+      tags:
+      - CardMasterWS
+      operationId: retrieveCardMasterDetailByCardNumber
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardMasterWS-retrieveCardMasterDetailByCardNumber-Input'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardMasterWS-retrieveCardMasterDetailByCardNumber-Output'
+  /cardMaster/retrieveCardMasterListByAccountNumber:
+    post:
+      tags:
+      - CardMasterWS
+      operationId: retrieveCardMasterListByAccountNumber
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardMasterWS-retrieveCardMasterListByAccountNumber-Input'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardMasterWS-retrieveCardMasterListByAccountNumber-Output'
+components:
+  schemas:
+    CardMasterWS-retrieveCardMasterDetailByCardNumber-Input:
+      type: object
+      required:
+        - obHeader
+        - obCardMasterDetail
+      properties:
+        obCardMasterDetail:
+          $ref: '#/components/schemas/CardMasterWS-retrieveCardMasterDetailByCardNumber-OBCardMasterDetail-Input'
+        obHeader:
+          $ref: '#/components/schemas/OBHeader-Input'
+    CardMasterWS-retrieveCardMasterDetailByCardNumber-Output:
+      type: object
+      properties:
+        obCardMasterDetail:
+          $ref: '#/components/schemas/OBCardMasterDetail'
+        obHeader:
+          $ref: '#/components/schemas/OBHeader'
+    CardMasterWS-retrieveCardMasterListByAccountNumber-Input:
+      type: object
+      required:
+        - obHeader
+        - obCardMasterDetail
+      properties:
+        obCardMasterDetail:
+          $ref: '#/components/schemas/CardMasterWS-retrieveCardMasterListByAccountNumber-OBCardMasterDetail-Input'
+        obHeader:
+          $ref: '#/components/schemas/OBHeader-Input'
+        obPaging:
+          $ref: '#/components/schemas/OBPaging-Input'
+    CardMasterWS-retrieveCardMasterListByAccountNumber-Output:
+      type: object
+      properties:
+        obCardMasterDetailList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OBCardMasterDetail'
+        obHeader:
+          $ref: '#/components/schemas/OBHeader'
+        obPaging:
+          $ref: '#/components/schemas/OBPaging'
+    
+    OBCardMasterDetail:
+      type: object
+      properties:
+        id:
+          maxLength: 30
+          type: string
+          example: '20210104000000018'
+        accountNumber:
+          maxLength: 19
+          type: string
+          example: '95500000000001'
+        actionType:
+          type: string
+          example:
+        activationChangeDate:
+          type: string
+          format: date-time
+          example: '2020-12-29T16:00:00.000+0000'
+        activationChannel:
+          maxLength: 10
+          type: string
+          example: 'OCB'
+        activationFlag:
+          maxLength: 1
+          type: string
+          example: 'D'
+        activationTime:
+          maxLength: 6
+          type: string
+          example: '173001'
+        amountAuthorised7Days:
+          maxLength: 11
+          type: string
+          example: '0'
+        amountAuthorisedToday:
+          maxLength: 11
+          type: string
+          example: '0'
+        amountAuthorisedTodayInt:
+          maxLength: 11
+          type: string
+          example: '0'
+        annualChargeDate:
+          type: string
+          format: date-time
+          example: '2020-12-14T16:00:00.000+0000'
+        applicationNumber:
+          maxLength: 30
+          type: string
+          example: '2020121500000001'
+        applicationOrigin:
+          maxLength: 6
+          type: string
+          example: 'LOS'
+        applicationType:
+          maxLength: 1
+          type: string
+          example: 'B'
+        authorisationDate:
+          type: string
+          format: date-time
+          example: '2020-12-14T16:00:00.000+0000'
+        authorisedAmount:
+          maximum: 99999999999999999.99
+          type: number
+        branchNumber:
+          maxLength: 5
+          type: string
+          example: '35'
+        cardAcknowledgementDate:
+          type: string
+          format: date-time
+          example: '2020-12-14T16:00:00.000+0000'
+        cardActivationDueDate:
+          type: string
+          format: date-time
+          example: '2020-12-14T16:00:00.000+0000'
+        cardCollectionAddressCode:
+          maxLength: 30
+          type: string
+          example:
+        cardCollectionBank:
+          maxLength: 2
+          type: string
+          example: '35'
+        cardCollectionBranch:
+          maxLength: 6
+          type: string
+          example: '20'
+        cardCollectionDate:
+          type: string
+          format: date-time
+          example: '2020-12-14T16:00:00.000+0000'
+        cardCollectionMethod:
+          maxLength: 6
+          type: string
+          example: 'BRANCH'
+        cardEvent:
+          maxLength: 1
+          type: string
+          example: '1'
+        cardGenerationRules:
+          maxLength: 6
+          type: string
+          example: 'VSC502'
+        cardNumber:
+          maxLength: 19
+          type: string
+          example: '4518215000000175'
+        cardProgramme:
+          maxLength: 3
+          type: string
+          example: 'VCN'
+        cardSequenceNumber:
+          maxLength: 3
+          type: string
+          example: '0'
+        cardStatus:
+          maxLength: 3
+          type: string
+          example: '01'
+        cardStopDueDate:
+          type: string
+          format: date-time
+          example: '2023-12-14T16:00:00.000+0000'
+        cardTypePlastictipping:
+          maxLength: 3
+          type: string
+          example: 'VCD'
+        cardValidThrough:
+          maxLength: 6
+          type: string
+          example: '202512'
+        cardVerificationValue:
+          maxLength: 3
+          type: string
+          example:
+        cardVerificationValue2:
+          maxLength: 3
+          type: string
+          example:
+        chargesIndicator:
+          maxLength: 1
+          type: string
+          example:
+        chipCardIndicator:
+          maxLength: 1
+          type: string
+          example:
+        contactless:
+          maxLength: 1
+          type: string
+          example:
+        creditLimit:
+          maximum: 99999999999999999.99
+          type: number
+          example: 150000.000
+        currentMagneprintData:
+          maxLength: 54
+          type: string
+          example:
+        customerNumber:
+          maxLength: 19
+          type: string
+          example: '1901038'
+        dateAndTime:
+          type: string
+          format: date-time
+          example: '2020-12-15 00:00:00'
+        embossingDate:
+          type: string
+          format: date-time
+          example: '2010-12-29T16:00:00.000+0000'
+        embossingName:
+          maxLength: 200
+          type: string
+          example: 'JIA'
+        embossingName2:
+          maxLength: 200
+          type: string
+          example: 'HOUY'
+        encryptedCardNumber:
+          maxLength: 100
+          type: string
+          example: 'KuEFKuNsn6f1bADR4-_tRS0WdsXw3UVDFzGR6Rmt0B4'
+        extraCardChrgInd:
+          maxLength: 1
+          type: string
+          example: 'N'
+        ficheReference:
+          maxLength: 15
+          type: string
+          example:
+        firstUsageDate:
+          type: string
+          format: date-time
+          example: '2021-01-30T16:00:00.000+0000'
+        iccFirstUsageDate:
+          type: string
+          format: date-time
+          example: '2021-01-30T16:00:00.000+0000'
+        intAmountAuth7Days:
+          maxLength: 11
+          type: string
+          example:
+        lastEmbossedDate:
+          type: string
+          format: date-time
+          example: '2020-08-04T16:00:00.000+0000'
+        lastEmbossedDate2:
+          type: string
+          format: date-time
+          example: '2020-08-04T16:00:00.000+0000'
+        lastTransactionAmount:
+          maximum: 99999999999999999.99
+          type: number
+          example: 150.00
+        lastTransactionDate:
+          type: string
+          format: date-time
+          example: '2020-12-30T16:00:00.000+0000'
+        lastYearTransactionAmt:
+          maximum: 99999999999999999.99
+          type: number
+        latestInternatAuth:
+          type: string
+          format: date-time
+          example: '2020-12-30T16:00:00.000+0000'
+        maskCardNumber:
+          maxLength: 19
+          type: string
+          example: '4518********0175'
+        module:
+          maxLength: 2
+          type: string
+          example: 'CC'
+        noApprIntAuth7Days:
+          maxLength: 3
+          type: string
+          example:
+        noApprIntAuthToday:
+          maxLength: 3
+          type: string
+          example:
+        noApprovedAuth7Days:
+          maxLength: 3
+          type: string
+          example: '0'
+        noApprovedAuthToday:
+          maxLength: 3
+          type: string
+          example: '0'
+        noOfAuthorisationAttemp:
+          maxLength: 3
+          type: string
+          example: '0'
+        noOfTransPostedday:
+          maxLength: 3
+          type: string
+          example: '0'
+        noOfTransPostedperiod:
+          maxLength: 3
+          type: string
+          example: '0'
+        noOfYearsToWaiveAnnual:
+          maxLength: 3
+          type: string
+          example: '0'
+        notificationAlertContactNo:
+          maxLength: 30
+          type: string
+          example:
+        numberOfCardGenerated:
+          maxLength: 3
+          type: string
+          example: '1'
+        numberOfCardVerifications:
+          maxLength: 3
+          type: string
+          example:
+        numberOfDecimals:
+          maxLength: 1
+          type: string
+          example: '2'
+        photoYn:
+          maxLength: 1
+          type: string
+          example: 'N'
+        pinDeliveryMethod:
+          maxLength: 100
+          type: string
+          example: 'MAIL'
+        pinMailerAddressCode:
+          maxLength: 30
+          type: string
+          example: '20190502000003050'
+        pinRequiredYn:
+          maxLength: 1
+          type: string
+          example: 'N'
+        previouMagneprintData:
+          maxLength: 54
+          type: string
+          example:
+        previousValidThrough:
+          maxLength: 6
+          type: string
+          example: '202012'
+        productId:
+          maxLength: 50
+          type: string
+          example: '502'
+        reembossedReasonCode:
+          maxLength: 2
+          type: string
+          example:
+        renewalRejectReasonCode:
+          maxLength: 3
+          type: string
+          example:
+        renewalStatus:
+          maxLength: 3
+          type: string
+          example:
+        renewalStsChgDate:
+          type: string
+          format: date-time
+          example:
+        replCardUsedYn:
+          maxLength: 1
+          type: string
+          example: 'N'
+        serviceCode:
+          maxLength: 3
+          type: string
+          example: '1'
+        serviceProgrammeId:
+          maxLength: 6
+          type: string
+          example:
+        serviceProgrammeLevel:
+          maxLength: 3
+          type: string
+          example:
+        startDateCurrent7DayCyc:
+          type: string
+          format: date-time
+          example:
+        startDateInt7DayCycle:
+          type: string
+          format: date-time
+          example:
+        statusChangeDate:
+          type: string
+          format: date-time
+          example: '2020-12-14T16:00:00.000+0000'
+        stopCode:
+          maxLength: 1
+          type: string
+          example: '0'
+        totalIntchargeAmount:
+          maximum: 99999999999999999.99
+          type: number
+          example: 0.000
+        totalPaymentsSinceCutoff:
+          maximum: 99999999999999999.99
+          type: number
+          example: 0.000
+        totalTransactionAmount:
+          maximum: 99999999999999999.99
+          type: number
+          example: 0.000
+        trialPeriodExpiryDate:
+          type: string
+          format: date-time
+          example:
+        userId:
+          maxLength: 10
+          type: string
+          example: 'ANONYMOUS'
+        veCardScheme:
+          maxLength: 3
+          type: string
+          example:
+        waiveCode:
+          maxLength: 1
+          type: string
+          example:
+        watermark:
+          maxLength: 13
+          type: string
+          example:
+        ytdTransaction:
+          maximum: 99999999999999999.99
+          type: number
+          example: 100.000
+        createdBy:
+          maxLength: 100
+          type: string
+          example:
+        createdDatetime:
+          type: string
+          format: date-time
+          example:
+        createdDomain:
+          maxLength: 10
+          type: string
+          example:
+        statusCode:
+          maxLength: 50
+          type: string
+          example: 'ACTIVE'
+        updatedBy:
+          maxLength: 100
+          type: string
+          example:
+        updatedDatetime:
+          type: string
+          format: date-time
+          example:
+        updatedDomain:
+          maxLength: 10
+          type: string
+          example:
+        virtualActivationFlag:
+          maxLength: 2
+          type: string
+          example: 'A'
+        virtualActivationChangeDate:
+          type: string
+          format: date-time
+          example:
+        virtualActivationTime:
+          type: string
+          maxLength: 6
+          example: '163524'
+        virtualActivationChannel:
+          type: string
+          maxLength: 10
+          example: 'LOS'
+        virtualActivatedBy:
+          type: string
+          maxLength: 100
+          example:
+        firstTimeActivationDatetime:
+          type: string
+          format: date-time
+          example: '2010-12-29T16:00:00.000+0000'
+        obFacilityGroupAccountDetail:
+          $ref: '#/components/schemas/OBFacilityGroupAccountDetail'
+        obGroupAccountDetail:
+          $ref: '#/components/schemas/OBGroupAccountDetail'
+        obHeader:
+          $ref: '#/components/schemas/OBHeader'
+        obPaging:
+          $ref: '#/components/schemas/OBPaging'
+    OBHeader-Input:
+      type: object
+      required:
+        - id
+        - dateTimeIn
+      properties:
+        id:
+          type: string
+          example: '49BF58AD527C4F0A95814B356C1BF656'
+          description: 'Unique Identifier'
+        dateTimeIn:
+          type: string
+          example: '20210206164656'
+          description: 'yyyyMMddHHmmss'
+        ipAddress:
+          type: string
+          example: '127.0.0.1'
+        domainId:
+          type: string
+          example: 'OCB'
+        userId:
+          type: string
+          example: 'ANONYMOUS'
+        username:
+          type: string
+          example: 'ANONYMOUS'
+    OBPaging-Input:
+      type: object
+      properties:
+        maxPerPage:
+          type: integer
+          format: int32
+          maximum: 100
+          example: 10
+        startIndex:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+    CardMasterWS-retrieveCardMasterDetailByCardNumber-OBCardMasterDetail-Input:
+      type: object
+      required:
+        - cardNumber
+      properties:
+        cardNumber:
+          maxLength: 30
+          type: string
+          example: '4568930275893476'
+    CardMasterWS-retrieveCardMasterListByAccountNumber-OBCardMasterDetail-Input:
+      type: object
+      properties:
+        cardNumber:
+          maxLength: 30
+          type: string
+          example: '4568930275893476'
+    
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
