@@ -4,8 +4,6 @@ import com.programming.technie.springkafkademo.helper.KafkaParallelHelper;
 import io.confluent.parallelconsumer.ParallelStreamProcessor;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +18,13 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Objects;
 
-//@Component
+@Component
 public class MessageConsumer2 implements ApplicationRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(MessageConsumer2.class);
     private static final String listenerId = "MessageConsumer2";
-    private static final String topicId = "topic-demo";
-    private static final String groupId = "my-group-2";
+    private static final String topicId = "topic-first";
+    private static final String groupId = "my-group-id";
 
     @Autowired
     KafkaListenerEndpointRegistry registry;

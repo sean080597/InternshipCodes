@@ -23,8 +23,8 @@ public class MessageConsumer1 implements ApplicationRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(MessageConsumer1.class);
     private static final String listenerId = "MessageConsumer1";
-    private static final String topicId = "topic-demo";
-    private static final String groupId = "my-group-1";
+    private static final String topicId = "topic-first";
+    private static final String groupId = "my-group-id";
 
     @Autowired
     KafkaListenerEndpointRegistry registry;
