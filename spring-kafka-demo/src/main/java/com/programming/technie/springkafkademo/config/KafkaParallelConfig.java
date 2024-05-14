@@ -1,6 +1,6 @@
-package com.sde.cardcore.setup.config;
+package com.programming.technie.springkafkademo.config;
 
-import com.sde.cardcore.helper.KafkaHelper;
+import com.programming.technie.springkafkademo.helper.KafkaParallelHelper;
 import io.confluent.parallelconsumer.ParallelStreamProcessor;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +24,7 @@ public class KafkaParallelConfig {
             registry.getAllListenerContainers().stream().filter(container -> !container.isAutoStartup()).forEach(container -> {
                 MessageListener<String, String> messageListener = (MessageListener<String, String>) container.getContainerProperties().getMessageListener();
                 Consumer<String, String> consumer = cf.createConsumer(container.getGroupId(), container.getContainerProperties().getClientId());
-                ParallelStreamProcessor<String, String> processor = KafkaHelper.genParallelConsumerOptions(consumer);
+                ParallelStreamProcessor<String, String> processor = KafkaParallelHelper.genParallelConsumerOptions(consumer);
                 processor.subscribe(Arrays.asList(Objects.requireNonNull(container.getContainerProperties().getTopics())));
                 processor.poll(context -> messageListener.onMessage(context.getSingleConsumerRecord(), null, consumer));
             });
