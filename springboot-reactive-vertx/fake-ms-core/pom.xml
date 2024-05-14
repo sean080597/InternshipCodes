@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.programming.technie</groupId>
+	<artifactId>fake-ms-core</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>fake-ms-core</name>
+	<description>fake-ms-core</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.1</version>
+	</parent>
+
+	<properties>
+		<java.version>21</java.version>
+		<hibernate.version>6.4.0.Final</hibernate.version>
+		<hibernate-reactive.version>2.2.0.Final</hibernate-reactive.version>
+		<vertx-sql-client.version>4.5.4</vertx-sql-client.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.sde</groupId>
+			<artifactId>sde.ms.core</artifactId>
+			<version>1.0.0.0233-boot3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate.reactive</groupId>
+			<artifactId>hibernate-reactive-core</artifactId>
+			<version>${hibernate-reactive.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-mysql-client</artifactId>
+			<version>${vertx-sql-client.version}</version>
+		</dependency>
+		<!-- Converter -->
+		<dependency>
+			<groupId>io.smallrye.reactive</groupId>
+			<artifactId>mutiny-reactor</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+
+		<!-- Cache -->
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson-spring-boot-starter</artifactId>
+			<version>3.27.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.3.0</version>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
