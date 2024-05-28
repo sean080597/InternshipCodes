@@ -20,14 +20,12 @@ public class KafkaParallelConfig {
     @SuppressWarnings("unchecked")
     @Bean
     ApplicationRunner runner(KafkaListenerEndpointRegistry registry, @Qualifier("parallelConsumerFactory") ConsumerFactory<String, String> cf) {
-        return args -> {
-            registry.getAllListenerContainers().stream().filter(container -> !container.isAutoStartup()).forEach(container -> {
-                MessageListener<String, String> messageListener = (MessageListener<String, String>) container.getContainerProperties().getMessageListener();
-                Consumer<String, String> consumer = cf.createConsumer(container.getGroupId(), container.getContainerProperties().getClientId());
-                ParallelStreamProcessor<String, String> processor = KafkaParallelHelper.genParallelConsumerOptions(consumer);
-                processor.subscribe(Arrays.asList(Objects.requireNonNull(container.getContainerProperties().getTopics())));
-                processor.poll(context -> messageListener.onMessage(context.getSingleConsumerRecord(), null, consumer));
-            });
-        };
+        return args -> registry.getAllListenerContainers().stream().filter(container -> !container.isAutoStartup()).forEach(container -> {
+            MessageListener<String, String> messageListener = (MessageListener<String, String>) container.getContainerProperties().getMessageListener();
+            Consumer<String, String> consumer = cf.createConsumer(container.getGroupId(), container.getContainerProperties().getClientId());
+            ParallelStreamProcessor<String, String> processor = KafkaHelper.genParallelConsumerOptions(consumer);
+            processor.subscribe(Arrays.asList(Objects.requireNonNull(container.getContainerProperties().getTopics())));
+            processor.poll(context -> messageListener.onMessage(context.getSingleConsumerRecord(), null, consumer));
+        });
     }
 }

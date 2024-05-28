@@ -51,6 +51,9 @@ public class KafkaConsumerConfig {
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(5);
         factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL); // disable Spring to auto commit(2)
+        
+        // Gracefully Shutdown - Stop processing after the current record
+        factory.getContainerProperties().setStopImmediate(true);
         return factory;
     }
 }
