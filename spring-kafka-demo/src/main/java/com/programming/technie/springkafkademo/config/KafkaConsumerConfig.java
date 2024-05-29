@@ -41,7 +41,7 @@ public class KafkaConsumerConfig {
 	@Bean
     public ConsumerFactory<String, String> parallelConsumerFactory() {
         Map<String, Object> props = genConsumerProps();
-        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false); // disable kafka-clients to auto commit(1)
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false); // disable kafka-clients to auto commit(1); (false as default from Spring Boot 2.3)
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
@@ -50,7 +50,6 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(5);
-        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL); // disable Spring to auto commit(2)
         
         // Gracefully Shutdown - Stop processing after the current record
         factory.getContainerProperties().setStopImmediate(true);
